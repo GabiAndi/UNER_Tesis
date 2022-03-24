@@ -1,0 +1,93 @@
+\chapter{Diseño del hardware}
+
+\pagestyle{empty}
+
+\hrule
+\vspace*{0.3cm}
+\localtableofcontents
+\vspace*{0.3cm}
+\hrule
+
+\newpage
+
+\pagestyle{fancy}
+
+\section{Variador de frecuencia}
+	
+El variador de frecuencia es la solución eficaz para mejorar la eficiencia energética y reducir el consumo de energía entre un 20\% y un 70\%. Regula la velocidad de motores eléctricos para que la electricidad que llega al motor se ajuste a la demanda real de la aplicación. \\
+
+Un variador de frecuencia por definición es un regulador industrial que se encuentra entre la alimentación energética y el motor. La energía de la red pasa por el variador y regula la energía antes de que ésta llegue al motor para luego ajustar la frecuencia y la tensión en función de los requisitos del procedimiento. \\
+
+El uso de variadores de frecuencia para el control inteligente de los motores tiene muchas ventajas financieras, operativas y medioambientales ya que supone una mejora de la productividad, incrementa la eficiencia energética y a la vez alarga la vida útil de los equipos, previniendo el deterioro y evitando paradas inesperadas que provocan descensos de productividad. \\
+
+Como elección de variador de velocidad, el \href{https://www.se.com/ar/es/product/ATV630D75M3/variador-de-velocidad-altivar-process-atv600-atv630-75kw-100-hp-200-240-v-ip00/?filter=business-1-automatizaci\%C3\%B3n-y-control-industrial\&parent-subcategory-id=86129\&range=62317-altivar-process-600\&selected-node-id=12644445003}{Altivar Process Atv600 Atv630 75Kw 100 Hp} de Schneider Electric se adapta bien a los requisitos de potencia impuestos por los motores de los sopladores. Dispone de un gran número de opciones de configuración y de control, permitiendo una ampliación de sus características en el futuro.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.14]{src/imagenes/hardware/variador.jpg}
+    \caption{Altivar Process Atv600 Atv630 75Kw 100 Hp.}
+\end{figure}
+
+\section{Sensores}
+
+En la pileta de lodos activos, actualmente se están sensando los siguientes parámetros:
+
+\begin{itemize}
+    \item{Temperatura.}
+    \item{PH.}
+    \item{Oxígeno disuelto.}
+\end{itemize}
+
+\subsection{Nivel de lodo}
+
+Para poder tener un mayor control en el caudal de aire requerido, es necesario añadir un sensor de nivel. Esto permitirá determinar la edad del lodo y estimar cada cuanto es necesario aumentar la población de microorganismos.
+
+\section{Controlador de aireación}
+
+Esta etapa es la mas importante. En ella se encuentra el hardware de control conformado por una Raspberry Pi 3 B+ y electrónica transductora que se encarga de convertir los tipos de señales. \\
+
+La microcomputadora es la encargada de procesar los datos de los sensores y enviar una respuesta al variador de frecuencia, para así poder controlar la velocidad de los sopladores. Además se encarga de almacenar y enviar los datos de telemetría de todo el proceso al servidor de métricas, para así poder visualizar la información en tiempo real o en un futuro realizar un análisis detallado. \\
+
+Provee de una interfaz de control mediante red, para poder configurar todos sus parámetros y realizar modificaciones en su funcionamiento desde cualquier dispositivo. \\
+
+Corre un sistema operativo basado en Debian para la arquitectura ARMv8, esto significa que posee todas las características de una computadora de propósito general ejecutando los siguientes procesos:
+
+\begin{itemize}
+    \item{Software controlador del proceso.}
+    \item{Servidor de administración SSH.}
+    \item{Servidor de administración HMI.}
+    \item{Cliente OpenVPN.}
+    \item{Cliente de base de datos influxdb.}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/hardware/controlador.png}
+    \caption{Diagrama de conexiones del controlador.}
+\end{figure}
+
+Todas las configuraciones realizadas al software que ejecuta la Raspberry Pi son explicadas en el capitulo de software. Por ahora solo diremos que el controlador del proceso y el servidor HMI son software desarrollados por nosotros y están disponibles en GitHub. El resto es software libre que utilizamos y configuramos según la documentación disponible oficialmente.
+
+\section{Servidor de métricas}
+
+Para esta etapa se requiere una computadora de escritorio con un almacenamiento moderado. En ella se correrá un servicio de métricas con el Software de Grafana. \\
+
+Los requerimientos son los siguientes:
+
+\begin{itemize}
+    \item{8GB de RAM (o más).}
+    \item{2TB de espacio de almacenamiento (si es mas mejor).}
+    \item{Procesador de 4 núcleos a 3.6GHz.}
+    \item{Sistema operativo GNU/Linux.}
+    \item{Conexión de red Gigabite o superior (por el volumen de datos).}
+\end{itemize}
+
+Grafana es de código abierto y permite visualizar todos los datos generados desde el proceso de una manera muy visual y relativamente sencilla. Ademas provee de alertas mediante mails o indicadores visuales, esto hace mas fácil la detección de valores fuera del rango normal de operación. \\
+
+Todo esto se explica en el capítulo de software.
+
+\section{Interfaz para el operario}
+
+Proporciona una interfaz de usuario gráfica y fácil de utilizar, permite al operario la configuración de los parámetros del proceso desde prácticamente cualquier dispositivo conectado a internet. \\
+
+Para una estación de control fija, es recomendable un monitor de por lo menos 1080p, para poder visualizar de manera cómoda el proceso.

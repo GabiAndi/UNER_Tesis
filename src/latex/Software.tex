@@ -1,0 +1,2338 @@
+\chapter{Diseño del software}
+
+\pagestyle{empty}
+
+\hrule
+\vspace*{0.3cm}
+\localtableofcontents
+\vspace*{0.3cm}
+\hrule
+
+\newpage
+
+\pagestyle{fancy}
+
+\section{Desarrollo de aplicaciones}
+	
+\subsection{Ley de Protección de datos personales}
+
+Lo que se encuentra a continuación, es un extracto del documento \cite{PDPGOB1}. \\
+
+Las aplicaciones, como programas de software, tienen la capacidad de recabar, usar y transferir información de carácter personal. Esta información se encuentra protegida por la Ley N°25.326 (Ley de Protección de Datos Personales - LPDP), que establece ciertos principios y obligaciones que tiene que cumplir cualquier tratamiento de datos. Esta Ley define al dato personal como cualquier información que pueda referirse a una persona determinada o determinable, así que desde el nombre y apellido hasta una imagen o una grabación de voz, cuando permita reconocer a una persona, es un dato protegido. \\
+
+El principio más importante que establece la Ley es que el dato, sin importar dónde se encuentre almacenado o cómo se esté utilizando, es siempre de propiedad de su titular, quien tiene el derecho a controlar los usos que se le dan a su información personal. \\
+
+Como desarrollador de aplicaciones, tenés la responsabilidad de velar por la privacidad de los datos personales que tus software utilicen. Debés tener en cuenta cómo tus programas protegerán la privacidad desde el inicio mismo del desarrollo, teniendo una política de uso de los datos clara, transparente, que les permita a los titulares de datos conocer cómo es el tratamiento de datos que tus programas realizan.
+
+\subsection{Principios de privacidad}
+
+\subsubsection{Consentimiento del titular de los datos}
+
+El consentimiento del titular para el uso de su información personal es la única manera en la que el tratamiento de datos es lícito, salvo que se trate de alguna excepción prevista por la Ley. El consentimiento implica una decisión informada por parte del titular permitiendo el uso de sus datos. Recabá el consentimiento de los titulares y, al mismo tiempo, informales que estarás recabando su información y los usos que le darás.
+
+\subsubsection{Finalidad}
+
+Los datos que tus aplicaciones recolecten solo pueden ser utilizados conforme con la finalidad que originó la recolección. Si la aplicación que desarrollás está destinada a la gestión contable de un comercio, por ejemplo la información personal que se recabe puede utilizarse para llevar la contabilidad, liquidar impuestos, llevar inventarios y todas las finalidades compatibles a una gestión contable, pero no podría utilizarse para llevar adelante una campaña publicitaria, porque se estaría cambiando la finalidad del tratamiento.
+
+\subsubsection{Calidad de los datos}
+
+Los datos personales que tus aplicaciones recaben y almacenen deben ser ciertos, adecuados, pertinentes y no excesivos en relación con la finalidad que motivó su recolección. No pueden ser obtenidos por medios desleales o fraudulentos y deben ser destruidos cuando hayan dejado de ser útiles. Además, tenés la obligación de almacenarlos de manera tal que se facilite el ejercicio de los derechos de sus titulares.
+
+\subsubsection{Seguridad}
+
+La seguridad de la información es un aspecto importante de la protección de datos. Evaluá los riesgos de seguridad que tu aplicación puede aparejar, teniendo en cuenta la sensibilidad de la información personal que recolecta y almacena. Verificá que tu aplicación, si utiliza datos personales, respete las mejores prácticas en seguridad de la información. 
+
+\subsubsection{Confidencialidad}
+
+Los datos personales de los que tomes conocimiento debido al tratamiento que realices son confidenciales. Está prohibido revelarlos. Esta obligación alcanza a cualquier persona que intervenga en cualquier etapa del desarrollo, e inclusive subsiste aun finalizada la relación contractual.
+
+\subsection{Establecimiento de una política de privacidad}
+
+Uno de los pasos más importantes para respetar la privacidad de los titulares de datos es desarrollar una Política de Privacidad que explique claramente qué tipo de información se recaba, cómo se usa y con quién la compartís. Esta política debe ser simple y, en la medida de lo posible, estandarizada, de manera tal que se facilite su lectura y comprensión por parte de los titulares de datos. Es importante que la política refleje el tratamiento de datos que hace tu aplicación, así que no “cortes y pegues” una política genérica de otra aplicación o desarrollador. Por el contrario, desarrollá una que sea comprensiva de las particularidades de tu aplicación. Tené en cuenta que una Política de Privacidad que no responda al tratamiento de datos que hagas puede generarte inconvenientes con tus clientes, los titulares de datos de la aplicación y hasta los organismos de control, como esta PDP.
+
+\subsection{Antes de programar}
+
+\subsubsection{Estudiar el público objetivo}
+
+En este caso estamos ante una industria, y como toda industria las soluciones que se brinden tienen que ser confiables y fáciles de implementar. Tienen que ser seguras tanto para el proceso como para la integridad de datos de la empresa. Deberá resolver una problemática en concreto, en este caso orientado al control de un proceso de tratamiento de efluentes.
+
+\subsubsection{Diseño de un prototipo}
+
+Realizar bocetos de lo que sería la aplicación y crear varios mockups de la misma es buena idea, hoy día existen muchos programas gratuitos o incluso en línea. Explorar esta parte de diseño y usabilidad te ayudará a aterrizar las ideas y tener una versión prototipada que te permita jugar con tu app para que garantice una excelente experiencia de usuario.
+
+\subsection{A la hora de programar}
+
+\subsubsection{Organizar el trabajo}
+
+No importa si sos parte de un equipo de trabajo o estas solo, es muy importante tener una buena organización durante la ejecución del proyecto. Hay que llevar un cronograma con un listado de actividades muy general con el que te apoyes para seguir el plan de desarrollo. \\
+
+En este caso, somo dos personas trabajando sobre el mismo proyecto, lo que requiere organización en los tiempo de trabajo para tratar de cumplir con los objetivos planteados.
+
+\subsubsection{Documentación del código}
+
+Como programador puede que trabajes en un proyecto desde cero o puedes llegar a finalizar otro que ya tenga un porcentaje de progreso. Para cualquiera de los casos, no hay que olvidarse de la documentación. Esto es importante porque hay que tener presente que a medida que el proyecto crezca, más personas pueden ser parte de él y para evitar contratiempos, faltas de comunicación o entendimiento, se debería de tener todo documentado y explicado para agilizar el proceso de modificaciones, ajustes de funcionalidades y darle la mejor continuidad a la aplicación en curso. \\
+
+Para este desarrollo como mencionamos, trabajamos dos personas, si bien no habría demasiado inconveniente porque el número de personal es bajo, la meta es el desarrollo del documento de tesis, entonces es un requisito casi obligatorio incluirlo.
+
+\subsubsection{Verificar la aplicación}
+
+Se deben realizar muchísimas pruebas en los dispositivos que correrán el software desarrollado. Dado que la aplicación formará parte de un proceso crítico, no se puede dejar nada librado al azar. \\
+
+Es obvio que un desarrollo de software no es perfecto, ni siquiera cuando la aplicación lleva muchas versiones. Pero hay que reducir esos fallos al mínimo.
+
+\subsection{Una pequeña conclusión}
+
+En la carrera de Ingeniería en Mecatrónica, no hay materia que trate sobre los conceptos relacionados al desarrollo de Software, si bien es cierto que aprendemos a programar multitud de dispositivos, lo que se persigue en las asignaturas es que el programa funcione. \\
+
+En nuestra trayectoria de cursada, hemos tenido un muy buen profesor que nos corregía y nos orientaba para que nuestro código no sea algo inentendible. Por esta falta de conocimientos y experiencia (normal en un estudiante), es que vimos la necesidad de investigar sobre las buenas prácticas en el desarrollo de Software, para poder llevar a cabo (lo mas profesionalmente posible) esta tesis.
+
+\section{Convenciones de trabajo}
+
+\subsection{Escritura de código en C++}
+
+\subsubsection{Introducción}
+
+Por mas información puede leer \cite{GERC++}, donde se ejemplifica y explica de forma genérica. \\
+
+Esta sección busca proporcionar un conjunto de reglas que nos ayuden a escribir programas en C++ con un buen estilo. Un código escrito con buen estilo es aquel que tiene las siguientes propiedades:
+
+\begin{itemize}
+    \item{Está organizado.}
+    \item{Es fácil de leer.}
+    \item{Es fácil de mantener.}
+    \item{Es fácil detectar errores en él.}
+    \item{Es eficiente.}
+\end{itemize}
+
+Hay muchos estilos que cumplen estas características. A lo largo del proyecto simplemente vamos a usar uno de ellos.
+
+\subsubsection{Encapsulación y ocultación de información}
+
+La encapsulación y ocultación de información ayudan a organizar mejor el código y evitan el acoplamiento entre funciones del código. \\
+
+La encapsulación permite agrupar elementos afines del programa. Los subprogramas afines se agrupan en ficheros (unidades), y los datos en grupos lógicos (estructuras de datos). \\
+
+Un subprograma no necesita saber lo siguiente: 
+
+\begin{itemize}
+    \item{La fuente de los parámetros que se le pasan como entrada.}
+    \item{Para que servirán sus salidas.}
+    \item{Qué subprogramas se activaron antes que él.}
+    \item{Qué subprogramas se activarán después que él.}
+    \item{Cómo están implementados internamente otros subprogramas.}
+\end{itemize}
+
+Para conseguir esto se deben seguir las siguientes reglas: 
+
+\begin{itemize}
+    \item{No hacer referencia o modificar variables globales (evitar efectos laterales).}
+    \item{Declarar las variables y tipos como locales a los subprogramas que los utilizan.}
+    \item{Si queremos evitar cambios indeseados en parámetros, pasarlos por valor.}
+    \item{Un procedimiento sólo debe modificar los parámetros pasados en su llamada.}
+\end{itemize}
+
+\subsubsection{Uso de comentarios}
+
+Los comentarios dan información sobre lo que hace el código en el caso que no sea fácil comprendelo con una lectura rápida. Se usan para añadir información o para aclarar secciones de código. No se usan para describir el programa. Por lo tanto no se deben poner comentarios a una sola instrucción. Los comentarios se añaden en los niveles siguientes:
+
+\begin{itemize}
+    \item{\textbf{Comentario a ficheros:} Al comienzo de cada fichero se añade un prólogo del fichero que explica el propósito del fichero y da otras informaciones.}
+    \item{\textbf{Comentarios a subprogramas:} Al comienzo de cada subprograma se añade un prólogo del subprograma que explica el propósito del subprograma.}
+    \item{\textbf{Comentarios dentro del código:} Estos comentarios se añaden junto a la definición de algunas variables (las más importantes), para explicar su propósito, y al comienzo de algunas secciones de código, especialmente complicadas, para explicar que hacen.}
+\end{itemize}
+
+Los comentarios se pueden escribir en diferentes estilos dependiendo de su longitud y su propósito. En cualquier caso seguiremos las siguientes reglas generales:
+
+\begin{itemize}
+    \item{Los comentarios en general se escriben en líneas que no contienen código y antes del código que queremos clarificar. Esta regla se aplica siempre si el comentario tiene más de una línea.}
+    \item{Sólo en dos casos se permite poner en la misma línea un comentario y una instrucción: comentarios a una definición de variable, que explica la finalidad de esta variable. Y un comentario para indicar final de una estructura del lenguaje.}
+\end{itemize}
+
+Aquí vamos a describir como hacer comentarios dentro del código. Dentro de este tipo de comentarios se pueden distinguir:
+
+\begin{itemize}
+    \item{\textbf{Comentarios en cajas:} Usados para prólogos o para separar secciones.}
+    \item{\textbf{Separador de secciones:} Son líneas que sirven para separar secciones, funciones, etc.}
+    \item{\textbf{Comentarios para bloques grandes:} Se usan al comienzo de bloques de código grandes para describir esa porción de código.}
+    \item{\textbf{Comentarios cortos:} Se usan para describir datos y casi siempre se escriben en la misma línea donde se define el dato. También se usan para indicar el final de una estructura.}
+    \item{\textbf{Comentarios para bloques pequeños:} Se escriben para comentar bloques de instrucciones pequeños. Se colocan antes del bloque que comentan y a la misma altura de sangrado.}
+\end{itemize}
+
+\subsubsection{Uso de espacios y líneas en blanco}
+
+Los espacios en blanco facilitan la lectura y el mantenimiento de los programas. Los espacios en blanco que podemos utilizar son: líneas en blanco, carácter espacio, sangrado. \\
+
+\textbf{Línea en blanco:} \\
+
+Se utiliza para separar "párrafos" o secciones del código. Cuando leemos un programa entendemos que un fragmento de código entre dos líneas en blanco forma un conjunto con una cierta relación lógica. \\
+
+Veamos como separar secciones o párrafos en el programa:
+
+\begin{itemize}
+    \item{Las secciones que forman un programa se separan con al menos una línea en blanco (declaración de constantes, declaración de variables, programa principal, \dots).}
+    \item{Dentro de un subprograma se separan con una línea en blanco las secciones de declaraciones y el código del subprograma.}
+    \item{Dentro de un subprograma se separan con una línea en blanco los fragmentos de instrucciones muy relacionadas entre sí (por ejemplo, conjunto de instrucciones que realizan una operación).}
+\end{itemize}
+
+\textbf{Espacio en blanco:} \\
+
+Los espacios en blanco sirven para facilitar la lectura de los elementos que forman una expresión. Los espacios en blanco se utilizan en los casos siguientes:
+
+\begin{itemize}
+    \item{Las variables y los operadores de una expresión deben estar separados por un elemento en blanco.}
+    \item{Las lista de definición de variables, y las listas de parámetros de una función se deben separar por un espacio en blanco.}
+\end{itemize}
+
+\textbf{Sangrado:} \\
+
+El sangrado se utiliza para mostrar la estructura lógica del código. El sangrado óptimo es el formado por cuatro espacios. Es un compromiso entre una estructuración legible y la posibilidad de que alguna línea (con varios sangrados) del código supere el ancho de una línea de una hoja de papel o del monitor.
+
+\subsubsection{Elección adecuada de identificadores}
+
+Los identificadores que dan nombre a subprogramas, constantes, tipos o variables han de colaborar a la autodocumentación del programa, aportando información sobre el cometido que llevan a cabo. Para elegir nombre se deben seguir las siguientes recomendaciones generales:
+
+\begin{itemize}
+    \item{Elegir nombres comprensibles y en relación con la tarea que corresponda al objeto nombrado.}
+    \item{Seguir un criterio uniforme con las abreviaturas de nombres. Elegir abreviaturas que sugieran el nombre completo.}
+    \item{Utilizar prefijos y sufijos cuando sea necesario.}
+    \item{Uso del carácter '\_' o de una letra mayúscula para distinguir las palabras que forman un identificador.}
+\end{itemize}
+
+\textbf{Uso de mayúsculas y minúsculas:} \\
+
+Para reconocer fácilmente la clase de un identificador se utilizan las siguientes normas de utilización de mayúsculas y minúsculas cuando se construyen nombres:
+
+\begin{itemize}
+    \item{\textbf{Variables:} los nombres de las variables se construyen con palabras (o abreviaturas) minúsculas separadas por el carácter '\_'.}
+    \item{\textbf{Tipos personalizados de datos:} los nombres de las estructuras y uniones se construyen como si fueran variables, solamente al final del nombre se añade el identificador de tipo.}
+    \item{\textbf{Nombres de Funciones:} Una o más palabras en minúsculas excepto la primera letra a partir de la segunda palabra (las demás no). No se usa el carácter '\_'. La primera letra mayúscula de cada palabra indica la separación entre palabras.}
+    \item{\textbf{Constantes e identificadores del preprocesador:} usan nombres construidos con palabras en mayúsculas separadas por el carácter '\_'.}
+\end{itemize}
+
+\subsubsection{Declaraciones}
+
+Las diferentes secciones de declaraciones deberán estar claramente diferenciadas y seguir el siguiente orden:
+
+\begin{enumerate}
+    \item{Directivas \#include}
+    \item{Declaración de constantes (\#define o const).}
+    \item{Declaración de tipos (typedef).}
+    \item{Declaración de variables.}
+    \item{Prototipos de funciones.}
+\end{enumerate}
+
+Después de los prototipos irá el código del programa principal (main()) y a continuación el código del resto de las funciones. Si se encuentra dentro de una clase, irá el constructor seguido del destructor, luego el desarrollo de todos los métodos.
+
+\section{Trabajo colaborativo en Github}
+
+\subsection{Metodología Kanban}
+
+La metodología Kanban es un sistema de producción tan eficiente como efectivo. Forma parte de las metodologías ágiles y su objetivo es gestionar la realización de las tareas hasta su finalización. \\
+
+Kanban es una palabra japonesa formada por Kan, que quiere decir visual, y Ban, que significa tarjeta. Por lo tanto, Kanban hace referencia a las tarjetas visuales. \\
+
+Esta metodología es muy sencilla, se puede actualizar y los equipos de trabajo la pueden asumir sin problema. Al ser un método visual permite que con un simple vistazo se conozca el estado de los proyectos y se puedan asignar nuevas tareas de manera muy efectiva. Para aplicarlo, es necesario un tablero de tareas con el que poder mejorar el trabajo y tener un ritmo sostenible. \\
+
+Hay que crear un tablero visible y accesible para todos los miembros del equipo. En las columnas se anotará el estado del flujo de las tareas (siendo necesarias tantas como estados de las tareas existan desde su comienzo hasta su finalización) y así se determinará el estado de cada proyecto. \\
+
+Al ser un método visual permite que con un simple vistazo se conozca el estado de los proyectos y se puedan asignar nuevas tareas de manera muy efectiva. \\
+
+Es un tablero continuo en el que las tarjetas no se desplazan, sino que a medida que se avanza por él, las nuevas funcionalidades, mejoras o incidencias se acumulan al inicio. Así, pueden priorizarse y colocarse en las secciones más oportunas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/software/kanban.jpg}
+\end{figure}
+
+\subsection{Principios de la metodología Kanban}
+
+Existen distintas metodologías ágiles que se pueden aplicar en función de la naturaleza de la empresa y de la organización de sus procesos internos. Pero las características que definen a Kanban y por las que se diferencia del resto son las siguientes.
+
+\begin{enumerate}
+    \item{\textbf{Visualización de todas las tareas:} en el tablero se exponen todas las tareas de forma que, con un solo vistazo, cada persona identifica lo que debe hacer.}
+    \item{\textbf{En proceso:} no es solo un modelo de gestión, sino que es un sistema de mejora para el desarrollo de proyectos basado en los objetivos que se quieren conseguir.}
+    \item{\textbf{Priorización según importancia y urgencia:} con este método se hace lo justo y necesario pero bien hecho. Es decir, no hay margen de error y no se premia la rapidez, sino la calidad de cada tarea. Para que esto sea posible es necesario eliminar o reducir lo que es secundario en el devenir del proyecto.}
+    \item{\textbf{Seguimiento del tiempo:} Las tareas acumuladas o pendientes marcan lo que se debe realizar en cada momento, pero se pueden priorizar, en función de las necesidades, algunas tareas entrantes. Es decir, se tiene capacidad para dar una respuesta efectiva a tareas imprevistas.}
+\end{enumerate}
+
+\subsection{Ventajas de la metodología Kanban}
+
+A través de los principios en los que se basa este método ya podemos intuir las numerosas ventajas que conlleva su aplicación en cualquier empresa. Estas son los 4 beneficios indiscutibles.
+
+\begin{enumerate}
+    \item{\textbf{Transparencia:} los tiempos de entrega son más cortos y hay una mayor fiabilidad en los mismos. Todo el mundo sabe cuál es su tarea y en qué momento está de su ciclo.}
+    \item{\textbf{Evita tareas ineficientes:} se evita la sobreproducción y la limitación de los recursos, lo que supone contar con una mayor disponibilidad de materiales.}
+    \item{\textbf{Control de las tareas:} el tiempo de producción es más rápido, por tanto se reduce el control del esfuerzo y se mejora la planificación. Esto afecta directamente a la mayor productividad en el área de compras, abastecimiento y control. Aumenta la rotación de los inventarios y se necesita una menor capacidad de almacenamiento.}
+    \item{\textbf{Flexibilidad:} como todo el equipo sabe perfectamente cuál es su tarea y la realiza con eficacia, si surge alguna tarea imprevista existe una capacidad de respuesta que permite atenderla.}
+\end{enumerate}
+
+En definitiva, la metodología Kanban está indicada para las empresas que necesiten cierta flexibilidad a la hora de manejar nuevas entradas de tareas y poder realizar un buen seguimiento de las mismas. Además, permite priorizar, realizar informes precisos y supervisar adecuadamente el trabajo en equipo.
+
+\subsection{Project Management con Github}
+
+Github cuenta con una serie de herramientas para que al momento que nos empezamos a gestionar nuestro proyecto, ya sea en un grupo de amigo o empresarial, se nos facilite dividir tareas, creación de sub-proyectos, documentación, etc. Nos referimos de los Issues, Labels, Milestones.
+
+\subsubsection{Issues}
+
+Los issues son una excelente manera de hacer un seguimiento de las tareas, mejoras y errores de sus proyectos. Son algo así como correo electrónico, excepto que se pueden compartir y discutir con el resto de su equipo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/software/issues.png}
+\end{figure}
+
+Las características que tienen un issue son:
+
+\begin{itemize}
+    \item{Un titulo y una descripción de que trata el problema.}
+    \item{Los labels codificadas por colores le ayudan a categorizar y filtrar sus problemas.}
+    \item{Un milestones actúa como un contenedor para problemas. Esto es útil para asociar problemas con características específicas o fases del proyecto.}
+    \item{Un assignee es responsable de trabajar en el tema en un momento dado.}
+    \item{Los comentarios permiten que cualquiera que tenga acceso al repositorio proporcione comentarios.}
+\end{itemize}
+
+\subsubsection{Labels}
+
+Los labels son una excelente forma de organizar diferentes tipos de problemas. Los problemas pueden tener tantas etiquetas como desee, y usted puede filtrar por una o varias etiquetas a la vez.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/software/labels.png}
+\end{figure}
+
+\subsubsection{Milestones}
+
+Son grupos de problemas que corresponden a un proyecto, una característica o un período de tiempo. Las personas los usan de muchas maneras diferentes en el desarrollo de software.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/software/milestones.png}
+\end{figure}
+
+\subsubsection{Assignee}
+
+Cada problema puede tener un assignee, una persona que es responsable de hacer avanzar el problema. Los assignee se seleccionan del mismo modo que los milestones, a través de la barra gris en la parte superior del problema.
+
+\subsection{Referencias}
+
+Los siguientes links dan una introducción muy buena al flujo de trabajo que seguiremos nosotros a lo largo del desarrollo de la tesis:
+
+\begin{itemize}
+    \item{\href{https://guides.github.com/features/issues/}{https://guides.github.com/features/issues/}}
+    \item{\href{https://medium.com/@david25lo/gesti\%C3\%B3n-de-proyectos-con-git-github-c046412f5bb0}{https://medium.com/@david25lo/gesti\%C3\%B3n-de-proyectos-con-git-github-c046412f5bb0}}
+    \item{\href{https://www.youtube.com/watch?v=Vjf\_s7TGmqY}{https://www.youtube.com/watch?v=Vjf\_s7TGmqY}}
+    \item{\href{https://www.youtube.com/watch?v=UxP8GKu6Dqw}{https://www.youtube.com/watch?v=UxP8GKu6Dqw}}
+\end{itemize}
+
+\section{Configuración de la Raspberry Pi}
+
+\subsection{Instalación del S.O.}
+
+Todo sistema informático necesita de un software base para funcionar. Este software base se denomina sistema operativo.
+
+\begin{tcolorbox}[title=¿Qué es un sistema operativo (S.O.)?]
+    Un sistema operativo es un conjunto de programas que permite manejar la memoria, disco, medios de almacenamiento de información y los diferentes periféricos o recursos de la computadora, como son el teclado, el mouse, la impresora, la placa de red, y demás.
+\end{tcolorbox}
+
+La Raspberry Pi utiliza Raspberry Pi OS, que es el sistema operativo oficial distribuido por el fabricante de las placas. Esta basado en Debian y es compatible con todos los modelos de placas. \\
+
+La imagen de instalación se puede descargar desde la \href{https://www.raspberrypi.com/software/operating-systems/}{página oficial de Raspberry}. \\
+
+Si bien es cierto que se pueden instalar otros sistemas operativos como: Arch Linux ARM, Ubuntu, etc. En este caso preferimos utilizar Raspberry Pi OS por ser soportado oficialmente. \\
+
+La última versión de este sistema salió el 28 de enero de 2022 y esta basada en Debian 11 bullseye. \\
+
+Para instalar el sistema en la Raspberry Pi, lo que debemos hacer es (una vez descargada la imagen) descomprimir el archivo .zip y grabar el archivo .img en una tarjeta micro SD de por lo menos 32GB.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/descargaSO.png}
+    \caption{Página de descarga del SO.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/descargaSO2.png}
+    \caption{Descarga del SO.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/comprimidoSO.png}
+    \caption{Imagen .zip del SO.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/verificacionSO.png}
+    \caption{Verificación de integridad de la imagen del SO.}
+\end{figure}
+
+\begin{bash}{Comando utilizado}
+\begin{lstlisting}
+sha256sum 2022-01-28-raspios-bullseye-armhf-lite.zip
+echo f6e2a3e907789ac25b61f7acfcbf5708a6d224cf28ae12535a2dc1d76a62efbc
+\end{lstlisting}
+\end{bash}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grabandoSO.png}
+    \caption{Extraemos y grabamos la imagen del SO.}
+\end{figure}
+
+\begin{bash}{Comandos utilizados}
+\begin{lstlisting}
+# Descomprimimos la imagen
+unzip 2022-01-28-raspios-bullseye-armhf-lite.zip
+    
+# Grabamos la imagen en la micro SD
+sudo dd if=2022-01-28-raspios-bullseye-armhf-lite.img
+of=/dev/mmcblk0 status=progress
+\end{lstlisting}
+\end{bash}
+
+Cuando se termine de grabar el .img en la micro SD, ahora procedemos a crear un archivo ssh en la partición /boot, esto permitirá que desde el primer booteo el sistema inicie también el servidor ssh.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/creandoSSH.png}
+    \caption{Indicamos que inicie en modo ssh.}
+\end{figure}
+
+\begin{bash}{Comandos utilizados}
+\begin{lstlisting}
+# Montamos la particion
+mkdir boot
+sudo mount /dev/mmcblk0p1 boot
+
+# Creamos el archivo
+sudo touch boot/ssh
+
+# Desmontamos la particion
+sudo umount boot
+rm -rf boot
+\end{lstlisting}
+\end{bash}
+
+Y listo, ahora ya podemos extraer la tarjeta de memoria, colocarla en la Raspberry y energizarla. \\
+
+El paso siguiente es descubrir la IP que tomo la Raspberry Pi y conectarse a ella. A la configuración sin embargo la haremos mas adelante.
+
+\subsection{Construir toolchains para C/C++}
+
+\subsubsection{¿Por qué construir las cadenas de herramientas?}
+
+Existen varios motivos por los cuales uno se encuentra con la necesidad de construir un conjunto de herramientas personalizado:
+
+\begin{itemize}
+    \item{La versión que se distribuye con el sistema operativo no esta actualizada.}
+    \item{Es necesario un compilador cruzado para una arquitectura en especifico.}
+    \item{Las versiones precompiladas no están configuradas se necesita.}
+\end{itemize}
+
+Nosotros vamos a crear aplicaciones Qt para la Raspberry Pi 3 B+, y como las versiones modernas de GCC y de Qt no vienen compiladas por defecto para la arquitectura, hay que configurar un entorno personalizado. \\
+
+Para crear un toolchain de C++ y Qt, tenemos que:
+
+\begin{itemize}
+    \item{Compilar la última versión del compilador (valga la redundancia) para nuestra máquina de escritorio (x86\_64).}
+    \item{Compilar la última versión del compilador, pero de manera cruzada para la plataforma de destino. En este caso es la Raspberry Pi 3 B+ (armv7).}
+    \item{Compilar la versión de Qt para la plataforma de destino (Raspberry Pi 3 B+ armv7).}
+\end{itemize}
+
+En resumen lo que haremos es crear un compilador cruzado con las librerías de Qt instaladas. Y así poder generar binarios para la Raspberry Pi 3 B+ desde nuestra computadora de escritorio. Que son dos arquitecturas completamente distintas. \\
+
+Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso (y para la mayoría de casos) no tiene sentido, puesto que es necesario que todo el proceso de programación y desarrollo se haga en la Raspberry. En una PC de escritorio es mucho mas cómodo y normalmente tiene mas recursos de hardware.
+
+\subsection{Construir compilador cruzado para GNU/Linux armv7}
+
+Algunas palabras que utilizaremos:
+
+\begin{itemize}
+    \item{\textbf{Build:} es el sistema donde se está ejecutando el proceso de construcción.}
+    \item{\textbf{Host:} sistema que ejecutará el GCC una vez que esté construido.}
+    \item{\textbf{Target:} sistema en el que se ejecutarán los binarios producidos por el host.}
+\end{itemize}
+
+Dejo algunas referencias:
+
+\begin{itemize}
+    \item{\href{https://www.raspberrypi.org/documentation/linux/kernel/building.md}{Sobre el kernel de la Raspberry Pi (variación de Linux).}}
+    \item{\href{https://wiki.osdev.org/Building_GCC}{Artículo de compilación de GCC osdev.org.}}
+    \item{\href{https://wiki.osdev.org/GCC_Cross-Compiler}{Artículo de compilación cruzada de GCC osdev.org.}}
+    \item{\href{https://gcc.gnu.org/install/configure.html}{Documentación oficial de GCC.}}
+    \item{\href{https://solarianprogrammer.com/2018/05/06/building-gcc-cross-compiler-raspberry-pi/}{Building GCC as a cross compiler for Raspberry Pi.}}
+    \item{\href{https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/}{How to Build a GCC Cross-Compiler.}}
+    \item{\href{http://www.ifp.illinois.edu/~nakazato/tips/xgcc.html}{Very Simple Guide for Building Cross Compilers Tips.}}
+    \item{\href{https://sourceware.org/gdb/wiki/BuildingCrossGDBandGDBserver}{Building GDB and GDBserver for cross debugging.}}
+    \item{\href{https://sourceforge.net/projects/raspberry-pi-cross-compilers/files/}{Raspberry Pi Toolchains.}}
+    \item{\href{https://www.raspberrypi.org/forums/viewtopic.php?t=140572}{Raspberry Pi 3 have CPU armv7l instead Armv8.}}
+\end{itemize}
+
+\subsubsection{Verificamos la versión de paquetes de destino}
+
+Al día de hoy, Raspberry Pi OS viene con GCC 10.2.1, Binutils 2.35.2 y Glibc 2.31. Es importante que construyamos nuestro compilador cruzado usando la misma versión de Glibc que la Raspberry Pi. Esto nos permitirá integrarnos con el sistema operativo. Sin embargo no necesario que los Binutils, GCC o GDB necesiten ser de la misma versión. \\
+
+Si en un futuro las versiones incorporadas cambian, puede verificarlas con estos comandos (ejecutados desde la Raspberry Pi obviamente):
+
+\begin{bash}{Verificar versiones}
+\begin{lstlisting}
+# GCC
+gcc --version
+
+# GDB
+gdb --version
+
+# Binutils
+ld -v
+
+# Glibc
+ldd --version
+\end{lstlisting}
+\end{bash}
+
+Para mi caso en particular la salida obtenida fue la siguiente:
+
+\begin{itemize}
+    \item{Versión de GCC: 10.2.1.}
+    \item{Versión de GDB: 10.1.}
+    \item{Versión de Binutils: 2.35.2.}
+    \item{Versión de Glibc: 2.31.}
+\end{itemize}
+
+Como no siempre es posible tener la versión de Glibc compatible con el compilador de GCC que queremos generar, en este tutorial hacemos lo siguiente:
+
+\begin{enumerate}
+    \item{Construimos una versión compatible de GCC para crear un Toolchain inicial.}
+    \item{Construimos Glibc con la versión de GCC compatible.}
+    \item{Construimos el GCC nuevo incorporado dicho Glibc compatible (precompilado anteriormente).}
+\end{enumerate}
+
+\subsubsection{Preparamos el Host}
+
+Para la configuración se utilizo Linux Mint que es un sistema operativo basado en debian, por lo que todo lo haré con el gestor de paquetes apt:
+
+\begin{bash}{Comandos utilizados}
+\begin{lstlisting}
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y build-essential python3 python3-dev
+python2 python2-dev doxygen git openssl unzip wget
+libncurses6 libncursesw6 libncurses-dev rsync
+texinfo texlive autoconf automake gettext gperf
+autogen guile-3.0 flex patch diffutils libgmp-dev
+libisl-dev libexpat-dev
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Preparando la estructura de carpetas}
+
+En las siguientes instrucciones, se asumirá que se esta realizando todos los pasos en una carpeta separada, y que se mantiene abierta la misma sesión de terminal hasta que todo esté hecho:
+
+\begin{itemize}
+    \item{La ruta de descarga de las fuentes se hará en \$HOME/build-toolchain/src.}
+    \item{La ruta de compilación de los binarios se hará en \$HOME/build-toolchain/build.}
+\end{itemize}
+
+Ruta de compilación se refiere a donde se guardaran los binarios compilados del Toolchain. En este caso se busca crear un compilador GCC portable. Una vez terminemos, empaquetaremos todo en un archivo cross-pi-X-gcc-X.X.X.tar.xz que será trasladable a cualquier sistema (siempre y cuando se cumplan las dependencias propias del Toolchain). \\
+
+Antes de eso, para poder hacer mas sencilla la escritura de comandos, y así evitar errores de tipeo, voy a exportar las rutas y configuraciones como variables de bash:
+
+\begin{bash}{Exportamos las variables}
+\begin{lstlisting}
+export N_CPUS="$(nproc)"
+
+export BINUTILS_VERSION="2.35.2"
+export GCC_VERSION="8.5.0"
+export GLIBC_VERSION="2.31"
+export GDB_VERSION="10.1"
+
+export TARGET="arm-linux-gnueabihf"
+export TARGET_OPTIONS="--with-arch=armv7-a
+--with-fpu=neon-vfpv4 --with-float=hard"
+export EXTRA_OPTIONS="--disable-multilib
+--enable-multiarch --enable-lto --disable-nls
+--with-gnu-as --with-gnu-ld"
+export GCC_LANGUAGES="c,c++"
+
+export INSTALL_DIR_PREFIX="cross-pi-2"
+
+export WORK_DIR="$HOME/build-toolchain"
+export SRC_DIR="$WORK_DIR/src"
+export BUILD_DIR="$WORK_DIR/build"
+
+export INSTALL_DIR="$BUILD_DIR/$INSTALL_DIR_PREFIX
+-gcc-$GCC_VERSION"
+export SYSROOT="$INSTALL_DIR/$TARGET/libc"
+
+export SAVE_TOOLCHAIN_DIR="$HOME"
+\end{lstlisting}
+\end{bash}
+
+Creamos las carpetas base en donde construiremos todo:
+
+\begin{bash}{Creamos las carpetas}
+\begin{lstlisting}
+mkdir -p $SRC_DIR $BUILD_DIR $INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Obtenemos las fuentes}
+
+Descarguemos lo necesario para construir el compilador cruzado. Binutils, Glibc, GCC, GDB y la última versión del kernel de Raspberry. \\
+
+Para la biblioteca estándar, también puede escoger Newlib en lugar de Glibc. En nuestro caso utilizaremos Glibc ya que la Raspberry corre un Linux. Newlib se adapta mejor a sistemas embebidos o bare metal:
+
+\begin{bash}{Obtenemos las fuentes}
+\begin{lstlisting}
+cd $SRC_DIR
+
+wget https://ftpmirror.gnu.org/binutils/
+binutils-$BINUTILS_VERSION.tar.xz
+wget https://ftpmirror.gnu.org/gcc/
+gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.xz
+wget https://ftpmirror.gnu.org/gnu/glibc/
+glibc-$GLIBC_VERSION.tar.xz
+wget https://ftpmirror.gnu.org/gnu/gdb/
+gdb-$GDB_VERSION.tar.xz
+git clone --depth=1 https://github.com/raspberrypi/linux
+
+tar -czf linux.tar.xz linux
+
+tar -xf binutils-$BINUTILS_VERSION.tar.xz
+tar -xf gcc-$GCC_VERSION.tar.xz
+tar -xf glibc-$GLIBC_VERSION.tar.xz
+tar -xf gdb-$GDB_VERSION.tar.xz
+
+mkdir -p $BUILD_DIR/binutils $BUILD_DIR/gcc
+$BUILD_DIR/glibc $BUILD_DIR/gdb
+\end{lstlisting}
+\end{bash}
+
+Tanto GCC como Binutils, son las utilidades para construcción de binarios. Eso significa que conviene tener (siempre y cuando sean compatibles) las versiones mas actualizadas de ambos. El tema esta en la versión de Glibc. Este conjunto de librerías estándar \textbf{sí debe ser igual al de la Raspberry} (o en su defecto una versión menor). Ya que los binarios compilados se vinculan (por defecto) de manera dinámica.
+
+\subsubsection{Requisitos previos de GCC}
+
+GCC necesita algunos paquetes extras que podemos descargar dentro de la carpeta de origen:
+
+\begin{bash}{Ejecutamos el inspector de requisitos de gcc}
+\begin{lstlisting}
+cd $SRC_DIR/gcc-$GCC_VERSION
+contrib/download_prerequisites
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Variables de entorno}
+
+Durante todo el proceso de compilación, asegúrese de que el subdirectorio /bin de la instalación esté en su PATH. Puede eliminar este directorio del PATH luego de la instalación, pero la mayoría de los pasos de compilación esperan encontrar arm-linux-gnueabihf-gcc y otras herramientas de host a través del PATH.
+
+\begin{bash}{Exportamos la carpeta de instalación}
+export PATH=$INSTALL_DIR/bin:$PATH
+\end{bash}
+
+Preste especial atención a las cosas que se instalan debajo \$INSTALL\_DIR/. Este directorio se considera la raíz del sistema de un sistema de destino imaginario. Un compilador de Linux autohospedado podría, en teoría, usar todos los encabezados y bibliotecas colocados aquí. Obviamente, ninguno de los programas creados para el sistema host, como el propio compilador cruzado, se instalará en este directorio.
+
+\subsubsection{Copiar los encabezados del kernel}
+
+Este paso instala los archivos de encabezado del kernel de Linux, lo que finalmente permitirá que los programas creados con nuestra nueva cadena de herramientas realicen llamadas del sistema al kernel en el entorno de destino. \\
+
+Copie los encabezados del kernel en las carpetas anteriores, consulte la \href{https://www.raspberrypi.org/documentation/linux/kernel/building.md}{documentación de Raspberry Pi OS} para obtener más información:
+
+\begin{bash}{Copiamos los encabezados}
+\begin{lstlisting}
+cd $SRC_DIR/linux
+
+KERNEL=kernel7
+
+make \
+ARCH=arm \
+INSTALL_HDR_PATH=$SYSROOT/usr \
+headers_install
+
+mkdir -p $SYSROOT/usr/lib
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción de Binutils}
+
+Para poder utilizar nuestro compilador cruzado debemos incorporar Binutils a nuestra carpeta resultante por ello es que descargamos las fuentes y procedemos a compilarlo:
+
+\begin{bash}{Construcción de binutils}
+\begin{lstlisting}
+cd $BUILD_DIR/binutils
+
+$SRC_DIR/binutils-$BINUTILS_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS
+make install-strip DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción de GCC desnudo}
+
+Todos los pasos restantes implican la construcción de GCC y Glibc. El truco es que hay partes de GCC que dependen de partes de Glibc que ya se están construyendo y viceversa. No podemos construir ninguno de los paquetes en un solo paso. Necesitamos primero construir una versión desnuda de GCC (sin ninguna librería estándar incorporada), para luego construir Glibc y por último compilar la versión completa de GCC con las librerías estándar ya incorporadas. \\
+
+Este paso creará compiladores cruzados de C y C++ de GCC únicamente y los instalará en /bin. No invocará a esos compiladores para crear bibliotecas todavía:
+
+\begin{bash}{Construcción de GCC}
+\begin{lstlisting}
+cd $BUILD_DIR/gcc
+
+$SRC_DIR/gcc-$GCC_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--with-newlib \
+--without-headers \
+--enable-languages=$GCC_LANGUAGES \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS all-gcc
+make install-strip-gcc DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción parcial de Glibc}
+
+En este paso, instalamos los encabezados de la biblioteca C estándar de Glibc en /include. También usamos el compilador de C del paso anterior para compilar los archivos de inicio de la biblioteca e instalarlos en /lib. Finalmente, creamos un par de archivos ficticios que se esperan en el paso siguiente, pero que serán reemplazados en el paso posterior al siguiente:
+
+\begin{bash}{Construcción parcial de Glibc}
+\begin{lstlisting}
+cd $BUILD_DIR/glibc
+
+$SRC_DIR/glibc-$GLIBC_VERSION/configure \
+--prefix=/usr \
+--build=$MACHTYPE \
+--host=$TARGET \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--with-headers=$SYSROOT/usr/include \
+--with-lib=$SYSROOT/usr/lib \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT \
+libc_cv_forced_unwind=yes
+
+make install-bootstrap-headers=yes install-headers
+DESTDIR=$SYSROOT
+make -j$N_CPUS csu/subdir_lib
+
+install \
+csu/crt1.o \
+csu/crti.o \
+csu/crtn.o \
+$SYSROOT/usr/lib
+
+$TARGET-gcc \
+-nostdlib \
+-nostartfiles \
+-shared \
+-x c /dev/null \
+-o $SYSROOT/usr/lib/libc.so
+
+touch $SYSROOT/usr/include/gnu/stubs.h $SYSROOT/usr/
+include/bits/stdio_lim.h
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción de las bibliotecas de soporte}
+
+Este paso utiliza los compiladores cruzados creados dos pasos antes para crear la biblioteca de soporte del compilador. La biblioteca de soporte del compilador contiene algunas excepciones de C++ que manejan código repetitivo, entre otras cosas. Esta biblioteca depende de los archivos de inicio instalados en el paso anterior. La biblioteca en sí es necesaria en el paso siguiente:
+
+\begin{bash}{Construcción bibliotecas}
+\begin{lstlisting}
+cd $BUILD_DIR/gcc
+
+make -j$N_CPUS all-target-libgcc
+make install-target-libgcc DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Biblioteca C estándar}
+
+En este paso, finalizamos el paquete Glibc, que construye la biblioteca C estándar e instala sus archivos en /lib:
+
+\begin{bash}{Construcción bibliotecas}
+\begin{lstlisting}
+cd $BUILD_DIR/glibc
+
+make -j$N_CPUS
+make install DESTDIR=$SYSROOT
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construimos el GCC completo}
+
+Finalmente, terminamos de compilar el paquete GCC de manera completa. Esto nos dará soporte completo a las bibliotecas estándar:
+
+\begin{bash}{Construcción del gcc}
+\begin{lstlisting}
+cd $BUILD_DIR/gcc
+
+rm -rf *
+
+$SRC_DIR/gcc-$GCC_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--enable-languages=$GCC_LANGUAGES \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS
+make install-strip DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción del depurador GDB}
+
+Lo siguiente que debemos hacer antes de probar el compilador es construir el depurador que estará incluido en la lista de binarios:
+
+\begin{bash}{Construcción del gdb}
+\begin{lstlisting}
+cd $BUILD_DIR/gdb
+
+$SRC_DIR/gdb-$GDB_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--enable-languages=$GCC_LANGUAGES \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT \
+--with-python=/usr/bin/python3
+
+make -j$N_CPUS
+make install DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+Y listo, ahora tenemos el compilador cruzado completo.
+
+\subsection{Construir compilador cruzado actualizado}
+
+Lo que vamos a hacer a continuación es crear un GCC mas moderno con librerías estándar mas antiguas. Por lo que utilizaremos el compilador creado anteriormente (que es compatible con ese Glibc) para construir la Glibc antigua y luego construir nuestro nuevo GCC con la biblioteca estándar. \\
+
+Tratar de construir Glibc antigua con un GCC moderno causará errores raros que no podrá solucionar, por eso preferí utilizar este enfoque que nos evitará problemas. \\
+
+En este caso vamos a compilar la última versión de GCC a partir de la construcción de la Glibc con la versión compatible.
+
+\subsubsection{Preparando la estructura de carpetas}
+
+Tenemos que ir a la carpeta de fuentes y limpiar un poco la instalación anterior:
+
+\begin{bash}{Limpiando compilación anterior}
+\begin{lstlisting}
+cd $SRC_DIR
+
+rm -rf binutils-$BINUTILS_VERSION gcc-$GCC_VERSION
+glibc-$GLIBC_VERSION gdb-$GDB_VERSION linux
+
+cd $BUILD_DIR
+
+rm -rf binutils gcc glibc gdb
+\end{lstlisting}
+\end{bash}
+
+Vamos a actualizar las variables de bash para la nueva carpeta:
+
+\begin{bash}{Actualizando variables bash}
+\begin{lstlisting}
+export GCC_VERSION="10.2.0"
+
+export INSTALL_DIR="$BUILD_DIR/
+$INSTALL_DIR_PREFIX-gcc-$GCC_VERSION"
+export SYSROOT="$INSTALL_DIR/$TARGET/libc"
+\end{lstlisting}
+\end{bash}
+
+Por ultimo generamos la nueva carpeta de instalación:
+
+\begin{bash}{Creamos carpeta}
+\begin{lstlisting}
+mkdir -p $INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Obtenemos las fuentes}
+
+Descarguemos lo necesario para construir el compilador cruzado. GCC y la última versión del kernel de Raspberry Pi OS:
+
+\begin{bash}{Obtenemos las fuentes}
+\begin{lstlisting}
+cd $SRC_DIR
+
+wget https://ftpmirror.gnu.org/gcc/
+gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.xz
+
+tar -xf binutils-$BINUTILS_VERSION.tar.xz
+tar -xf gcc-$GCC_VERSION.tar.xz
+tar -xf glibc-$GLIBC_VERSION.tar.xz
+tar -xf gdb-$GDB_VERSION.tar.xz
+tar -xf linux.tar.xz
+
+mkdir -p $BUILD_DIR/binutils $BUILD_DIR/gcc
+$BUILD_DIR/glibc $BUILD_DIR/gdb
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Requisitos previos de GCC}
+
+\begin{bash}{Obtenemos las fuentes}
+\begin{lstlisting}
+cd $SRC_DIR/gcc-$GCC_VERSION
+contrib/download_prerequisites
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Copiar los encabezados del kernel}
+
+Este paso instala los archivos de encabezado del kernel de Linux, lo que finalmente permitirá que los programas creados con nuestra nueva cadena de herramientas realicen llamadas del sistema al kernel en el entorno de destino. \\
+
+Copie los encabezados del kernel en las carpetas anteriores, consulte la \href{https://www.raspberrypi.org/documentation/linux/kernel/building.md}{documentación de Raspberry Pi OS} para obtener más información:
+
+\begin{bash}{Copiamos los encabezados}
+\begin{lstlisting}
+cd $SRC_DIR/linux
+
+KERNEL=kernel7
+
+make \
+ARCH=arm \
+INSTALL_HDR_PATH=$SYSROOT/usr \
+headers_install
+
+mkdir -p $SYSROOT/usr/lib
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción de Binutils}
+
+Para poder utilizar nuestro compilador cruzado debemos incorporar Binutils a nuestra carpeta resultante por ello es que descargamos las fuentes y procedemos a compilarlo. \\
+
+A continuación, construimos Binutils para nuestro compilador GCC:
+
+\begin{bash}{Construcción de Binutils}
+\begin{lstlisting}
+cd $BUILD_DIR/binutils
+
+$SRC_DIR/binutils-$BINUTILS_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS
+make install-strip DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción de Glibc con el compilador GCC compatible}
+
+Ya que no hemos cerrado la terminal, el compilador anterior que creamos sigue en el PATH, por lo que utilizaremos este para construir nuevamente las librerías estándar:
+
+\begin{bash}{Construcción de Glibc}
+\begin{lstlisting}
+cd $BUILD_DIR/glibc
+
+$SRC_DIR/glibc-$GLIBC_VERSION/configure \
+--prefix=/usr \
+--build=$MACHTYPE \
+--host=$TARGET \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--with-headers=$SYSROOT/usr/include \
+--with-lib=$SYSROOT/usr/lib \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS
+make install DESTDIR=$SYSROOT
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construimos el GCC}
+
+Ahora que tenemos Glibc construido con el compilador compatible, podemos generar el nuevo GCC de manera directa:
+
+\begin{bash}{Construimos el GCC}
+\begin{lstlisting}
+cd $BUILD_DIR/gcc
+
+$SRC_DIR/gcc-$GCC_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--enable-languages=$GCC_LANGUAGES \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT
+
+make -j$N_CPUS
+make install-strip DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Construcción del depurador GDB}
+
+Lo siguiente que debemos hacer antes de probar el compilador es construir el depurador que estará incluido en la lista de binarios:
+
+\begin{bash}{Construcción del depurador GDB}
+\begin{lstlisting}
+cd $BUILD_DIR/gdb
+
+$SRC_DIR/gdb-$GDB_VERSION/configure \
+--prefix= \
+--build=$MACHTYPE \
+--host=$MACHTYPE \
+--target=$TARGET \
+$TARGET_OPTIONS \
+$EXTRA_OPTIONS \
+--enable-languages=$GCC_LANGUAGES \
+--with-sysroot=/$TARGET/libc \
+--with-build-sysroot=$SYSROOT \
+--with-python=/usr/bin/python3
+
+make -j$N_CPUS
+make install DESTDIR=$INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+Y listo, ahora tenemos el compilador cruzado completo.
+
+\subsubsection{Conclusiones}
+    
+Si ambos compiladores se construyeron, entonces perfecto, el toolchain cruzado funciona. Como se ve, en realidad esto no es una tarea demasiado complicada, hay que tener una guía sobre que hacer (mas o menos), y después modificar los argumentos pasados a los scripts de compilación para obtener tus herramientas personalizadas.
+
+\subsection{Construcción de Qt cruzado para armv7}
+
+Para compilaciones con interfaz gráfica de usuario es recomendable descargar la imagen completa con software recomendado. En el caso que solo desee crear aplicaciones de consola o gráficas sin un servidor de ventana, puede descargar una imagen lite del sistema. \\
+
+En nuestro caso buscamos una implementación de Qt con Opengl ES2. Por eso se instaló una versión lite en la Raspberry Pi.
+
+\subsubsection{Variables bash}
+
+\begin{bash}{Exportamos variables que van a servir}
+\begin{lstlisting}
+export TODAY=$(date +'%Y-%m-%d')
+
+export RPI_VERSION="2"
+export RPI_MODEL="b"
+export RPI_NAME="rpi$RPI_VERSION$RPI_MODEL"
+
+export RPI_USER="pi"
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Generación de claves SSH para la Raspberry Pi}
+
+Escanee la IP que tomo la Raspberry Pi:
+
+\begin{bash}{Mapear IPs}
+\begin{lstlisting}
+nmap 192.168.1.2-254 -p 22
+\end{lstlisting}
+\end{bash}
+
+Ahora añada la siguiente variables bash:
+
+\begin{bash}{Variables}
+\begin{lstlisting}
+export RPI_IP="192.168.1.75"
+\end{lstlisting}
+\end{bash}
+
+Puede generar un conjunto de llaves SSH y transferirla a la Raspberry Pi con los siguientes comandos:
+
+\begin{bash}{}
+\begin{lstlisting}
+ssh-keygen -t rsa -b 4096 -C $USER -f
+$HOME/.ssh/id_rsa_rpi$RPI_VERSION
+
+ssh-copy-id -i $HOME/.ssh/id_rsa_rpi$RPI_VERSION
+$RPI_USER@$RPI_IP
+\end{lstlisting}
+\end{bash}
+
+Ingrese el usuario \textbf{pi} y la contraseña \textbf{raspberry}. Luego ya puede conectarse a la Raspberry Pi con la llave generada:
+
+\begin{bash}{IP}
+\begin{lstlisting}
+ssh $RPI_USER@$RPI_IP
+\end{lstlisting}
+\end{bash}
+
+Esto le ahorrara tiempo para poder conectarse y para poder utilizar los comandos de \textit{rsync}. Ademas de que Qt pueda emparejarse correctamente.
+
+\subsubsection{Configurar la Raspberry Pi}
+
+Lo primero que debe hacer, una vez se conecte a la Raspberry Pi, es configurarla. Para ello ejecute el comando:
+
+\begin{bash}{}
+\begin{lstlisting}
+sudo raspi-config
+\end{lstlisting}
+\end{bash}
+
+Realizamos la configuración de periféricos, wifi y demás. Cuando terminemos reiniciamos. \\
+
+Como paso siguiente actualizamos todo:
+
+\begin{bash}{}
+\begin{lstlisting}
+sudo apt update
+sudo apt upgrade -y
+\end{lstlisting}
+\end{bash}
+
+Luego de esto debe reiniciar la Raspberry Pi y ya la tendremos lista para comenzar a configurarla para nuestro setup.
+
+\subsubsection{Habilitar rsync con permisos sudo}
+
+Más adelante en esta guía, usaremos el comando \textbf{rsync} para sincronizar archivos entre el Host y la Raspberry Pi. Para algunos de estos archivos, se requieren derechos de root. Puede hacer esto con un solo comando de terminal de la siguiente manera:
+
+\begin{bash}{}
+\begin{lstlisting}
+echo "$USER ALL=NOPASSWD:$(which rsync)" | sudo tee
+--append /etc/sudoers
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Instalar los paquetes de desarrollo}
+
+Procedemos a instalar los paquetes y las dependencias necesarias para compilar nuestro conjunto de herramientas, para ello instale los siguientes requerimientos:
+
+\begin{bash}{Software necesario para la Raspberry}
+\begin{lstlisting}
+sudo apt install gdbserver screen mc htop rsync git
+libncurses6 libncursesw6 libncurses-dev libgmp-dev
+libisl-dev libexpat1-dev build-essential gdb
+python3 python3-dev python2 python2-dev doxygen
+openssl unzip wget texinfo texlive autoconf automake
+gettext gperf autogen guile-3.0 guile-3.0-dev flex
+patch diffutils ninja-build bison cmake cmake-data
+dh-exec diffstat graphviz meson libglew-dev
+libglfw3-dev libgles2-mesa-dev libgbm-dev libdrm-dev
+kmscube libjpeg-dev libpng-dev libsqlite3-dev
+libmariadb-dev bluez-tools libbluetooth-dev
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Libreria de GPIO (WiringPi)}
+
+Para poder controlar los pines de nuestra Raspberry Pi, necesitamos de una librería que pueda manejar dichos pines de una manera sencilla. Para ello instalamos \textbf{WiringPi}:
+
+\begin{bash}{Librería GPIO}
+\begin{lstlisting}
+mkdir temp
+
+cd temp
+
+wget
+https://project-downloads.drogon.net/wiringpi-latest.deb
+
+sudo dpkg -i wiringpi-latest.deb
+
+cd ..
+
+rm -rf temp
+\end{lstlisting}
+\end{bash}
+
+\subsection{Configurar IP estática para el puerto ethernet}
+
+Ya que es mas fácil y rápido conectar la Raspberry Pi a nuestra computadora mediante cable Ethernet, definiremos una IP estática para que sea mas sencillo ubicarla. \\
+
+Editamos el archivo \textit{/etc/dhcpcd.conf}:
+
+\begin{bash}{}
+\begin{lstlisting}
+sudo nano /etc/dhcpcd.conf
+\end{lstlisting}
+\end{bash}
+
+Y en la parte final añadimos las siguientes lineas:
+
+\begin{bash}{}
+\begin{lstlisting}
+interface eth0
+static ip_address=192.168.1.100/24
+\end{lstlisting}
+\end{bash}
+
+Reiniciamos la Raspberry Pi y listo, terminamos de realizar la configuración. Podemos probar actualizar una ultima vez y la apagamos. \\
+
+Actualizamos la variable de bash por la que configuramos en la Raspberry Pi:
+
+\begin{bash}{}
+\begin{lstlisting}
+export RPI_IP="192.168.1.100"
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Crear copia de seguridad}
+
+En este punto es recomendable guardar una copia del estado actual de la tarjeta SD, en el caso que una configuración o comando erróneo rompa la instalación, podremos volver hasta este punto muy fácilmente. Lo podemos hacer con *dd*:
+
+\begin{bash}{}
+\begin{lstlisting}
+sudo dd if=/dev/mmcblk0 of="rpi$RPI_VERSION-($TODAY).img"
+status=progress
+
+sudo chown $USER:$USER "rpi$RPI_VERSION-($TODAY).img"
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Software necesario para el host}
+
+Nos aseguramos de tener bien actualizado nuestro sistema, luego, deberemos instalar paquetes necesarios para la compilación de nuestro toolchain:
+
+\begin{bash}{Software necesario}
+\begin{lstlisting}
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y build-essential python3
+python3-dev python2 python2-dev doxygen git openssl
+unzip wget libncurses6 libncursesw6 libncurses-dev
+rsync texinfo texlive autoconf automake gettext
+gperf autogen guile-3.0 flex patch diffutils
+libgmp-dev libisl-dev libexpat-dev llvm-11 clang-11
+libclang-11-dev
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Creamos mas variables bash}
+
+Vamos a generar un par de variables mas para evitar errores de tipeo:
+
+\begin{bash}{Variables bash}
+\begin{lstlisting}
+export TARGET="arm-linux-gnueabihf"
+
+export QT_VERSION_MAJOR=6
+export QT_VERSION_MINOR=2
+export QT_SUBVERSION=3
+export QT_VERSION="$QT_VERSION_MAJOR.
+$QT_VERSION_MINOR.$QT_SUBVERSION"
+export QT_HOST_PATH="/opt/qt/$QT_VERSION/gcc_64"
+
+export WORK_DIR="$HOME/build-toolchain"
+export SRC_DIR="$WORK_DIR/src"
+export BUILD_DIR="$WORK_DIR/build"
+
+export INSTALL_DIR="/opt/qtrpi2"
+export SYSROOT="$INSTALL_DIR/sysroot"
+
+export QT_INSTALL_DIR="$INSTALL_DIR/qt$QT_VERSION"
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Configuración de directorios de trabajo}
+
+Puede utilizar los siguientes comandos para crear una carpeta y utilizarla como espacio de trabajo para crear archivos binarios de Qt:
+
+\begin{bash}{Carpetas}
+\begin{lstlisting}
+mkdir -p $WORK_DIR $SRC_DIR $BUILD_DIR
+sudo mkdir -p $INSTALL_DIR $SYSROOT $SYSROOT/usr
+$QT_INSTALL_DIR
+sudo chown $USER:$USER -R $INSTALL_DIR
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Obtener los binarios de Qt}
+
+Ahora, podemos descargar los archivos fuente más recientes para Qt. Ejecutamos el siguiente comando para descargar los archivos fuente:
+
+\begin{bash}{Fuentes}
+\begin{lstlisting}
+cd $SRC_DIR
+
+wget http://download.qt.io/archive/qt/
+$QT_VERSION_MAJOR.$QT_VERSION_MINOR/
+$QT_VERSION/single/
+qt-everywhere-src-$QT_VERSION.tar.xz
+\end{lstlisting}
+\end{bash}
+
+Una vez descargado el archivo, lo extraemos:
+
+\begin{bash}{}
+\begin{lstlisting}
+tar -xf qt-everywhere-src-$QT_VERSION.tar.xz
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Instalación de un compilador cruzado}
+
+Para compilar binarios de una arquitectura a otra necesitamos un compilador cruzado. Nosotros creamos el nuestro anteriormente, asi que lo extraemos en la carpeta de recursos:
+
+\begin{bash}{}
+\begin{lstlisting}
+export CROSS_COMPILER_NAME="cross-pi-2-gcc-10.2.0"
+
+tar -xf $CROSS_COMPILER_NAME.tar.xz -C $INSTALL_DIR
+
+export CROSS_COMPILER_DIR="$INSTALL_DIR
+$CROSS_COMPILER_NAME"
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Sincronizar el sysroot de la Raspberry Pi}
+
+Este paso es muy importante. Lo que vamos a hacer es copiar todo el contenido de las carpetas de la raíz de la Raspberry a nuestra computadora. Haremos esto para que compilador cruzado sepa las librerías con la cuales debe generar los binarios. \\
+
+Esta es la forma mas rápida de copiar los archivos, ya que se inserta la SD en el Host y se copian directamente los archivos sin necesidad de verse limitado por la velocidad de conexión:
+
+\begin{bash}{Sincronizar archivos}
+\begin{lstlisting}
+sudo mkdir /media/$USER/raspi-root
+sudo mount /dev/mmcblk0p2 /media/$USER/raspi-root
+
+sudo cp -r /media/$USER/raspi-root/lib
+$SYSROOT
+sudo cp -r /media/$USER/raspi-root/usr/include
+$SYSROOT/usr
+sudo cp -r /media/$USER/raspi-root/usr/lib
+$SYSROOT/usr
+sudo cp -r /media/$USER/raspi-root/usr/local
+$SYSROOT/usr
+sudo cp -r /media/$USER/raspi-root/usr/share
+$SYSROOT/usr
+
+sudo chown $USER:$USER -R $SYSROOT
+
+sudo umount /media/$USER/raspi-root
+sudo rm -rf /media/$USER/raspi-root
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Arreglar los enlaces simbólicos}
+
+Los archivos que copiamos en el paso anterior todavía tienen enlaces simbólicos que apuntan al sistema de archivos en la Raspberry Pi (direccionamiento absoluto). Necesitamos modificar esto para que se conviertan en enlaces relativos desde el nuevo directorio sysroot en la máquina host. Podemos hacer esto con un script de Python, que descargamos y ejecutamos de la siguiente manera:
+
+\begin{bash}{}
+\begin{lstlisting}
+wget https://raw.githubusercontent.com/abhiTronix/
+rpi_rootfs/master/scripts/sysroot-relativelinks.py
+
+chmod +x sysroot-relativelinks.py
+./sysroot-relativelinks.py $SYSROOT
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Añadir el archivo ld.so.conf}
+
+El problema realmente ocurre cuando ld invocado por GCC comienza a resolver las dependencias de la biblioteca. Tanto GCC como ld conocen las bibliotecas que contienen sysroot, sin embargo, es posible que a LD le falte un componente crítico: el archivo \textit{/etc/ld.so.conf}. \\
+
+Cuando se enlazan las bibliotecas, puede ser que estas no se encuentren porque faltan rutas. Entonces ld busca el archivo */etc/ld.so.conf*, pero como este no existe, entonces la compilación falla. \\
+
+La solución es crear el archivo en el sysroot:
+
+\begin{bash}{}
+\begin{lstlisting}
+mkdir $SYSROOT/etc
+
+nano $SYSROOT/etc/ld.so.conf
+\end{lstlisting}
+\end{bash}
+
+Y añadimos las rutas en donde tenemos las bibliotecas:
+
+\begin{bash}{}
+\begin{lstlisting}
+/usr/local/lib/arm-linux-gnueabihf
+/lib/arm-linux-gnueabihf
+/usr/lib/arm-linux-gnueabihf
+/usr/lib/arm-linux-gnueabihf/libfakeroot
+/usr/local/lib
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Compilar Qt}
+
+Creamos el archivo \textit{toolchain.cmake} que hará que nuestra cadena de herramientas este configurada a nuestro gusto:
+
+\begin{bash}{}
+\begin{lstlisting}
+cd $INSTALL_DIR
+
+nano toolchain.cmake
+\end{lstlisting}
+\end{bash}
+
+Recuerde que cada variable dependerá de las rutas de sus herramientas y carpetas de destino. Añada y modifique lo siguiente:
+
+\begin{bash}{Archivo toolchain.cmake}
+\begin{lstlisting}
+cmake_minimum_required(VERSION 3.18)
+
+include_guard(GLOBAL)
+
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_PROCESSOR arm)
+
+set(CMAKE_SYSROOT $SYSROOT)
+set(CROSS_COMPILER $CROSS_COMPILER_DIR/bin)
+
+set(ENV{PKG_CONFIG_PATH} "")
+set(ENV{PKG_CONFIG_LIBDIR} ${CMAKE_SYSROOT}/usr/lib/
+pkgconfig:${CMAKE_SYSROOT}/usr/share/pkgconfig)
+set(ENV{PKG_CONFIG_SYSROOT_DIR} ${CMAKE_SYSROOT})
+
+set(CMAKE_C_COMPILER ${CROSS_COMPILER}/$TARGET-gcc)
+set(CMAKE_CXX_COMPILER ${CROSS_COMPILER}/$TARGET-g++)
+
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+\end{lstlisting}
+\end{bash}
+
+Ahora si podemos realizar la configuración del toolchain de Qt:
+
+\begin{bash}{Configuración de Qt}
+\begin{lstlisting}
+cd $BUILD_DIR
+
+cmake \
+-DQT_HOST_PATH=$QT_HOST_PATH \
+-DCMAKE_TOOLCHAIN_FILE=$INSTALL_DIR/toolchain.cmake \
+-DCMAKE_BUILD_TYPE=Release \
+-DBUILD_SHARED_LIBS=ON \
+-DCMAKE_INSTALL_PREFIX=$QT_INSTALL_DIR \
+-DCMAKE_STAGING_PREFIX=$QT_INSTALL_DIR \
+-DFEATURE_system_harfbuzz=OFF \
+-DFEATURE_system_doubleconversion=OFF \
+-DINPUT_opengl=es2 \
+-DQT_QPA_DEFAULT_PLATFORM=EGLFS \
+-DQT_QMAKE_DEVICE_OPTIONS=CROSS_COMPILE=
+$CROSS_COMPILER_DIR/bin/$TARGET- \
+-DQT_QMAKE_TARGET_MKSPEC=devices/linux-rasp-pi2-g++ \
+-DBUILD_qtwebengine=OFF \
+-DBUILD_qtwayland=OFF \
+-DQT_BUILD_TESTS=FALSE \
+-DQT_BUILD_EXAMPLES=FALSE \
+-G "Ninja" \
+-S $SRC_DIR/qt-everywhere-src-$QT_VERSION \
+-B .
+
+cmake --build . --parallel
+cmake --install .
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Sincronizar los binarios construidos}
+
+Ahora que tenemos compilados los binarios de Qt, tenemos que pasarlos a la Raspberry Pi:
+
+\begin{bash}{}
+\begin{lstlisting}
+rsync -az --rsync-path="sudo rsync"
+$QT_INSTALL_DIR $RPI_USER@$RPI_IP:/usr/local
+\end{lstlisting}
+\end{bash}
+
+\subsubsection{Actualizar vinculador en Raspberry Pi}
+
+Ingrese el siguiente comando para actualizar el dispositivo permitiendo que el enlazador encuentre los nuevos archivos binarios Qt:
+
+\begin{bash}{}
+\begin{lstlisting}
+echo /usr/local/qt$QT_VERSION/lib | sudo tee
+/etc/ld.so.conf.d/qt$QT_VERSION.conf
+
+sudo ldconfig
+\end{lstlisting}
+\end{bash}
+
+\subsection{Configuración de Qt Creator}
+
+\subsubsection{Agregar un nuevo dispositivo}
+
+Para comenzar a configurar el Qt Creator, vamos a añadir un nuevo dispositivo Linux Genérico que se va a conectar mediante SSH. \\
+
+En Qt Creator abrimos la configuración Tools -> Options -> Devices.
+
+Seleccionamos en Add y vamos añadiendo los campos correspondientes. Si todo salio bien, al final Qt Creator se podrá conectar con la Raspberry Pi.
+
+\subsubsection{Agregar un nuevo depurador}
+
+Nos vamos a Kits -> Debuggers y añadimos el GDB que dispone el compilador cruzado.
+
+\subsubsection{Agregar los compiladores cruzados}
+
+Lo siguiente es ir a la pestaña Compilers y agregar un compilador de GC C y otro de C++, correspondientes a nuestros compiladores cruzados.
+
+\subsubsection{Agregar la versión de Qt}
+
+Vamos a la pestaña Qt versions y buscamos el ejecutable qmake generado.
+
+\subsubsection{Agregar Kit}
+
+En la pestaña Kits tenemos que agregar toda la configuración que hicimos anteriormente. Verificando que no haya ningún inconveniente.
+
+\subsubsection{Configurar opciones de CMake}
+
+Por último lo que debemos hacer en la pestaña de kits es irnos a editar las banderas por defecto de CMake, y añadir lo siguiente:
+
+\begin{bash}{}
+\begin{lstlisting}
+QT_HOST_PATH:PATH=%{Qt:QT_HOST_PREFIX}
+CMAKE_SYSROOT:PATH=/opt/qtrpi2/sysroot
+\end{lstlisting}
+\end{bash}
+
+Y listo tenemos nuestra Raspberry Pi y su conjunto de herramientas ya instalado y listo para compilar codigo cruzado.
+
+\subsection{Deploy de las aplicaciones en CMake}
+
+Para poder correr remotamente nuestra aplicación, debemos añadir la siguiente linea en el \textit{CMakeLists.txt} de nuestro proyecto:
+
+\begin{bash}{}
+\begin{lstlisting}
+set(INSTALL_DESTDIR "/home/pi/${PROJECT_NAME}")
+
+install(TARGETS ${PROJECT_NAME}
+RUNTIME DESTINATION "${INSTALL_DESTDIR}"
+BUNDLE DESTINATION "${INSTALL_DESTDIR}"
+LIBRARY DESTINATION "${INSTALL_DESTDIR}"
+)
+\end{lstlisting}
+\end{bash}
+
+Esto copiará en el destino los ejecutables que se creen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/qtConfiguracion.png}
+    \caption{Kit en Qt Creator.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/programaTest.png}
+    \caption{Programa de prueba.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/qtDeploy1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.08]{src/imagenes/software/qtDeploy2.jpg}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-90,scale=.07]{src/imagenes/software/qtDeploy3.jpg}
+\end{figure}
+
+\section{Estructura del SCPA}
+
+A continuación se muestra un diagrama de flujo que ilustra los componentes que conforman el Sistema de Control de la Planta de Aireación:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/software/diagramaSCPA.png}
+    \caption{Diagrama de flujo del SCPA.}
+\end{figure}
+
+\begin{itemize}
+    \item{\textbf{Los cuadros en blanco} son los actuadores.}
+    \item{\textbf{Los cuadros en rojo} son los dispositivos o conexiones eléctricas.}
+    \item{\textbf{Los cuadros en verde} son los dispositivos conectados a la RED.}
+    \item{\textbf{Los cuadros en amarillo} son los servicios proporcionados por la RED.}
+    \item{\textbf{Los cuadros en violeta} son las interfaces con las que el operario puede interactuar.}
+\end{itemize}
+
+Como se puede observar, el sistema se divide en dos bloques importantes diferenciados por la ubicación dentro o fuera de la planta.
+
+\subsection{Bloque de operación local}
+
+Son todos los componentes del sistema que se encuentran en la planta de tratamiento. La conexión entre dichos bloques, se realiza de manera directa, debido a que no es necesario incorporar protocolos de seguridad tan estrictos.
+
+\subsection{Bloque de operación local o externo}
+
+Son todos los componentes del sistema que pueden ser accedidos desde fuera de la industria, permitiendo así una administración a distancia de la planta, ya sea recibiendo alertas del proceso, o para visualizar y ajustar parámetros de control.
+
+\section{Estructura de Software del controlador del SCPA}
+
+El software que correrá la Raspberry Pi, y en definitiva será el cerebro de toda la planta, queda organizado de la siguiente manera:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/software/controladorSCPA.png}
+    \caption{Diagrama de flujo del control del SCPA.}
+\end{figure}
+
+\begin{itemize}
+    \item{\textbf{Los cuadros en rojo} son los controladores.}
+    \item{\textbf{Los cuadros en verde} son los protocolos de comunicación.}
+    \item{\textbf{Los cuadros en amarillo} son los servicios proporcionados por la RED.}
+    \item{\textbf{Los cuadros en violeta} son las interfaces con las que el operario puede interactuar.}
+    \item{\textbf{Los cuadros en azul} son los actuadores o dispositivos físicos como sensores.}
+\end{itemize}
+
+\section{Estructura de Software de la UI}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/software/diagramaHMI.png}
+    \caption{Diagrama de flujo del HMI.}
+\end{figure}
+
+\section{Desarrollo del controlador del SCPA}
+
+Para comenzar a programar debemos dejar en claro todo lo relevante al sistema de control, las variables que intervienen, la funcionalidad y las medidas de seguridad correspondientes. Sin embargo esto no es suficiente. Como el desarrollo se realizará en conjunto es necesario que se establezca una convención de escritura para el código por ejemplo, esto permitirá que el programa sea fácilmente legible por todos los miembros del equipo, lo que permite centrar los esfuerzos en el desarrollo del programa y no en la sintaxis o la semántica. \\
+
+El software de la Raspberry Pi va a estar programado en Qt 6.2.3LTS, será una aplicación de consola sin interfaz gráfica. Correrá como servicio dentro de Raspberry Pi OS. Todo el código desarrollado se encuentra en el \href{https://github.com/GabiAndi/UNER_Tesis_Controlador_SCPA}{repositorio de GitHub.} \\
+
+El programa que correrá la Raspberry será el encargado de controlar todo el SCPA, con lo cual contará con las siguientes características:
+
+\begin{itemize}
+    \item{Controlar de manera directa la velocidad del motor de los sopladores Repicky tipo roots.}
+    \item{Controlar los sistemas de accionamiento eléctrico y mecánico.}
+    \item{Leer los datos provenientes de los sensores de OD, nivel de lodo, realimentación del variador de frecuencia y tablero de control en planta (no HMI).}
+    \item{Proporcionar un servidor SSH para la administración del sistema operativo.}
+    \item{Enviar datos de todos los parámetros que intervienen en el proceso a la interfaz de usuario y al servidor de métricas (cliente Grafana).}
+    \item{Modificar su configuración interna en base a la programación del operador (HMI).}
+    \item{Informar sobre fallas, posible mal funcionamiento, violación de medidas de seguridad y configuración invalida.}
+    \item{Actuar sobre los sistemas de actuación según la configuración activa.}
+    \item{Conectarse a una VPN para administración externa a la RED industrial.}
+\end{itemize}
+
+\subsection{Medidas de seguridad}
+
+Dentro de las medidas de seguridad se contempla lo siguiente:
+
+\begin{itemize}
+    \item{No permitir que operario establezca una configuración que podría dañar al sistema eléctrico o mecánico.}
+    \item{Proporcionar acceso al HMI a operarios que estén datos de alta (sistema de usuarios).}
+    \item{Proporcionar acceso al sistema operativo al administrador o encargado experto (esta persona tiene que conocer a la perfección el sistema puesto que cualquier acción podría comprometer por completo a todo el equipo).}
+    \item{Todo dato que se envié hacia afuera de la industria deberá pasar por una VPN.}
+    \item{Para cualquier tipo de administración directa se contará con un par de llaves cifradas.}
+\end{itemize}
+
+\subsection{Protocolos de comunicación}
+
+Para que el controlador pueda realizar su trabajo y logre interactuar con los sistemas subyacentes es necesario una convención en cuanto a la transmisión y recepción de datos. \\
+
+Debido a que los dispositivos pertenecientes al sistema interactúan de manera diferente y utilizan sus propios protocolos de comunicación, se realizaron diversas etapas para lograr que todo funcione como se esperaría. \\
+
+Como la comunicación se realiza de manera transparente mediante un protocolo TCP/IP por puerto 33600 (valor en USD del bitcoin al día de hoy 5 de julio del 2021), se incorporó un conjunto de comandos personalizado. \\
+
+El protocolo seguido es el siguiente:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| p{2.75cm} | p{6cm} | p{4cm} |}
+            \hline
+            \textbf{Dato} & \textbf{Descripción} & \textbf{Tipo de dato} \\ \hline
+            \multicolumn{3}{| c |}{Cabecera} \\ \hline
+            0x53 - 'S' & Caracter de cabecera 1 & byte sin signo \\ \hline
+            0x43 - 'C' & Caracter de cabecera 2 & byte sin signo \\ \hline
+            0x50 - 'P' & Caracter de cabecera 3 & byte sin signo \\ \hline
+            0x41 - 'A' & Caracter de cabecera 4 & byte sin signo \\ \hline
+            0x3A - ':' & Caracter de token & byte sin signo \\ \hline
+            \multicolumn{3}{| c |}{Estructura del paquete} \\ \hline
+            0xXX - 'LEN1' & Tamaño del paquete byte 1 & byte sin signo \\ \hline
+            0xXX - 'LEN2' & Tamaño del paquete byte 2 & byte sin signo \\ \hline
+            \multicolumn{3}{| c |}{Datos} \\ \hline
+            0xXX - 'CMD' & Comando & byte sin signo \\ \hline
+            0xXX - 'PAYL' & Contenido del comando & n bytes sin signo \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+Los comandos disponibles son:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| p{2cm} | p{3cm} | p{7cm} |}
+            \hline
+            \textbf{ID} & \textbf{Dirección} & \textbf{Paquete} \\ \hline
+            \multicolumn{3}{| c |}{Comandos de datos} \\ \hline
+            0x00 & HMI -> RPI & GET\_SENSOR \\ \hline
+            0x01 & RPI -> HMI & REQUEST\_GET\_SENSOR \\ \hline
+            0x10 & HMI -> RPI & SET\_SENSOR \\ \hline
+            0x11 & RPI -> HMI & REQUEST\_SET\_SENSOR \\ \hline
+            0x20 & HMI -> RPI & GET\_SYSTEM\_STATE \\ \hline
+            0x21 & RPI -> HMI & REQUEST\_GET\_SYSTEM\_STATE \\ \hline
+            0x30 & HMI -> RPI & SET\_SYSTEM\_STATE \\ \hline
+            0x31 & RPI -> HMI & REQUEST\_SET\_SYSTEM\_STATE \\ \hline
+            \multicolumn{3}{| c |}{Comandos de gestión} \\ \hline
+            0xA0 & HMI -> RPI & KEEP\_ALIVE \\ \hline
+            0xA0 & RPI -> HMI & KEEP\_ALIVE \\ \hline
+            0xA1 & HMI -> RPI & LOGIN \\ \hline
+            0xA2 & HMI -> RPI & FORCE\_LOGIN \\ \hline
+            0xA3 & RPI -> HMI & LOGIN\_REQUEST \\ \hline
+            0xA4 & RPI -> HMI & DISCONNECT\_CODE \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\subsubsection{Paquete GET\_SENSOR}
+
+Este paquete pide al controlador que envíe el estado de los sensores:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica de que sensor se quiere obtener la información.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_GET\_SENSOR}
+
+Devolución del estado del sensor:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el sensor.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete SET\_SENSOR}
+
+Este paquete setea los valores de un sensor para la simulación en condiciones controladas:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_SET\_SENSOR}
+
+Confirmación del seteo de las variables de los sensores:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete GET\_SYSTEM\_STATE}
+
+Este paquete pide al controlador que envíe el estado del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el parámetro del que se quiere obtener la información.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_GET\_SYSTEM\_STATE}
+
+Devolución del estado del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el sensor.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete SET\_SYSTEM\_STATE}
+
+Este paquete setea los valores del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_SET\_SYSTEM\_STATE}
+
+Confirmación del seteo de las variables del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete KEEP\_ALIVE}
+
+Este paquete solo sirve para comprobar conexiones.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Modo  \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Modo:} tipo de paquete.}
+    \begin{itemize}
+        \item{\textbf{Petición:} 0x00.}
+        \item{\textbf{Respuesta:} 0xFF.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete LOGIN}
+
+Paquete que manda la información de autenticación del nuevo usuario a conectarse.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c |}
+            \hline
+            Tamaño usuario & Usuario & Tamaño contraseña & Contraseña \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Tamaño usuario:} tamaño del usuario, 1 byte.}
+    \item{\textbf{Usuario:} nombre de usuario, hasta 256 bytes.}
+    \item{\textbf{Tamaño contraseña:} tamaño de la contraseña, 1 byte.}
+    \item{\textbf{Contraseña:} contraseña, hasta 256 bytes.}
+\end{itemize}
+
+\subsubsection{Paquete LOGIN\_REQUEST}
+
+Respuesta de la petición de conexión.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Respuesta \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Respuesta:} resultado del login.}
+    \begin{itemize}
+        \item{\textbf{0x00:} login incorrecto, error de usuario o contraseña.}
+        \item{\textbf{0xAA:} un usuario ya esta conectado.}
+        \item{\textbf{0xFF:} login correcto.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete FORCE\_LOGIN}
+
+Indica que se desea establecer la conexión actual como el usuario activo.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Confirmación \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Confirmación:} confirmación del login.}
+    \begin{itemize}
+        \item{\textbf{0x00:} no conectar.}
+        \item{\textbf{0xFF:} conectar.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete DISCONNECT\_CODE}
+
+Informa el motivo de la desconexión por parte del servidor.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Código \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Código:} motivo de desconexión.}
+    \begin{itemize}
+        \item{\textbf{0x00:} timeout para el login.}
+        \item{\textbf{0xFF:} se inicio sesión desde otro dispositivo.}
+    \end{itemize}
+\end{itemize}
+
+\section{Desarrollo de las interfaces de usuario}
+
+\subsection{Introducción}
+
+El ser humano está continuamente interactuando con los objetos que le rodean, crea expectativas sobre cómo éstos deben comportarse basadas en pasadas experiencias con estos objetos u otros similares. \\
+
+Cuando los seres humanos y los computadores interactúan lo hacen a través de un medio o interfaz hombre máquina, que definimos como HMI. \\
+
+La HMI es el punto en el que seres humanos y computadores se ponen en contacto, transmitiéndose mutuamente tanto información, órdenes y datos como sensaciones, intuiciones y nuevas formas de ver las cosas. Por otro lado, la interfaz es también un límite a la comunicación en muchos casos, ya que aquello que no sea posible expresar a través de ella permanecerá fuera de nuestra relación mutua. Es así como en muchos casos la interfaz se convierte en una barrera debido a un pobre diseño y una escasa atención a los detalles de la tarea a realizar. \\
+
+La interfaz forma parte de un entorno cultural, físico y social y por tanto tendremos una serie de factores que hemos de tener en cuenta en el momento de diseñarlas. \\
+
+Si la interfaz está bien diseñada, el usuario encontrará la respuesta que espera a su acción; si no es así, puede ser frustrante para el usuario, que habitualmente tiende a culparse a sí mismo por no saber usar el objeto. Además, un buen programa con una pobre interfaz tendrá una mala imagen, y al contrario, una buena interfaz puede realzar un programa mediocre. \\
+
+\subsection{Modelos}
+
+Existen tres puntos de vista distintos en una HMI: el del usuario, el del programador y el del diseñador. Cada uno tiene un modelo mental propio de la interfaz, que contiene los conceptos y expectativas acerca de la interfaz, desarrollados a través de su experiencia.
+
+\subsubsection{Modelo del usuario}
+
+El usuario tiene su visión personal del sistema, y espera que éste se comporte de una cierta forma, que se puede conocer estudiando al usuario (realizando tests de usabilidad, entrevistas, o a través de una realimentación). Una interfaz debe facilitar el proceso de crear un modelo mental efectivo. Para ello son de gran utilidad las metáforas, que asocian un dominio nuevo a uno ya conocido por el usuario. Por ejemplo, el HMI que se encuentra actualmente en la planta de tratamiento de efluentes:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/software/hmiEGGER1.jpg}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/software/hmiEGGER2.jpg}
+\end{figure}
+
+\subsubsection{Modelo del programador}
+
+Es el más fácil de visualizar, al poderse especificar formalmente. Está constituido por los objetos que manipula el programador. Estos objetos se deben esconder del usuario. Los conocimientos del programador incluyen la plataforma de desarrollo, el sistema operativo, las herramientas de desarrollo, especificaciones. Sin embargo, esto no significa necesariamente que tenga la habilidad de proporcionar al usuario los modelos y metáforas más adecuadas.
+
+\subsubsection{Modelo del diseñador}
+
+El diseñador mezcla las necesidades, ideas, deseos del usuario y los materiales de que dispone el
+programador para diseñar un producto de software. Es un intermediario entre ambos. \\
+
+El modelo del diseñador describe los objetos que utiliza el usuario, su presentación al mismo y las técnicas de interacción para su manipulación. \\
+
+El modelo tiene tres partes: presentación, interacción y relaciones entre los objetos. \\
+
+\textbf{Presentación:} es lo que primero capta la atención del usuario, pero más tarde pasa a un segundo plano. La presentación no es lo más relevante, y un abuso en la misma (por ejemplo, en el color) puede ser contraproducente, distrayendo al usuario. \\
+
+\textbf{Interacción:} a través de diversos dispositivos que utiliza el usuario. \\
+
+\textbf{Relaciones entre los objetos:} es donde el diseñador determina la metáfora adecuada que encaja con el modelo mental del usuario.
+
+\subsection{Aspectos de la psicología humana}
+
+Al diseñar HMI deben tenerse en cuenta las habilidades cognitivas y de percepción de las personas, y adaptar el programa a ellas. \\
+
+Así, una de las cosas más importantes que una interfaz puede hacer es reducir la dependencia de las personas de su propia memoria, no forzándoles a recordar cosas innecesariamente (por ejemplo, información que apareció en una pantalla anterior) o a repetir operaciones ya realizadas (por ejemplo, introducir un mismo dato repetidas veces). \\
+
+La persona tiene habilidades distintas de la máquina, y ésta debe utilizar las suyas para soslayar las de aquella (como por ejemplo la escasa capacidad de la memoria de corto alcance).
+
+\subsection{Desarrollo de la GUI}
+
+El software de interfaz de usuario va a estar programado en Qt 6.2.3LTS, será una aplicación Qt Quick. Correrá como programa de inicio en Windows o Linux. Todo el desarrollo se encuentra en el \href{https://github.com/GabiAndi/UNER_Tesis_GUI_SCPA}{repositorio de GitHub.} \\
+
+Antes de empezar a programar debemos tener en cuenta todo lo anteriormente explicado. Es por eso que primero analizaremos bien la aplicación de nuestra interfaz de usuario, para luego realizar un boceto inicial de como se debería ver la pantalla.
+
+\section{Configuración del servidor externo}
+
+Este servidor es el encargado de alojar a los siguientes servicios:
+
+\begin{itemize}
+    \item{Servidor de datos y métricas (Grafana).}
+    \item{Servidor de base de datos en tiempo real (InfluxDB).}
+    \item{Servidor de VPN (OpenVPN).}
+\end{itemize}
+
+Estos servicios son fundamentales para el funcionamiento en conjunto de todo el sistema de control, ya que son los encargados de proporcionar los servicios de métricas, base de datos y conexión virtual privada para que los operarios puedan acceder a la planta desde cualquier sitio, sin riesgo a ataques o vulnerabilidades de seguridad.
+
+\subsection{Sistema operativo}
+
+Como sistema operativo para el servidor, se eligió un \href{https://www.debian.org/download}{Debian Bullseye x64\_86.} La instalación no lleva ninguna configuración en particular salvo por la elección de Xfce como entorno de escritorio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/so1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/so2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/so3.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/so4.png}
+\end{figure}
+
+\subsection{Servidor de métricas}
+
+\subsubsection{Instalación de InfluxDB}
+
+InfluxDB es la base de datos para series de tiempo que nos permitirá almacenar todos los valores que capture nuestro sistema de control. \\
+
+Para instalarlo tenemos que ejecutar estos comandos en el servidor:
+
+\begin{bash}{Instalación}
+\begin{lstlisting}
+wget -qO- https://repos.influxdata.com/influxdb.key |
+gpg --dearmor |
+sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg >
+/dev/null
+export DISTRIB_ID=$(lsb_release -si);
+export DISTRIB_CODENAME=$(lsb_release -sc)
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/
+influxdb.gpg] https://repos.influxdata.com/
+${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" |
+sudo tee /etc/apt/sources.list.d/influxdb.list >
+/dev/null
+
+sudo apt-get update && sudo apt-get install influxdb2
+\end{lstlisting}
+\end{bash}
+
+Paso siguiente, tenemos que iniciar el servicio de base de datos:
+
+\begin{bash}{Puesta en marcha}
+\begin{lstlisting}
+sudo systemctl enable influxdb
+sudo systemctl start influxdb
+\end{lstlisting}
+\end{bash}
+
+Nos conectamos al puerto 8086.
+
+\subsubsection{Instalar Telegraf}
+
+Telegraf nos proporcionara métricas sobre la Raspberry Pi, como por ejemplo: uso de procesador, de disco, de memoria, de red, etc. Estos datos son del estado de la Raspberry como sistema informático, no como controlador. Las métricas del sistema de control serán proporcionadas por el programa SCPA creado por nosotros. \\
+
+Para instalar Telegraf tenemos que ejecutar los siguiente comandos:
+
+\begin{bash}{Instalación}
+\begin{lstlisting}
+wget https://dl.influxdata.com/telegraf/
+    releases/telegraf_1.21.3-1_amd64.deb
+sudo dpkg -i telegraf_1.21.3-1_amd64.deb
+\end{lstlisting}
+\end{bash}
+
+Para terminar de configurar telegraf e iniciarlo editamos el archivo de configuración con la salida generada por InfluxDB en el archivo \textit{/etc/telegraf/telegraf.conf}. \\
+
+Por último iniciamos el servicio:
+
+\begin{bash}{Puesta en marcha}
+\begin{lstlisting}
+sudo systemctl enable telegraf
+sudo systemctl start telegraf
+\end{lstlisting}
+\end{bash}
+
+Con esto ya se estaría comunicando con InfluxDB.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/influx1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/influx2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/influx3.png}
+\end{figure}
+
+\subsubsection{Instalación de Grafana}
+
+Para instalar Grafana en el servidor se ejecutaron los siguiente comandos:
+
+\begin{bash}{Instalación}
+\begin{lstlisting}
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/oss/release/
+grafana_8.3.6_amd64.deb
+sudo dpkg -i grafana_8.3.6_amd64.deb
+\end{lstlisting}
+\end{bash}
+
+Paso siguiente, tenemos que iniciar el servicio del servidor de métricas:
+
+\begin{bash}{Puesta en marcha}
+\begin{lstlisting}
+sudo /bin/systemctl daemon-reload
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+\end{lstlisting}
+\end{bash}
+
+Para acceder a la terminal de control iniciamos un navegador y nos vamos al puerto 3000. Nos logueamos con el usuario \textit{admin} y la contraseña \textit{admin}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grafana1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grafana2.png}
+\end{figure}
+
+Creamos un dashboard para visualizar los parámetros:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grafana3.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grafana4.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/grafana5.png}
+\end{figure}
+
+\subsubsection{OpenVPN}
+
+La configuración de la VPN es importante para que solo los operarios y usuarios registrados puedan acceder desde fuera de la industria. \\
+
+Para instalar el servidor OpenVPN ejecutamos los siguientes comandos:
+
+\begin{bash}{Instalación}
+\begin{lstlisting}
+sudo apt update && sudo apt -y install ca-certificates
+wget net-tools gnupg
+wget -qO - https://as-repository.openvpn.net/
+as-repo-public.gpg | sudo apt-key add -
+echo "deb http://as-repository.openvpn.net/as/debian
+bullseye main" | sudo tee /etc/apt/sources.list.d/
+openvpn-as-repo.list > /dev/null
+sudo apt update && sudo apt -y install openvpn-as
+\end{lstlisting}
+\end{bash}
+
+Una vez instalado podemos configurar accediendo a \textit{/admin}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/openvpn1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/openvpn2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/software/openvpn3.png}
+\end{figure}
+
+\section{Controlador SCPA}
+
+\subsection{Parámetros a controlar}
+
+El software controlador del proceso se ejecuta como un servicio (disponible desde el arranque), para así poder analizar los datos de los sensores y proporcionar un ajuste al sistema de aireación. \\
+
+Los parámetros del proceso a controlar son los siguientes:
+
+\begin{itemize}
+    \item{Caudal de ingreso.}
+    \item{Caudal de egreso.}
+    \item{Nivel de PH en la pileta.}
+    \item{Nivel de PH en la zona anóxica.}
+    \item{Temperatura del efluente.}
+    \item{Nivel de lodo en la pileta de aireación.}
+    \item{Nivel de oxígeno disuelto.}
+\end{itemize}
+
+Los parámetros de los motores a visualizar son los siguiente:
+
+\begin{itemize}
+    \item{Velocidad.}
+    \item{Temperatura.}
+    \item{Tensión.}
+    \item{Corriente.}
+    \item{Potencia.}
+\end{itemize}
+
+El programa controlador del sistema se conecta a su vez con la base de datos de InfluxDB para enviar todas estas métricas.
+
+\section{Clientes OpenVPN}
+
+El cliente OpenVPN debe configurarse para acceder al servidor. Para eso debemos instalar el cliente en cada dispositivo y luego iniciarlo con el archivo de configuración generado por el servidor. \\
+
+Podemos encontrar implementaciones para teléfonos, computadoras y multitud de dispositivos.

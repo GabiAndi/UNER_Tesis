@@ -1,0 +1,139 @@
+%%%%%%%%%%%%%%%%%%%%%% Tipo de documento %%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{report}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%% Configuracion de paquetes %%%%%%%%%%%%%%%%%%
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=6mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{etoc}
+\usepackage[type={CC}, modifier={by-nc}, version={4.0}]{doclicense}
+\usepackage{pdfpages}
+\usepackage{outlines}
+\usepackage{etoolbox}
+\usepackage{tcolorbox}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% Variables del documento %%%%%%%%%%%%%%%%%%
+\newcommand{\titulodocumento}{Proyecto final de Ing. Mecatrónica}
+\newcommand{\subtitulodocumento}{Sistema de control para planta de tratamiento de efluentes}
+\newcommand{\logodocumento}{src/imagenes/doc/Logo.png}
+\newcommand{\autordocumento}{Gialuca Lovatto y Gabriel Aguirre}
+\newcommand{\fechadocumento}{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% Configuracion de links %%%%%%%%%%%%%%%%%%%
+\hypersetup
+{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\titulodocumento}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% Configuracion de cajas %%%%%%%%%%%%%%%%%%%
+\tcbuselibrary{listings,theorems,most}
+
+\newtcolorbox{bash}[1]{%
+    title=#1
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%% Configuracion de paginas %%%%%%%%%%%%%%%%%%%
+\etocsettocstyle{}{}
+
+\pagestyle{empty}
+
+\patchcmd{\chapter}{plain}{empty}{}{}
+
+\setlength{\headheight}{15pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% Cabecera y pie de pagina %%%%%%%%%%%%%%%%%%
+\fancyhead[R]{\autordocumento}
+\fancyhead[L]{Capítulo \thechapter}
+
+\fancyfoot[C]{Página \thepage}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%% Información del documento %%%%%%%%%%%%%%%%%%
+\title{\titulodocumento}
+\author{\autordocumento}
+\date{\fechadocumento}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%% Inicio del documento %%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Caratula %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+    \begin{center}
+        \vspace*{\fill}
+        {\Huge{\titulodocumento \\}}
+        \vspace{0.25cm}
+        {\large{\subtitulodocumento \\}}
+        \vspace{2cm}
+        {\includegraphics[scale=0.35]{\logodocumento} \\}
+        \vspace{2cm}
+        {\large{Autores: \autordocumento \\}}
+        {\large{Última modificación: \fechadocumento}}
+        \vspace*{\fill}
+    \end{center}
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Aviso
+\input{src/latex/Aviso.tex}
+
+% Informacion adicional
+\input{src/latex/Informacion_adicional.tex}
+
+% Indice
+\newpage
+\section*{Contenido global}
+\tableofcontents
+\newpage
+
+% Desarrollo del trabajo
+\setcounter{page}{1}
+
+% Capitulos
+\input{src/latex/Introduccion.tex}
+\input{src/latex/Identificacion_del_problema.tex}
+\input{src/latex/Marco_teorico.tex}
+\input{src/latex/Proyecto.tex}
+\input{src/latex/Hardware.tex}
+\input{src/latex/Software.tex}
+\input{src/latex/Tecnologias.tex}
+\input{src/latex/Prototipo.tex}
+\input{src/latex/Conclusiones.tex}
+
+% Referencias
+\bibliography{src/referencias/bibliography}
+\bibliographystyle{unsrt}
+\nocite{*}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

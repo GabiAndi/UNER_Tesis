@@ -1,0 +1,550 @@
+\chapter{Marco teórico}
+
+\pagestyle{empty}
+
+\hrule
+\vspace*{0.3cm}
+\localtableofcontents
+\vspace*{0.3cm}
+\hrule
+
+\newpage
+
+\pagestyle{fancy}
+
+\section{Introducción}
+	
+En este capítulo se explica como funciona un motor de CA tipo Jaula de Ardilla y que aspectos importantes se tienen que tener en cuenta para un control del velocidad mediante un variador de frecuencia. Para una mejor comprensión y estudio mas en detalle se recomienda leer los libros \cite{CHPM5} y \cite{JFM6}, en los capítulos correspondientes se habla mas en profundidad. \\
+
+Ademas se desarrollan los conceptos básicos sobre los variadores de velocidad y el criterio de selección de los mismos para distintas aplicaciones. \\
+
+Para poder tener diseñar un sistema de control de los sopladores de aireación primero se debe estudiar el detalle de funcionamiento de estas máquinas eléctricas, así también el efecto de variar los parámetros de entrada y ver en que se afecta a la operación normal de motor. \\
+
+Se habla de los sistemas de control y que tipos son utilizados industrialmente, profundizando un poco en la teoría que hay detrás de cada tipo de control, para dar una idea de cual es mas conveniente utilizar en un aplicación como la que se desarrolla a lo largo del proyecto. Si desea profundizar mas puede hacerlo leyendo \cite{OGATA} y también \cite{SAC}. \\
+
+Por último, se amplia en el eje central de la industria moderna, el IoT y tecnologías Smart Industries. Para obtener mas información que la presente en este documento, puede leer \cite{IOTPN}, \cite{IOTBR}, \cite{BBGDT} y \cite{EIBGD}.
+
+\section{Máquinas asíncronas}
+
+El principio de funcionamiento de las máquinas asíncronas se basa en el concepto de campo magnético giratorio. La diferencia de la máquina asíncrona con los demás tipos de máquinas se debe a que no existe corriente conducida a uno de los arrollamientos. La corriente que circula por uno de los devanados (generalmente el situado en el rotor) se debe a la f.e.m. inducida por la acción del flujo del otro, y por esta razón se denominan máquinas de inducción. También reciben el nombre de máquinas asíncronas debido a que la velocidad de giro del rotor no es la de sincronismo impuesta por la frecuencia de la red. La importancia de los motores asíncronos se debe a su construcción simple y robusta, sobre todo en el caso del rotor en forma de jaula, que les hace trabajar en las circunstancias más adversas, dando un excelente servicio con pequeño mantenimiento. Hoy en día se puede decir que más del 80 por 100 de los motores eléctricos industriales emplean este tipo de máquina, trabajando con una frecuencia de alimentación constante. Sin embargo, históricamente su inconveniente más grave ha sido la limitación para regular su velocidad, y de ahí que cuando esto era necesario, en diversas aplicaciones como la tracción eléctrica, trenes de laminación, etc., eran sustituidos por motores de corriente continua, que eran más idóneos para este servicio. Desde finales del siglo XX y con el desarrollo tan espectacular de la electrónica industrial, con accionamientos electrónicos como inversores u onduladores y cicloconvertidores, que permiten obtener una frecuencia variable a partir de la frecuencia constante de la red, y con la introducción del microprocesador en la electrónica de potencia, se han realizado grandes cambios, y los motores asíncronos se están imponiendo poco a poco en los accionamientos eléctricos de velocidad variable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/motorJaulaDeArdilla.jpg}
+    \caption{Motor asincrónico tipo Jaula de Ardilla.}
+\end{figure}
+
+\subsection{Principio de funcionamiento}
+
+\subsubsection{Velocidad de sincronismo}
+
+Generalmente la máquina asíncrona suele funcionar como motor, y a este régimen de funcionamiento nos referiremos en lo sucesivo, mientras no se diga lo contrario. El devanado del estátor está constituido por tres arrollamientos desfasados 120° en el espacio y de 2p polos, al introducir por ellos corrientes de una red trifásica de frecuencia f1, se produce una onda rotativa de f.m.m. distribuida sinusoidalmente por la periferia del entrehierro, que produce un campo magnético giratorio cuya velocidad mecánica en r.p.m.
+
+\begin{tcolorbox}[title=Velocidad de sincronismo]
+    Esta velocidad de rotación se denomina velocidad de sincronismo y esta determinada por la siguiente ecuación:
+    
+    $$n_{1} = \frac{60 \cdot f_{1}}{p}$$
+\end{tcolorbox}
+
+Este campo magnético giratorio inducirá f.e.m.s. en las barras de la jaula de ardilla del rotor, y como éstas forman un circuito cerrado, debido a la existencia de sus anillos de cierre finales, aparecerán corrientes en las mismas que reaccionarán con el flujo del estátor. Al circular corriente por los conductores del rotor, aparecerán en éstos las fuerzas de reacción correspondientes.
+
+\subsubsection{Deslizamiento}
+
+\begin{tcolorbox}[title=deslizamiento]
+    Se conoce con el nombre de deslizamiento al cociente:
+    
+    $$s = \frac{n_{1} - n}{n_{1}}$$
+\end{tcolorbox}
+
+Cuyo valor está comprendido en los motores industriales entre el 3\% y el 8\% a plena carga. Al aumentar la carga mecánica del motor, el par resistente se hace mayor que el par interno y el deslizamiento aumenta, esto provoca un aumento en las corrientes del rotor, gracias a lo cual aumenta el par motor y se establece el equilibrio dinámico de los momentos resistente y motor.
+
+\subsubsection{Otro parámetros importantes}
+
+Las frecuencias de las corrientes del rotor, están relacionadas con la frecuencia del estátor por medio de la expresión:
+
+$$f_{2} = s \cdot f_{1}$$
+
+En el caso de que el rotor esté parado, se cumple $n = 0$, es decir $s = 1$, lo que indica que en estas circunstancias, las frecuencias del estátor y del rotor coinciden. \\
+
+Cuando el rotor gira a la velocidad $n$, en el sentido del campo giratorio, el deslizamiento ya no es la unidad y las frecuencias de las corrientes del rotor son iguales a $f_{2}$. Denominando $E_{2s}$ a la nueva f.e.m. inducida en este devanado, se cumplirá:
+
+$$E_{2s} = s \cdot E_{2}$$
+
+Expresión que relaciona las f.e.m.s inducidas en el rotor, según se considere que está en movimiento: $E_{2s}$ o parado: $E_{2}$. La f.e.m. anterior $E_{2s}$ producirá unas corrientes en el rotor de frecuencia $f_{2}$, de tal forma que éstas a su vez crearán un campo giratorio, cuya velocidad respecto a su propio movimiento será:
+
+$$n_{2} = \frac{60 \cdot f_{2}}{p}$$
+
+Realmente, son las f.m.m.s. de ambos devanados, las que interaccionan para producir el flujo resultante en el entrehierro. Debe hacerse notar que esta interacción sólo es posible si las f.m.m.s. están enclavadas sincrónicamente, es decir si las ondas de f.m.m. de estátor y rotor giran a la misma velocidad $n_{1}$, lo que requiere que el número de polos con el que se confeccionan ambos arrollamientos sean iguales, lo que representa una exigencia constructiva de estas máquinas. \\
+
+No es necesario sin embargo, que el número de fases del estátor y del rotor deban ser iguales, ya que el campo giratorio dentro del cual se mueve el rotor es independiente del número de fases del estátor. Los motores con rotor devanado o con anillos se construyen normalmente para tres fases, es decir igual que las del estátor, sin embargo el motor en jaula de ardilla está formado por un gran número de barras puestas en cortocircuito, dando lugar a un devanado polifásico.
+
+\subsubsection{Circuito equivalente}
+
+En la Figura \ref{fgr:circuitoEquivalente} se muestra un esquema simplificado por fase del motor en el que se muestran los parámetros anteriores. Se observa que el primario está alimentado por la red de tensión $V_{1}$ y debe vencer las caídas de tensión en la impedancia de este devanado, el flujo común a estátor y rotor induce en los arrollamientos f.e.m.s $E_{1}$ y $E_{2s}$. Es importante las polaridades de las f.e.m.s. con la correspondencia de los terminales homólogos de estátor y rotor señalados con un punto y también los sentidos de las corrientes primaria y secundaria, que se han asignado de un modo similar al explicado en los transformadores, actuando la f.m.m. secundaria en contra (efecto desmagnetizante) respecto de la f.m.m. primaria (ya que la corriente $I_{1}$ entra por punto y la corriente $I_{2}$ sale por punto).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/circuitoEquivalente.png}
+    \caption{Circuito equivalente por fase del motor asíncrono trifásico.}
+    \label{fgr:circuitoEquivalente}
+\end{figure}
+
+La importancia y valor del circuito equivalente del motor asíncrono es representar un sistema electromagnético complejo mediante en un circuito simple donde se agrupan los diferentes parámetros del motor en forma de resistencias e inductancias que modelan su comportamiento. \\
+
+A pesar de que el circuito equivalente de una máquina de inducción es simple, permite el cálculo de un modo sencillo no sólo de las corrientes de fase y factor de potencia, sino también del par, potencia, pérdidas y rendimiento de la máquina con un grado de precisión sorprendente si los parámetros del circuito están calculados, o son medidos, con la precisión adecuada al realizar el ensayo de vacío y el ensayo de cortocircuito.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/circuitoEquivalente2.png}
+    \caption{Circuitos equivalentes: a) exacto; b) aproximado.}
+    \label{fgr:circuitoEquivalente2}
+\end{figure}
+
+\subsection{Balance de potencias}
+
+En un motor asíncrono existe una transformación de energía eléctrica en mecánica, que se transmite desde el estátor al rotor, a través del entrehierro, y el proceso de conversión está inevitablemente ligado con las pérdidas en los diferentes órganos de la máquina. Vamos a analizar el balance de energía que se produce en el funcionamiento del motor.
+
+\begin{tcolorbox}[title=Balance de potencias]
+    La potencia que la máquina absorbe de la red, si $V_{1}$ es la tensión aplicada por fase, $I_{1}$ la corriente por fase y $r_{1}$ el desfase entre ambas magnitudes, será:
+    
+    $$P_{1} = m_{1} \cdot V_{1} \cdot I_{1} \cdot \cos{(\phi_{1})}$$
+\end{tcolorbox}
+
+Esta potencia llega al estátor, y una parte se transforma en calor por efecto Joule en sus devanados, cuyo valor es:
+
+$$P_{cu1} = m_{1} \cdot R_{1} \cdot I^{2}_{1}$$
+
+La otra parte se pierde en el hierro: $P_{Fe1}$. La suma de ambas pérdidas representa la disipación total en el estátor $P_{p1}$:
+
+$$P_{p1} = P_{cu1} \cdot P_{Fe1}$$
+
+Como se tiene que las frecuencias de las corrientes en el rotor son muy reducidas, debido a que los deslizamientos en la máquina suelen ser pequeños (por ejemplo, para $s = 5\%$ con $f_{1} = 50 Hz$, resulta una $f_{2} = 2.5 Hz < f_{1}$), se considera entonces que prácticamente es el hierro del estátor el único origen de las pérdidas ferromagnéticas. De acuerdo con el circuito equivalente del motor de la Figura \ref{fgr:circuitoEquivalente2}, se podrá escribir:
+
+$$P_{Fe} = P_{Fe_{1}} = m_{1} \cdot E_{1} \cdot I_{Fe} \approx m_{1} \cdot V_{1} \cdot I_{Fe}$$
+
+La potencia electromagnética que llegará al rotor a través del entrehierro, y que denominaremos $P_{a}$ (potencia en el entrehierro), tendrá una magnitud:
+
+$$P_{a} = P_{1} - P_{p1} = P_{1} - P_{cu1} - P_{Fe}$$
+
+En el rotor aparecen unas pérdidas adicionales debidas al efecto Joule, $P_{cu2}$, y de valor:
+
+$$P_{cu2} = m_{2} \cdot R_{2} \cdot I_{2}^{2} = m_{1} \cdot R_{2}^{'} \cdot I_{2}^{'2}$$
+
+Las pérdidas en el hierro del rotor son despreciables debido al pequeño valor de $f_{2}$. La potencia que llegará al árbol de la máquina, denominada potencia mecánica interna, $P_{mi}$, será:
+
+$$P_{mi} = P_{a} - P_{cu2}$$
+
+Que teniendo en cuenta el significado de la resistencia de carga $R_{'c}$ del circuito equivalente, se podrá poner:
+
+$$P_{mi} = m_{1} \cdot R_{2}^{'} \cdot \left( \frac{1}{s} - 1 \right) \cdot I_{2}^{'2}$$
+
+La potencia útil en el eje será algo menor, debido a las pérdidas mecánicas por rozamiento y ventilación; denominando $P_{m}$ a estas pérdidas y $P_{u}$ a la potencia útil, resultará:
+
+$$P_{u} = P_{mi} - P_{m}$$
+
+En la Figura \ref{fgr:perdidas} se muestra, en la parte superior, el circuito equivalente exacto del motor y en la parte inferior un dibujo simplificado de la máquina. En cada caso se muestran, con flechas, las pérdidas que se producen en las diversas partes del motor. Es instructivo que el lector determine las potencias con el circuito equivalente y verifique claramente la situación de las mismas en la figura real. Obsérvese en ambos casos que se obtiene una potencia útil de salida a partir de una potencia de entrada $P_{1}$. El rendimiento del motor vendrá expresado por el cociente:
+
+$$\nu = \frac{P_{u}}{P_{1}} = \frac{P_{u}}{P_{u} + P_{m} + P_{cu2} + P_{Fe} + P_{cu1}}$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/teoria/perdidas.png}
+    \caption{Circuito equivalente exacto y distribución de las potencias en el motor.}
+    \label{fgr:perdidas}
+\end{figure}
+
+\subsection{Par de rotación}
+
+\begin{tcolorbox}[title=Balance de potencias]
+    Si es $P_{u}$ la potencia mecánica útil desarrollada por el motor y $n$ la velocidad en r.p.m. a la que gira el rotor, el par útil $T$ (o torque) en N.m en el árbol de la máquina será el cociente entre $P_{u}$ y la velocidad angular de giro $\Omega = \frac{2 \cdot \pi \cdot n}{60}$, (en radianes mecánicos por segundo), y donde $n$ se expresa en r.p.m.:
+    
+    $$T = \frac{P_{u}}{\Omega} = \frac{Pu}{2 \cdot \pi \cdot \frac{n}{60}}$$
+\end{tcolorbox}
+
+De la definición de deslizamiento se deduce:
+
+$$s = \frac{n_{1} - n}{n_{1}}$$
+
+Y la expresión del par se convierte en:
+
+$$T = \frac{Pa}{2 \cdot \pi \cdot \frac{n1 \cdot (1 - s)}{60}}$$
+
+\section{Variadores de frecuencia}
+
+Un variador de frecuencia (siglas VFD, del inglés: Variable Frequency Drive o bien AFD Adjustable Frequency Drive) es un sistema para el control de la velocidad rotacional de un motor de corriente alterna (AC), esto se consigue mediante el control de la frecuencia de alimentación suministrada al motor. Un variador de frecuencia es un caso especial de un variador de velocidad. Los variadores de frecuencia son también conocidos como drivers de frecuencia ajustable (AFD), drivers de CA o microdrivers. Dado que la tensión (o voltaje) se hace variar a la vez que la frecuencia.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/teoria/funcionamientoDelVariador.png}
+    \caption{Esquema del funcionamiento de un variador de velocidad.}
+\end{figure}
+
+La forma de variar la frecuencia básicamente consta de cambiar el ciclo de trabajo (tiempo ON y tiempo OFF en un período) de una onda cuadrada periódica, de tal forma que el valor medio de la tensión (el promedio) a lo largo del tiempo varíe entre V máximo y V mínimo. Como se puede observar en la Figura \ref{fgr:pwmMax} y \ref{fgr:pwmMin}. La velocidad con que variamos el ciclo de trabajo, o sea su valor medio, será la frecuencia de variación del valor medio. \\
+
+Esto físicamente se logra a través de conmutación que son producidos por los IGBT (transistores bipolares de compuerta aislada) que actúan como interruptores que al cerrarse y abrirse por medio de un software específico conforman la onda cuadrada, que permite obtener la señal sinusoidal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/teoria/pwmMax.png}
+    \caption{Variación del voltaje al máximo.}
+    \label{fgr:pwmMax}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/teoria/pwmMin.png}
+    \caption{Variación del voltaje al mínimo.}
+    \label{fgr:pwmMin}
+\end{figure}
+
+\subsection{Control en un variador de frecuencia}
+
+Los cálculos siguientes se basaron en el documento \cite{EVFMCA}. \\
+
+El rango normal de operación de un motor de inducción típico está asociado a menos del 5\% de deslizamiento y la variación de velocidad en ese rango es proporcional a la carga sobre el eje del motor. Si el deslizamiento aumenta, la eficiencia del motor es muy baja puesto que las pérdidas en el cobre del rotor son directamente proporcionales al deslizamiento del motor. \\
+
+Cuando se trabaja a velocidades inferiores a la velocidad base del motor es necesario reducir el voltaje aplicado a los terminales del estator. El voltaje aplicado debe disminuir linealmente con la disminución de la frecuencia. Este proceso se conoce como degradación (derating). Si esto no se hace, se satura el acero del núcleo del motor de inducción y fluyen corrientes de magnetización excesivas en las máquina. \\
+
+Una justificación matemática se obtiene al calcular el flujo en el núcleo de un motor de inducción aplicando la ley de Faraday:
+
+$$v(t) = -N \cdot \frac{d \phi}{dt}$$
+
+Si se aplica un voltaje $v(t) = V_{m} \cdot \sin{(\omega \cdot t)}$ al núcleo, el flujo $\phi$ resultante es:
+
+$$\phi(t) = \frac{1}{N_{p}} \cdot \int v(t) \cdot dt = \frac{1}{N_{p}} \cdot \int V_{m} \cdot \sin{(\omega \cdot t)} \cdot dt$$
+
+$$\phi(t) = - \frac{V_{m}}{\omega \cdot N_{p}} \cdot \cos{(\omega \cdot t)}$$
+
+La frecuencia eléctrica aparece en el denominador de la ecuación. Entonces, si la frecuencia eléctrica aplicada al estátor disminuye en 10\%, mientras que la magnitud del voltaje aplicado al estátor permanece constante, el flujo en el núcleo del motor se incrementa cerca del 10\%, al igual que la corriente de magnetización.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/teoria/curvaParVelocidad.png}
+    \caption{Curvas par-velocidad para velocidades por debajo de la 		velocidad base, suponiendo que el voltaje de línea disminuye 		linealmente con la frecuencia.}
+\end{figure}
+
+Cuando el voltaje aplicado a un motor de inducción varía linealmente con la frecuencia por debajo de la velocidad base, el flujo en el motor permanece aproximadamente constante. \\
+
+Cuando la frecuencia eléctrica aplicada al motor excede su frecuencia nominal, el voltaje del estátor es mantenido constante en el valor nominal. Cuanto mayor sea la
+frecuencia eléctrica sobre la velocidad base, mayor es el denominador de la ecuación de flujo. Puesto que el término del numerador se mantiene constante cuando se trabaja sobre la frecuencia nominal, disminuyen el flujo resultante en la máquina y el par máximo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/teoria/curvaParVelocidadPorEncima.png}
+    \caption{Familia de curvas características par-velocidad para 		velocidades por encima de la velocidad base y voltaje constante.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/teoria/variador.jpg}
+    \caption{Imagen de un variador de frecuencia.}
+\end{figure}
+
+\section{Sistemas}
+Un sistema es un conjunto de elementos relacionados entre sí que funciona como un todo. \\
+
+Si bien cada uno de los elementos de un sistema puede funcionar de manera independiente, siempre formará parte de una estructura mayor. Del mismo modo, un sistema puede ser, a su vez, un componente de otro sistema.
+
+\subsection{Tipos de sistemas}
+
+\textbf{Un sistema dinámico} es un sistema cuyo estado evoluciona con el tiempo. Los sistemas físicos en situación no estacionaria son ejemplos de sistemas dinámicos, pero también existen modelos económicos, matemáticos y de otros tipos que son sistemas abstractos que son, además, sistemas dinámicos. El comportamiento en dicho estado se puede caracterizar determinando los límites del sistema, los elementos y sus relaciones. De esta forma se pueden elaborar modelos que buscan representar la estructura del mismo sistema. \\
+
+Al definir los límites del sistema se hace, en primer lugar, una selección de aquellos componentes que contribuyan a generar los modos de comportamiento, y luego se determina el espacio donde se llevará a cabo el estudio, omitiendo toda clase de aspectos irrelevantes. \\
+
+\textbf{Un sistema estático} es aquel cuyo estado permanece invariante en el tiempo, es decir, que alcanzaron el estado estable y cuya salida permanece estática.
+
+\subsection{Modelos}
+
+El uso de modelos, a veces llamado "modelado", es un instrumento muy común en el estudio de sistemas de toda índole. Los modelos son especialmente importantes porque ellos nos ayudan a comprender el funcionamiento de los sistemas. El empleo de modelos facilita el estudio de los sistemas, aún cuando éstos puedan contener muchos componentes y mostrar numerosas interacciones como puede ocurrir si se trata de conjuntos bastante complejos y de gran tamaño.
+
+\subsection{Modelos matemáticos}
+
+Un modelo matemático es uno de los tipos de modelos que emplea algún tipo de formulación matemática para expresar relaciones, proposiciones sustantivas de hechos, variables, parámetros, entidades y relaciones entre variables de las operaciones, para estudiar sistemas ante determinadas situaciones y poder inferir su comportamiento en la realidad.
+
+\subsection{Proceso de modelado de un sistema}
+
+Para poder modelar correctamente un sistema es necesario realizar una serie de pasos:
+
+\begin{itemize}
+    \item{Definir detalladamente el tipo de sistema a controlar.}
+    \item{Establecer los límites de operación y las condiciones de trabajo del sistema.}
+    \item{Simplificar el comportamiento enfocándose en el comportamiento base del sistema.}
+    \item{Establecer las hipótesis básicas que definen el comportamiento.}
+    \item{Escribir las ecuaciones usando leyes y distintos teoremas matemáticos.}
+    \item{Estimar el valor de los parámetros.}
+    \item{Validar el modelo experimentalmente.}
+\end{itemize}
+
+\section{Sistemas de control}
+
+Uno de los recursos más utilizados en el sector industrial es el sistema de control. Toda producción liderada por ingeniería requiere de este proceso para lograr objetivos determinados. La función de este sistema es la de gestionar o regular la forma en que se comporta otro sistema para así evitar fallas. \\
+
+El sistema de control de procesos está formado por un conjunto de dispositivos de diverso orden. Pueden ser de tipo eléctrico, neumático, hidráulico, mecánico, entre otros. El tipo o los tipos de dispositivos están determinados, en buena medida, por el objetivo a alcanzar. \\
+
+Pero un sistema de control no se establece como tal solo por contar con estos dispositivos, sino que debe seguir la lógica de al menos 3 elementos base:
+
+\begin{itemize}
+    \item{Una variable a la que se busca controlar.}
+    \item{Un actuador.}
+    \item{Un punto de referencia o set-point.}
+\end{itemize}
+
+En una operación de control de oxígeno disuelto, por ejemplo, la lógica del sistema de control debe utilizar sus 3 elementos. La variable por controlar es el OD. El punto de referencia o set-point viene dado por la cantidad de barro, DBO, DQO, etc, mientras que el actuador, sería el que ejecutaría la acción de llenado, en este caso un soplador de tipo roots.
+
+\subsection{Transformada de Laplace}
+
+El método de la transformada de Laplace es un metodo operativo que aporta muchas ventajas cuando se usa para resolver ecuaciones diferenciales lineales. Mediante el uso de la transformada de Laplace, es posible convertir muchas funciones comunes, tales como las funciones senoidales, las funciones senoidales amortiguadas y las funciones exponenciales, en funciones algebraicas de una variable s compleja. Las operaciones tales como la diferenciación y la integración se sustituyen mediante operaciones algebraicas en el plano complejo. Por tanto, en una ecuación algebraica, una ecuación diferencial lineal se transforma en una variable compleja $s$. Si se resuelve la ecuación algebraica en $s$ para la variable dependiente, la solución de la ecuación diferencial (la transformada inversa de Laplace de la variable dependiente) se encuentra mediante una tabla de transformadas de Laplace o una técnica de expansión en fracciones parciales.
+
+\begin{tcolorbox}[title=Transformada de Laplace]
+    \textbf{La transformada de Laplace} es un tipo de transformada integral frecuentemente usada para la resolución de ecuaciones diferenciales ordinarias. La transformada de Laplace de una función $f(t)$ definida para todos los números positivos $t \geq 0$, es la función:
+    
+    $$F(s) = \mathcal{L} \left\lbrace f(t) \right\rbrace = \int_{0}^{\infty}{e^{-st} f(t) dt}$$
+\end{tcolorbox}
+
+\subsection{Lugar geométrico de las raíces}
+
+La idea básica detrás del método del lugar geométrico de las raíces es que los valores des que hacen que la función de transferencia alrededor del lazo sea igual $a - 1$ deben satisfacer la ecuación característica del sistema. El método debe su nombre al lugar geométrico de las raíces de la ecuación característica del sistema en lazo cerrado conforme la ganancia varía de cero a infinito. Dicha gráfica muestra claramente cómo contribuye cada polo o cero en lazo abierto a las posiciones de los polos en lazo cerrado. \\
+
+Al diseñar un sistema de control lineal, encontramos que el método del lugar geométrico de las raíces resulta muy útil, dado que indica la forma en la que deben modificarse los polos y ceros en lazo abierto para que la respuesta cumpla las especificaciones de desempeño del sistema. Este método es particularmente conveniente para obtener resultados aproximados con mucha rapidez. Algunos sistemas de control pueden tener más de un parámetro que deba ajustarse. El diagrama del lugar geométrico de las raíces, para un sistema que tiene parámetros múltiples, se construye variando un parámetro a la vez. En este capítulo incluimos el análisis de los lugares geométricos de las raíces para un sistema de dos parámetros. Los lugares geométricos de las raíces para tal caso se denominan contornos de Zas raíces. \\
+
+El método del lugar geométrico de las raíces es una técnica gráfica muy poderosa para investigar los efectos de la variación de un parámetro del sistema sobre la ubicación de los polos en lazo cerrado. En la mayor parte de los casos, el parámetro del sistema es la ganancia de lazo $K$, aunque el parámetro puede ser cualquier otra variable del sistema. Si el diseñador sigue las reglas generales para construir los lugares geométricos, le resultará sencillo trazar los lugares geométricos de las raíces de un sistema específico.
+
+\subsection{Tipos de sistemas de control}
+
+\subsubsection{Sistema de control de lazo abierto}
+
+En este tipo no existe información o retroalimentación sobre la variable a controlar. Es decir, la salida no depende en absoluto de la entrada. Se utiliza entonces en procesos y dispositivos en donde la variable es predecible y admite un margen de error amplio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/sistemasDeControlLazoAbierto.png}
+    \caption{Diagrama de un control de lazo abierto.}
+\end{figure}
+
+Un ejemplo muy claro es el del semáforo. Este sistema de control es de lazo abierto porque se asigna un tiempo a cada luz, pero no se tiene información sobre el volumen de tráfico.
+
+\subsubsection{Sistemas de control de lazo cerrado}
+
+Contrario al caso anterior, en este tipo de sistema de control sí hay información sobre la variable, incluso retroalimentación sobre los estados que va tomando. La información sobre la variable se obtiene mediante el uso de sensores que son colocados de forma estratégica. Los sensores hacen posible que el proceso sea completamente autónomo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/sistemasDeControlLazoCerrado.png}
+    \caption{Diagrama de un control de lazo cerrado.}
+\end{figure}
+
+Un ejemplo muy común es el de los aparatos minisplit o aires acondicionados. En estos dispositivos la variable es la temperatura ambiental. Los sensores determinan si debe o no entrar el compresor para enfriar el lugar. \\
+
+La ingeniería de un proceso de control parecería simple con sus tres elementos base requeridos, sin embargo, es todo lo contrario. Se trata de sistemas básicos para la ingeniería industrial, incluyendo la automatización y que incluso encontramos en casi todos los equipos que usamos en nuestra vida diaria.
+
+\subsection{Tipos de sistemas de control de lazo cerrado}
+
+\subsubsection{Control ON-OFF}
+
+En procesos en los que no se requiere un control muy preciso, el control dos-posiciones on/off, puede ser el adecuado. \\
+
+En este tipo de control, el elemento final de control se mueve rápidamente entre una de dos posiciones fijas a la otra, para un valor único de la variable controlada. \\
+
+Un controlador on-off opera sobre la variable manipulada solo cuando la temperatura cruza la temperatura deseada SP. La salida tiene solo dos estados, completamente activado (on) y completamente desactivado (off). Un estado es usado cuando la temperatura está en cualquier lugar sobre el valor deseado y el otro estado es usado cuando la temperatura está en cualquier punto debajo de la temperatura deseada SP. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/onOff.jpg}
+    \caption{Diagrama de un control ON-OFF.}
+\end{figure}
+
+Dado que la temperatura debe cruzar la temperatura deseada SP para cambiar el estado de salida, la temperatura del proceso estará continuamente oscilando. \\
+
+Para evitar dañar los dispositivos de control finales un diferencial on-off o histéresis es agregada a la función del controlador. Esta función requiere que la temperatura exceda la temperatura deseada SP en una cierta cantidad antes de que la salida se desconecte nuevamente. La histéresis evitará vibraciones de la salida si el ruido de pico a pico es menor que la histéresis. La cantidad de histéresis determina la variación mínima de temperatura posible.
+
+Los controladores son elementos que se le agregan al sistema original para mejorar sus características de funcionamiento, con el objetivo de satisfacer las especificaciones de diseño tanto en régimen transitorio como en estado estable. \\
+
+La primera forma para modificar las características de respuesta de los sistemas es el ajuste de ganancia (lo que posteriormente se definirá como control proporcional). Sin embargo, aunque por lo general el incremento en ganancia mejora el funcionamiento en estado estable, se produce una pobre respuesta en régimen transitorio y viceversa.
+
+\subsubsection{Compensador de fase}
+
+Un compensador es un componente adicional que es aumentado a un sistema de control para modificar el desempeño en lazo cerrado y compensar por un desempeño deficiente. A diferencia de los controladores, los compensadores pueden ubicarse en cualquier posición del sistema de control. \\
+
+\textbf{Compensador de atraso} \\
+
+La compensación de atraso produce un mejoramiento notable en la precisión en estado estable a costa de aumentar el tiempo de respuesta transitoria. Suprime los efectos de las señales de ruido a altas frecuencias. Aumenta el orden del sistema en 1 (a menos que haya una cancelación entre el cero del compensador y un polo de la función de transferencia en lazo abierto no compensada). \\
+
+La función principal de un compensador de atraso es proporcionar una atenuación en el rango de las frecuencias altas a fin de aportar un margen de fase suficiente al sistema. La característica de atraso de fase no afecta la compensación de atraso. \\
+
+\textbf{Compensador de adelanto} \\
+
+Produce un mejoramiento razonable en la respuesta transitoria y un cambio pequeño en la precisión en estado estable. Puede acentuar los efectos del ruido de alta frecuencia. Aumenta el orden del sistema en 1 (a menos que haya una cancelación entre el cero del compensador y un polo de la función de transferencia en lazo abierto no compensada). \\
+
+\textbf{Compensador de atraso-adelanto} \\
+
+La compensación de atraso-adelanto combina las características de la compensación de adelanto con las de la compensación de atraso. El uso de un compensador de atraso adelanto eleva el orden del sistema en 2 (a menos que haya una cancelación entre el cero, o los ceros, del compensador de atraso adelanto y el polo, o los polos, de la función de transferencia en lazo abierto no compensada).
+
+\subsubsection{Controlador P (proporcional)}
+
+Se dice que un control es de tipo proporcional cuando la salida del controlador $v(t)$ es proporcional al error $e(t)$:
+
+$$v(t) = Kp \cdot e(t)$$
+
+Puesto que la ganancia $Kp$ del controlador es proporcional, ésta puede ajustarse. En general, para pequeñas variaciones de ganancia, aunque se logra un comportamiento aceptable en régimen transitorio, la respuesta de estado estable lleva implícita una magnitud elevada de error. \\
+
+Al tratar de corregir este problema, los incrementos de ganancia mejorarán las características de respuesta de estado estable en detrimento de la respuesta transitoria. Por lo anterior, aunque el control P es fácil de ajustar e implementar, no suele incorporarse a un sistema de control en forma aislada, sino más bien se acompaña de algún otro elemento.
+
+\subsubsection{Controlador D (derivativo)}
+
+Se dice que un control es de tipo derivativo cuando la salida del controlador $v(t)$ es proporcional a la derivada del error $e(t)$:
+
+$$v(t) = Kd \cdot \frac{de(t)}{dt}$$
+
+Donde Kd es la ganancia del control derivativo. La constante Kd puede escribirse en términos de Kp:
+
+$$Kd = Kp \cdot Td$$
+
+donde Td es un factor de proporcionalidad ajustable que indica el tiempo de derivación. \\
+
+El significado de la derivada se relaciona con la velocidad de cambio de la variable dependiente, que en el caso del control derivativo indica que éste responde a la rapidez de cambio del error, lo que produce una corrección importante antes de que el error sea elevado. Además, la acción derivativa es anticipativa, esto es, la acción del controlador se adelanta frente a una tendencia de error (expresado en forma de derivada). Para que el control derivativo llegue a ser de utilidad debe actuar junto con otro tipo de acción de control, ya que, aislado, el control derivativo no responde a errores de estado estable.
+
+\subsubsection{Controlador I (integral)}
+
+Se dice que un control es de tipo integral cuando la salida del controlador $v(t)$ es proporcional a la integral del error $e(t)$:
+
+$$v(t) = Ki \cdot \int e(t) \cdot dt$$
+
+Donde Ki es la ganancia del control integral. En cualquier tipo de controlador, la acción proporcional es la más importante, por lo que la constante Ki puede escribirse en términos de Kp:
+
+$$Ki = \frac{Kp}{Ti}$$
+
+Donde Ti es un factor de proporcionalidad ajustable que indica el tiempo de integración. \\
+
+El control integral tiende a reducir o hacer nulo el error de estado estable, ya que agrega un polo en el origen aumentando el tipo del sistema; sin embargo, dicho comportamiento muestra una tendencia del controlador a sobrecorregir el error. Así, la respuesta del sistema es de forma muy oscilatoria o incluso inestable, debido a la reducción de estabilidad relativa del sistema ocasionada por la adición del polo en el origen por parte del controlador.
+
+\subsubsection{Controlador PI (proporcional-integral)}
+
+Se dice que un control es de tipo proporcional-integral cuando la salida del controlador $v(t)$ es proporcional al error $e(t)$, sumado a una cantidad proporcional a la integral del error $e(t)$:
+
+$$v(t) = Kp \cdot e(t) + \frac{Kp}{Ti} \cdot \int e(t) \cdot dt$$
+
+La ecuación corresponde a un factor proporcional Kp que actúa junto con un cero ubicado en $z = \frac{-1}{Ti}$ (cuya posición es ajustable sobre el eje real a la izquierda del origen) y un polo en el origen.
+
+\subsubsection{Controlador PD (proporcional-derivativo)}
+
+Se dice que un control es de tipo proporcional-derivativo cuando la salida del controlador $v(t)$ es proporcional al error $e(t)$, sumado a una cantidad proporcional a la derivada del error $e(t)$:
+
+$$v(t) = Kp \cdot e(t) + Kp \cdot Td \cdot \frac{de(t)}{dt}$$
+
+La ecuación indica un factor proporcional Kp Td, que actúa junto con un cero $z = \frac{-1}{Td}$, cuya posición es ajustable en el eje real. \\
+
+La ecuación indica un factor proporcional Kp Td que actúa junto con un par de ceros (distintos, repetidos o complejos, cuya posición es ajustable en el plano s) y un polo en el origen.
+
+\subsubsection{Controlador PID (proporcional-integral-derivativo)}
+
+Se dice que un control es de tipo proporcional-integral-derivativo cuando la salida del controlador $v(t)$ es proporcional al error $e(t)$, sumado a una cantidad proporcional a la integral del error $e(t)$ más una cantidad proporcional a la derivada del error $e(t)$:
+
+$$v(t) = Kp \cdot e(t) + \frac{Kp}{Ti} \cdot \int e(t) \cdot dt + Kp \cdot Td \cdot \frac{de(t)}{dt}$$
+
+\subsubsection{Características de los tipos de controladores}
+
+Como conclusión, se enumeran las principales características de los diferentes tipos de controladores: P, PI, PD y PID. \\
+
+\textbf{Control proporcional}:
+
+\begin{itemize}
+    \item{El tiempo de elevación experimenta una pequeña reducción.}
+    \item{El máximo pico de sobreimpulso se incrementa.}
+    \item{El amortiguamiento se reduce.}
+    \item{El tiempo de asentamiento cambia en pequeña proporción.}
+    \item{El error de estado estable disminuye con incrementos de ganancia.}
+    \item{El tipo de sistema permanece igual.}
+\end{itemize}
+
+\textbf{Control proporcional-integral:}
+
+\begin{itemize}
+    \item{El amortiguamiento se reduce.}
+    \item{El máximo pico de sobreimpulso se incrementa.}
+    \item{Decrece el tiempo de elevación.}
+    \item{El tipo de sistema se incrementa en una unidad.}
+    \item{El error de estado estable mejora por el incremento del tipo de sistema.}
+\end{itemize}
+
+\textbf{Control proporcional-derivativo:}
+
+\begin{itemize}
+    \item{El amortiguamiento se incrementa.}
+    \item{El máximo pico de sobreimpulso se reduce.}
+    \item{El tiempo de elevación experimenta pequeños cambios.}
+    \item{Se mejoran el margen de ganancia y el margen de fase.}
+    \item{El error de estado estable presenta pequeños cambios.}
+    \item{El tipo de sistema permanece igual.}
+\end{itemize}
+
+\textbf{Control proporcional-integral-derivativo:} \\
+
+Este tipo de controlador contiene las mejores características del control proporcional-derivativo y del control proporcional-integral.
+
+\subsection{Efectos de añadir polos y ceros al sistema}
+
+\textbf{Efecto de añadir polos:} \\
+
+El incremento en el número de polos en un sistema ocasiona que el lugar geométrico de raíces se desplace hacia la derecha del eje $j \omega$, lo que reduce la estabilidad relativa del sistema o, en algunos casos, lo hace inestable. \\
+
+\textbf{Efecto de añadir ceros:} \\
+
+Incorporar ceros en un sistema produce que el lugar geométrico de raíces se desplace hacia el semiplano izquierdo, lo que hace estable o más estable al sistema. \\
+
+En términos generales, el diseño de los controladores se enfoca en la adición de ceros para mejorar la respuesta transitoria, así como la colocación de un polo en el origen para corregir el comportamiento de estado estable del sistema.
+
+\subsection{Diagrama de Bode}
+
+Un diagrama de Bode es una representación gráfica que sirve para caracterizar la respuesta en frecuencia de un sistema. Normalmente consta de dos gráficas separadas, una que corresponde con la magnitud de dicha función y otra que corresponde con la fase. Recibe su nombre del científico estadounidense que lo desarrolló, Hendrik Wade Bode. \\
+
+La respuesta en amplitud y en fase de los diagramas de Bode no pueden por lo general cambiarse de forma independiente: cambiar la ganancia implica cambiar también desfase y viceversa. En sistemas de fase mínima (aquellos que tanto su sistema inverso como ellos mismos son causales y estables) se puede obtener uno a partir del otro mediante la transformada de Hilbert.
+
+\section{Internet of Things (IoT)}
+
+Internet de las cosas, Internet of Things o IoT (por sus siglas en inglés), es un concepto abstracto. De su nombre se desprende el concepto de cosas cotidianas que se conectan a Internet, pero en realidad se trata de mucho más que eso. IoT potencia objetos que antiguamente no estaban conectados a una red o que se conectaban mediante circuito cerrado, como comunicadores, cámaras, sensores, y demás, y les permite comunicarse globalmente mediante el uso de la red de redes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/teoria/iot.jpg}
+\end{figure}
+
+Una posible definición de IoT es considerarla como una red que interconecta objetos físicos y virtuales valiéndose de Internet. Tales dispositivos utilizan software embebido, que le permite no solo la conectividad a Internet, sino que además brindan servicios en función de acciones dictadas remotamente las cuales pueden ser resultado de eventos específicos o del aprendizaje de la información recibida. En resumen, se trata de la interconexión digital de los objetos.
+
+\subsection{Caracteristicas}
+
+IoT consiste en desarrollos de software y hardware que cuentan con todas las herramientas necesarias para cumplir tareas muy específicas. Cada uno de los objetos conectados a Internet tiene un número de IP y mediante este puede ser accedido para recibir instrucciones. Asimismo, puede contactarse con un servidor externo y enviar los datos que recoja. \\
+
+En este sentido, las principales características de IoT son:
+
+\begin{itemize}
+    \item{\textbf{Interconectividad:} Cualquier cosa se puede interconectar con la infraestructura global de TIC.}
+    \item{\textbf{Servicios relacionados con las cosas:} IoT es capaz de proveer servicios relacionados con objetos sin los propios constreñimientos de las cosas, como la consistencia semántica entre las cosas físicas y las cosas asociadas a ellas virtualmente.}
+    \item{\textbf{Heterogeneidad:} los dispositivos IoT son heterogéneos al estar basados en hardwares muy variados de plataformas y redes, y a su vez pueden interactuar con otros dispositivos o servicios en otras plataformas o redes.}
+    \item{\textbf{Cambios dinámicos:} el estado de los dispositivos cambia muy dinámicamente, generalmente de acuerdo al usuario. Por ejemplo, de dormir a despertarse, conectado o desconectado, y también de acuerdo al contexto y velocidad necesarias.}
+\end{itemize}
+
+\subsection{Tendencias de uso}
+
+El sector privado es aquel donde IoT se está haciendo cada vez más popular. Entre los sectores empresarios que están haciendo uso de este nuevo fenómeno, se pueden mencionar:
+
+\begin{itemize}
+    \item{\textbf{La industria de producción en masa:} la maquinaria que se encarga de controlar los procesos de fabricación, robots ensambladores, sensores de temperatura, control de producción, etc.}
+    \item{\textbf{Control de infraestructura urbana:} control de semáforos, puentes, vías de tren, cámaras urbanas.}
+    \item{\textbf{Control ambiental:} sensores atmosféricos, meteorológicos, sísmicos, etc.}
+    \item{\textbf{Sector salud:} monitoreo activo de pacientes de manera ambulatoria y no invasiva.}
+    \item{\textbf{Transporte:} seguimiento satelital, control del estado de los automotores, autos conectados, etc.}
+    \item{\textbf{Industria energética:} Smart Grid, una solución para gestionar la demanda de electricidad e integrar fuentes de energía renovables, mejorar el servicio al cliente y reducir el consumo energético.}
+\end{itemize}
+
+El gran pendiente al momento es el mercado de consumo, es decir, los hogares, pero poco a poco surgen dispositivos como lámparas, cerraduras, termostatos, etc.
+
+\section{Big Data}
+
+Actualmente no existe un consenso claro entre los diferentes autores sobre una definición de Big Data generalmente aceptada, los autores aquí analizados definen el Big Data desde perspectivas diferentes, aunque todas ellas complementarias. Para el propósito de este trabajo y en un intento de hacer síntesis de entre las diferentes definiciones que dan varios autores y de una forma muy general podríamos definir el Big Data como grandes volúmenes de datos o datos masivos, y todas las cosas que se pueden hacer con estos datos pero a gran escala.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/teoria/bigdata.jpg}
+\end{figure}
+
+Pero Big Data no es solo datos: podríamos decir que el Big Data se reparte entre los datos y todos los procesos que se agrupan alrededor de estos datos, desde la recogida de los mismos, el almacenamiento y su posterior procesamiento o análisis, todo ello con objetivo de extraer valor de los mismos. Desde una perspectiva más conceptual se puede decir que el Big Data no es tan grande pensando en términos absolutos de una gran cantidad de datos (que los es), más bien es el concepto relativo de recoger casi el todo acerca algo y su posterior análisis.

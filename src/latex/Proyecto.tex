@@ -1,0 +1,931 @@
+\chapter{Proyecto}
+
+\pagestyle{empty}
+
+\hrule
+\vspace*{0.3cm}
+\localtableofcontents
+\vspace*{0.3cm}
+\hrule
+
+\newpage
+
+\pagestyle{fancy}
+
+\section{Eficiencia energética}
+	
+Gracias al control a demanda de los sopladores, los motores encargados de la aireación no funcionarían al 100\% siempre, esto provocara el desbloqueo de un potencial ahorro energético.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/sopladores.png}
+\end{figure}
+
+En ventiladores y bombas centrífugas se cumple que el caudal es proporcional a la velocidad, la presión o altura es proporcional al cuadrado de la relación de velocidad y, por consiguiente, la potencia (caudal x altura) es proporcional al cubo de la relación de velocidades.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| l | l |}
+            \hline
+            \multicolumn{2}{| c |}{Sopladores de aireación} \\ \hline
+            Tipo & Desplazamiento positivo \\
+            Marca & Repicky \\
+            Modelo & R3.0 \\
+            Capacidad & 1.631$m^{3} / h$ \\
+            Tamaño del motor & 75HP \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \caption{Características de los Sopladores Repicky R3.0 encargados del proceso de aireación.}
+\end{table}
+
+Esto significa que si a $1500rpm$ se consumen $75HP$ de potencia, a $750rpm$ consumirá:
+
+$$P_{out} = \left( \frac{750rpm}{1500rpm} \right)^{3} \cdot 75HP = 9.375HP$$
+
+En otras palabras, al disminuir la velocidad a la mitad (o caudal a la mitad), se consumen sólo $9.375HP$, es decir, se ahorra un $87.5\%$. \\
+
+Tomando como fuente el proyecto de grado \cite{ATEVF} en donde se detalla y se cita un estudio de ahorro energético en diversas aplicaciones de motores de inducción utilizando variadores de frecuencia, podemos ver la siguiente tabla:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| l | l | l |}
+            \hline
+            \textbf{Aplicación} & \textbf{Ahorro promedio} & \textbf{Aplicabilidad} \\ \hline
+            Bombas & 35\% & 60\% \\ \hline
+            Ventiladores & 35\% & 60\% \\ \hline
+            Compresores de aire & 15\% & 30\%\\ \hline
+            Compresores fríos & 15\% & 40\% \\ \hline
+            Tornillos sin fin & 15\% & 60\% \\ \hline
+            Otros & 15\% & 60\% \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \caption{Potencial de ahorro en el sector industrial.}
+\end{table}
+
+Este caso las bombas impulsoras son equipos que se encuentran sometidos a variaciones durante su operación. Por eso es importante la incorporación de variadores de frecuencia a los motores encargados de generar la estrangulación de aire. \\
+
+Se puede observar que el ahorro promedio ronda en torno a los $35\%$. Esto se puede traducir directamente en costo energético.
+
+\subsection{Cálculo económico}
+
+Si los sopladores se encuentran funcionando al $100\%$ las 24 horas del día, y su potencia nominal es de $75HP$, o lo que es igual a $55.9275kW$. Podemos calcular el consumo en $kWh$ en un mes, que se verá reflejado directamente en la tarifa eléctrica. \\
+
+El costo de la energía se compone de 2 facturas, la primera es el costo de la energía en el mercado mayorista (CAMMESA) y la segunda factura es el costo del transporte de la Energía (PEAJE), en este caso ENERSA es quien se encarga de vincular al \textbf{usuario mayorista} con el sistema Interconectado (SADI), por lo tanto es quien cobra una tarifa de peaje. \\
+
+Puntualmente no tenemos datos del contrato particular de EGGER acerca de la compra en el mercado mayorista, pero como referencia hay un cuadro de la resolución de la secretaria de energía donde figura el costo de la energía y potencia para los grandes usuarios conectados a las distribuidoras (el costo para EGGER debería ser un poco menor a ese precio). \\
+
+Al día de hoy (12 de mayo de 2021), el costo del $MWh$ según la resolución SE N°204-2021 de CAMMESA, que abarca desde mayo a octubre del 2021, es de $\$5500$ en promedio entre pico, valle y resto. Esto significa que el $kWh$ quedaría en $\$5.5$. Además se debe tener en cuenta el "peaje", a cargo de ENERSA para conectar a EGGER con el sistema interconectado (SADI), cuyo costo promedio es de $\$0.092$ por $kWh$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/energia/costoCammesa.png}
+\end{figure}
+
+Si la potencia eléctrica de los motores es de $55.9275kW$, eso significa un consumo de $55.9275kWh$. Si el rendimiento de los motores en este régimen según la hoja de datos de los Sopladores Repicky R3.0 75HP es del $92.7\%$ con un factor de potencia de $0.86$ entonces el consumo sera de $60.331kWh$ aproximadamente. \\
+
+Si se produce un ahorro cercano al promedio (siendo un poco mas conservadores) del $30\%$ entonces eso implicaría un ahorro de $18.1kWh$. Se debería tener un ahorro de $\$75304.1$ por mes. Si sumamos el costo. Eso en por año se traduce en $\$886645.15$. \textbf{Casi 900 mil de pesos anuales}. \\
+
+Todo esto sin contar las operaciones de parada y marcha de los sopladores, que es en donde mas consumo se puede observar y la instalación esta sometida a picos de corriente enormes.
+
+\section{Fundamentación tecnológica}
+
+La incorporación de un sistema de gestión del proceso de aireación supone mejoras no solo en el aspecto económico y de eficiencia energética, también permite incorporar soluciones tecnológicas modernas y emergentes que facilitan en gran medida la operación y mejora del proceso. \\
+
+El siguiente esquema muestra a grandes rasgos los componentes del sistema de control:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/mejora.png}
+\end{figure}
+
+\subsection{Automatización}
+
+Durante el proceso de arranque del soplador (según el instructivo de uso de la página oficial de Repicky) el mismo debe hacerse en vació, es decir, sin carga. Esto se logra abriendo una válvula de alivio que expulsa todo el aire a la atmósfera. Luego de encontrarse en operación nominal, esta válvula se cierra de a poco y produce el acoplamiento de la carga de manera suave. \\
+
+Este proceso, puede ser tedioso por el operario y puede someter la cañería a cambios de presión de aire bruscas, que podrían incluso desoldar la instalación o provocar trabajo forzado por parte del motor. \\
+
+Mediante la incorporación de un controlador de sopladores, este proceso no es necesario, ya que el motor, arranca a pleno torque y lo hace de una manera muy suave, lo que hace innecesario el uso de la válvula de alivio. También, a su vez, facilita en gran medida la tarea del operario, ya que este no necesita intervenir en el proceso de arranque y apagado, y se puede observar toda la información del proceso en el panel de control.
+
+\subsubsection{Problemas que surgen en el arranque de motores asíncronos}
+
+\begin{itemize}
+    \item{El pico de corriente en el arranque puede perturbar el funcionamiento de otros aparatos conectados a la red.}
+    \item{Las sacudidas mecánicas que se producen durante los arranques y las paradas pueden ser inaceptables para la máquina, así cómo para la seguridad y comodidad de los usuarios.}
+    \item{Funcionamiento a velocidad constante.}
+\end{itemize}
+
+El control de velocidad en los motores de inducción eliminan estos inconvenientes. Adecuados para motores de corriente tanto alterna cómo continua, garantizan la aceleración y desaceleración progresivas y permiten adaptar la velocidad a las condiciones de exportación de forma muy precisa.
+
+\subsection{Fiabilidad}
+
+El sistema controlador de aireación posee funciones de prevención y acción ante una falla. El seguimiento inteligente de los parámetros de control reduce en gran medida las consecuencias de una falla grave en el proceso, incluso pudiendo llegar a evitarlos. \\
+
+Gracias al enfoque modular y descentralizado del control de procesos, es posible reaccionar y minimizar el impacto de fallos producidos en cualquier etapa del proceso de tratamiento. El controlador de aireación es el encargado de obtener el valor de los sensores y en base a esa medida, ajustar la potencia de los sopladores. Es poco probable, pero si se produjera un error en alguna etapa de control (sea en el propio controlador o en los sensores), se emitiría una alerta de manera inmediata y el proceso pasará a realizarse con los parámetros por defecto. \\
+
+Y si fuera necesario también se puede anular o cambiar cualquier etapa de control a un valor anterior hasta solucionar el problema presente. Lo que evita tiempos de parada de planta muy extensos y costosos.
+
+\subsection{Flexibilidad}
+
+Otra ventaja del control modular, es que se pueden incorporar sistemas de gestión y control extras, que complementen al controlador pudiendo expandir sus capacidades mas allá para lo que fue pensado inicialmente. \\
+
+Esto fue pensado con un enfoque de industria 4.0. En donde todo es fácilmente adaptable y configurable, lo que permite que la industria se adaptable a la perfección a nuevos requerimientos.
+
+\subsection{Sin riesgos}
+
+El proceso actual de tratamiento de efluentes no requiere de muchos cambios, esto significa que las mejoras pueden implementarse en etapas. Reduciendo así el riego de fallos e incompatibilidades en la implementación del sistema de control. Todo se realiza con un estudio previo en el impacto en otras áreas de la planta.
+
+\subsection{Big Data}
+
+Big Data es un término que describe el gran volumen de datos, tanto estructurados como no estructurados, que inundan las industrias cada día. Pero no es la cantidad de datos lo que es importante. Lo que importa con el Big Data es lo que se hace con los datos. Big Data se puede analizar para obtener ideas que conduzcan a mejores decisiones y movimientos estratégicos. \\
+
+Lo que hace que Big Data sea tan útil para muchas empresas es el hecho de que proporciona respuestas a muchas preguntas que las empresas ni siquiera sabían que tenían. En otras palabras, proporciona un punto de referencia. Con una cantidad tan grande de información, los datos pueden ser moldeados o probados de cualquier manera que la empresa considere adecuada. Al hacerlo, las organizaciones son capaces de identificar los problemas de una forma más comprensible. \\
+
+La recopilación de grandes cantidades de datos y la búsqueda de tendencias dentro de los datos permiten que las empresas se muevan mucho más rápidamente, sin problemas y de manera eficiente. Eso, a su vez, conduce a movimientos de negocios más inteligentes, operaciones más eficientes, mayores ganancias y clientes más felices. Las empresas con más éxito con Big Data consiguen valor de las siguientes formas:
+
+\begin{itemize}
+    \item{Reducción de coste. Las grandes tecnologías de datos y el análisis basado en la nube, aportan importantes ventajas en términos de costes cuando se trata de almacenar grandes cantidades de datos, además de identificar maneras más eficientes de hacer negocios.}
+    \item{Más rápido, mejor toma de decisiones. Con la velocidad de procesamiento y la analítica en memoria, combinada con la capacidad de analizar nuevas fuentes de datos, las empresas pueden analizar la información inmediatamente y tomar decisiones basadas en lo que han aprendido.}
+\end{itemize}
+
+\subsection{Industria 4.0}
+
+La Industria 4.0 implica la promesa de una nueva revolución que combina técnicas avanzadas de producción y operaciones con tecnologías inteligentes que se integrarán en las industrias. \\
+
+Esta revolución está marcada por la aparición de nuevas tecnologías como la robótica, la analítica, la inteligencia artificial, las tecnologías cognitivas, la nanotecnología y el Internet of Things (IoT), entre otros. Las organizaciones deben identificar las tecnologías que
+mejor satisfacen sus necesidades para invertir en ellas. Si las empresas no comprenden los cambios y oportunidades que trae consigo la Industria 4.0, corren el riesgo de perder cuota de mercado. \\
+
+Es importante entender el potencial de esta cuarta revolución industrial porque no solo afectará a los procesos de fabricación. Su alcance es mucho más amplio, afectando a todas las industrias y sectores e incluso a la sociedad. La industria 4.0 puede mejorar las operaciones de negocio y el crecimiento de los ingresos, transformado los productos, la cadena de suministro y las expectativas de los clientes. Es probable que dicha revolución cambie la forma en que hacemos las cosas, pero también podría afectar cómo los clientes interactúan con ellas y las experiencias que esperan tener mientras interactúan con las empresas. Más allá de eso, podría generar cambios en la fuerza laboral, lo que requeriría nuevas capacidades y roles.
+
+\section{Características del sistema}
+
+\subsection{Sistema de suministro de aire}
+
+Según la información proporcionado por EGGER el sistema de suministro de aire está compuesto por un de desplazamiento positivo tipo lóbulos rotativos, marca Repicky, modelo R3.0 con una capacidad de $1631 \frac{m^{3}}{h}$. A este soplador se le acopla un motor con una potencia de 75Hp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/blowerInformation.png}
+\end{figure}
+
+Para tener más información del sistema se accede al sitio web del fabricante Repicky donde descargamos un folleto del soplador. Las siguientes imágenes son fragmentos del mismo que fueron utilizadas para una mejor caracterización. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/caracteristicasConstructivas.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/proyecto/tablaDeSeccionSopladores.png}
+\end{figure}
+
+Como no tenemos información sobre las características del motor, salvo su potencia, entramos a la tabla anterior según el modelo R3.0 y seleccionamos un soplador de características similares. \\
+
+De la siguiente imagen podemos extraer las RPM del motor para cumplir con el caudal y la presión generada:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/caudalPresion.png}
+\end{figure}
+
+$$P = 75.8HP$$
+
+$$Q = 1759 \frac{m^{3}}{h} = 29.316 \frac{m^{3}}{min}$$
+
+$$RPM = 2250 \frac{rev}{min}$$
+
+$$C = \frac{Q}{RPM} \frac{29.316 \frac{m^{3}}{min}}{2250 \frac{rev}{min}} = 0.013026 \frac{m^{3}}{rev} = 13.026 \frac{Lts}{rev}$$
+
+$$v = \frac{Q}{A} = \frac{0.4886 \frac{m^{3}}{s}}{\pi  \left( \frac{0.158m}{2} \right)^{2}} = 24.9 \frac{m}{s}$$
+
+Cabe resaltar que la información del fabricante no coincide en su totalidad con la proporcionada por EGGER, debido a las tolerancias de $\pm 5\%$ especificadas por el fabricante.
+
+\begin{itemize}
+    \item{$C$: cilindrada.}
+    \item{$v$: velocidad de salida del soplador.}
+\end{itemize}
+
+\subsection{Sistema de distribución de aire}
+
+Tomando como referencia la información proporcionada por EGGER el sistema de distribución de aire está compuesto por una tubería principal en T de 150NB a la que se le acoplan 12 tubos de 80NB con 20 perforaciones c/u de 7mm de diámetro que forman la grilla de aireación. El material de los tubos es HDPE (polietileno de alta densidad).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/proyecto/informacionDeAireacion.png}
+    \caption{Información de las rejillas de difusión.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.325]{src/imagenes/proyecto/diagramaRegillas1.png}
+    \caption{Diagrama de distribución de aire en la pileta.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.375]{src/imagenes/proyecto/diagramaRegillas2.png}
+    \caption{Diagrama de las rejillas difusoras.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/diagramaRegillasInventor.png}
+    \caption{Diagrama modelado en Inventor.}
+\end{figure}
+
+Para dimensionar los diámetros de las tuberías nos basamos en la Norma ASTMF-714:2012 de Tuberías lisas HDPE, el diagrama e información del sistema de aireación proporcionado por EGGER y los datos del fabricante Repicky.
+
+\subsubsection{Datos del fabricante Repicky:}
+
+El folleto de Repicky nos provee una tabla de medidas generales, donde extraemos la conexión de salida para el Modelo del soplador R3.0 que es de 6 pulgadas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/normaTuberias.png}
+\end{figure}
+
+\subsubsection{Norma ASTMF-714:2012 para Tuberías lisas HDPE:}
+
+Al no contar con información de la empresa sobre los espesores de las tuberías nos basamos en la Norma ASTMF-714:2012. Con los diámetros nominales mencionados anteriormente entramos a la tabla y comparamos las presiones de trabajo máxima de las tuberías según la norma y la suministrada por el fabricante del soplador, que es de 1[bar] o 14,5[Psi]. Donde llegamos a la conclusión que trabajando con los espesores de la primera columna 51[Psi] o 63[Psi] dependiendo el tipo de tubería, tenemos un margen de seguridad de 36.5[Psi] o 48.5[Psi].
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/tuberiaLisaHDPENorma.png}
+\end{figure}
+
+La relación SDR corresponde al cociente entre el diámetro externo y el espesor de la tubería. \\
+
+\textbf{Salida 150NB o 6 pulgadas:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/tuberiaLisaHDPENorma2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/graficaTuberiaLisa.jpg}
+\end{figure}
+
+$$D_{n} = 168.3mm$$
+
+$$e = 5.2mm$$
+
+$$SDR = \frac{D_{e}}{e} = 32.5 = SDR \cdot e$$ \\
+
+\textbf{Conductos Perforados 80 NB:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/tuberiaLisaHDPENorma3.png}
+\end{figure}
+
+$$D_{n} = 88.9mm$$
+
+$$e = 2.7mm$$
+
+$$SDR = \frac{D_{e}}{e} = 32.5 = SDR \cdot e$$
+
+$$D_{e} = 32.5 \cdot 2.7 = 87.75mm$$
+
+$$D_{i} = D_{e} - e = 87.75mm - 2 \cdot 2.7mm = 82.35mm$$
+
+\section{Presión del volumen sobre la salida de aire}
+
+Una de las principales características que debe cumplir el sistema de control es garantizar el ingreso continuo de aire en la pileta de lodos activos. \\
+
+El aire se debe suministrar por medio de un proceso de compresión para que pueda salir a través de los orificios o difusores; esto solo es posible, si la presión del aire comprimido es superior a la presión absoluta que se ejerce sobre los difusores, la cual es resultado de la presión hidrostática del agua y la presión atmosférica. Por esta razón surge la necesidad de analizar la relación de presiones entre el sistema de aireación y el volumen de agua residual. \\
+
+Comenzamos el análisis realizando un modelo en Inventor de la pileta con su respectivo sistema de aireación. Esto nos permitió obtener las dimensiones exactas y determinar la altura del volumen de agua con respecto a la grilla de aireación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/piletas1.png}
+\end{figure}
+
+En la siguiente imagen se puede observar el plano con las cotas necesarias para los cálculos: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/proyecto/piletas2.png}
+\end{figure}
+
+Para los cálculos nos basamos en una rama de la dinámica de fluidos la hidrostática, para ser más precisos en el concepto de fuerzas hidrostáticas sobre superficies sumergidas. \\
+
+Partimos de los siguientes datos suministrados por EGGER:
+
+$$h = 6.455m$$
+
+$$\rho = 1.03 \frac{g}{cm^{3}} = 1030 \frac{Kg}{m^{3}}$$
+
+$$g = 9.81\frac{m}{s^{2}}$$
+
+Como se mencionó anteriormente en la caracterización del sistema de distribución de aire, tenemos 12 conductos de polietileno de alta densidad con 20 perforaciones c/u de diámetro $7mm$. Los mismos se encuentran sumergidos en la pileta de lodos activos a una profundidad de 6,455[m]. \\
+
+Un aspecto a resaltar es que si bien las perforaciones están realizadas sobre la cara de un tubo cilíndrico, para simplificar los cálculos se consideraran las fuerzas hidrostáticas sobre una superficie plana sumergida y no sobre una superficie curva sumergida.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/proyecto/tuberias1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/tuberias2.png}
+\end{figure}
+
+Para calcular la distribución de presión en el punto de interés se parte de la "ecuación diferencial de la hidrostática":
+
+$$\rho \cdot g - \nabla p = 0$$
+
+\begin{itemize}
+    \item{$\rho$: densidad.}
+    \item{$g$: aceleración de la gravedad.}
+    \item{$\nabla p$: vector gradiente de campo de presiones.}
+\end{itemize}
+
+Su carácter vectorial implica las siguientes ecuaciones:
+
+$$\frac{\delta p}{\delta x} = p \cdot g_{x} ; \frac{\delta p}{\delta y} = p \cdot g_{y} ; \frac{\delta p}{\delta z} = p \cdot g_{z}$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{src/imagenes/proyecto/presionesHidroestatica.png}
+\end{figure}
+
+Como uno de sus ejes coincide con la aceleración de la gravedad tenemos:
+
+$$\frac{\delta p}{\delta x} = 0 ; \frac{\delta p}{\delta y} = 0 ; \frac{\delta p}{\delta z} = p \cdot g_{z}$$
+
+La ecuación nos dice que la presión no depende de las coordenadas x e y, siendo sólo función de z. Esto es, todos los puntos del fluido que se encuentren a una misma altura estarán a la misma presión, independientemente de la forma del recipiente. \\
+
+Por otra parte, la funcionalidad de la presión con la altura la determinaremos integrando la componente z. 
+
+$$\frac{\delta p}{\delta z} = -\rho \cdot g_{z} \rightarrow p = -\rho \cdot g \cdot z + C$$
+
+La condición de borde es que la presión en z = h es la atmosférica. Quedando:
+
+$$p = p_{o} + \rho \cdot g \cdot (h - z)$$
+
+Donde $z = 0$ debido a que consideramos directamente la altura del orificio.
+
+$$p = p_{o} + \rho \cdot g \cdot h$$
+
+$$h = 6.445m$$
+
+$$\rho 1.03 \frac{g}{cm^{3}} = 1030 \frac{Kg}{m^{3}}$$
+
+$$g = 9.81 \frac{m}{s^{2}}$$
+
+$$p = p_{o} + 1030 \frac{Kg}{m^{3}} \cdot 9.81 \frac{m}{s^{2}} \cdot 6.445m = p_{o} + 65156.77 \frac{Kg}{m \cdot s^{2}}$$
+
+$$p = p_{o} + 0.651bar$$
+
+Donde según el Histórico del Tiempo en Concordia la presión atmosférica máxima es de 1014hPa:
+
+$$p_{o} + 1.014hPa$$
+
+$$p = 1.014hPa$$
+
+La presión que debe vencer el aire para ingresar a la pileta es de $1.665bar$.
+
+En cualquier área pequeña $dA$ existe una fuerza $dF$ que actúa de modo perpendicular al área, debido a la presión $p$ del fluido. Pero la magnitud de la presión a cualquier profundidad $h$ en un líquido estático de peso específico $\gamma$ es $p = \gamma \cdot h$.
+Entonces, la fuerza es:
+
+$$dF = p(dA) = \gamma \cdot h (dA)$$
+
+La suma de las fuerzas en toda la superficie se obtiene por medio del proceso matemático de integración:
+
+$$F = \int_{A}{-np(dA)} = p \cdot \pi \cdot r^{2}$$
+
+$$1Pa = 1 \frac{Kg}{m \cdot s^{2}}$$
+
+$$1014hPa = 101400Pa$$
+
+$$F = \left( p_{o} + 65156.77 \frac{Kg}{m \cdot s^{2}} \right) \cdot \pi \cdot (0.007m)^{2}$$
+
+$$F = 1.539 \times 10^{-4} m^{2} \cdot p_{o} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 1.539 \times 10^{-4} m^{2} \cdot 101400 \frac{Kg}{m \cdot s^{2}} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 15.61 \frac{Kgm}{s^{2}} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 25.63 \frac{Kgm}{s^{2}} = 25.63 N$$
+
+Para poder ingresar a la pileta de lodos, el aire debe de ejercer una fuerza de $25.63 N$ sobre el área de cada orificio de la grilla de aireación.
+
+\section{Cálculos del Flujo de aire en las tuberías}
+
+En este apartado se busca determinar la de velocidad del aire en el sistema de cañerías en función al caudal de entrada para luego poder estimar de manera aproximada las pérdidas en las mismas. Como no tenemos la información precisa del sistema de tuberías desde la bomba hasta la grilla interna de la pileta, supondremos que la salida de esta es un tubo que se conecta mediante un acople en T directo a la grilla.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/proyecto/diagramaRegillasInventor.png}
+\end{figure}
+
+Para la realización de los cálculos nos basamos en las siguientes Hipótesis:
+
+\begin{itemize}
+    \item{Partimos de un estado estacionario.}
+    \item{Volumen de control fijo: para todas las áreas se cumple que $\omega = 0$ (velocidad relativa de las áreas).}
+    \item{No tenemos datos para calcular el perfil de velocidades del fluido, por lo que se considera flujo turbulento con perfiles de velocidad planos, cuyo valor es su valor medio.}
+    \item{Fluido incompresible y puro (densidad constante).}
+    \item{Fuerzas gravitatorias (peso del fluido en el volumen de control) despreciables.}
+    \item{La velocidad del fluido en áreas solidas es nula.}
+\end{itemize}
+
+\subsection{Resolución}
+
+\subsubsection{En la primera conexión en T tenemos:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/proyecto/t.png}
+\end{figure}
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot D^{2}}{4}$$
+
+$$D = D_{i} 158.9mm = 0.1589m$$
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot (0.1589m)^{2}}{4} = 0.01975 m^{2}$$
+
+Luego tenemos las dos variables a controlar que son la velocidad y el caudal de aire que se relacionan mediante la siguiente formula:
+
+$$v = \frac{Q}{A}$$
+
+Aplicando balance microscópico de masa:
+
+$$\frac{\delta}{\delta t} \int_{v(t)}{\rho \cdot dv} + \int_{v(t)}{\rho (\overrightarrow{v} - \overrightarrow{\gamma}) \cdot \overrightarrow{n} \cdot dA}$$
+
+\begin{itemize}
+    \item{$\rho$: densidad.}
+    \item{$\overrightarrow{v}$: velocidad del fluido.}
+    \item{$\overrightarrow{\gamma}$: velocidad relativa de las áreas. $= 0$.}
+    \item{$ \overrightarrow{n}$: normal a la superficie.}
+\end{itemize}
+
+Considerando las hipótesis planteadas anteriormente nos queda:
+
+$$\int_{A_{1}}{\rho \cdot \overrightarrow{v}_{1} \cdot \overrightarrow{n}_{1} \cdot dA_{1}} + \int_{A_{2}}{\rho \cdot \overrightarrow{v}_{2} \cdot \overrightarrow{n}_{2} \cdot dA_{2}} + \int_{A_{3}}{\rho \cdot \overrightarrow{v}_{3} \cdot \overrightarrow{n}_{3} \cdot dA_{3}} = 0$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/proyecto/t2.png}
+\end{figure}
+
+$$\overrightarrow{n_{1}} = \overrightarrow{j} \cdot \overrightarrow{n_{2}} = - \overrightarrow{i} \cdot \overrightarrow{n_{3}} = \overrightarrow{i}$$
+
+$$\overrightarrow{v_{1}} = v_{1} \cdot (-\overrightarrow{j}) \cdot \overrightarrow{v_{2}} = v_{2} \cdot (-\overrightarrow{i}) \cdot \overrightarrow{v_{3}} = v_{3} \cdot (\overrightarrow{i})$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = |\overrightarrow{v_{1}}| \cdot |\overrightarrow{n_{1}}| \cdot \cos{(180)}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = |\overrightarrow{v_{2}}| \cdot |\overrightarrow{n_{2}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = |\overrightarrow{v_{3}}| \cdot |\overrightarrow{n_{3}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = -v_{1}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = v_{2}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = v_{3}$$
+
+Nos queda en el balance:
+
+$$-\int_{A_{1}}{v_{1} \cdot dA_{1}} + \int_{A_{2}}{v_{2} \cdot dA_{2}} +  \int_{A_{3}}{v_{3} \cdot dA_{3}} = 0$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+Luego como:
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot D^{2}}{4}$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+$$v_{2} = v_{3} = \frac{v_{1}}{2}$$
+
+Suponiendo que el aire se distribuye de manera uniforme en las 12 ramificaciones en T de los difusores, realizamos un plateo análogo al anterior que nos da como resultado:
+
+$$\int_{A_{1}}{\rho \cdot \overrightarrow{v}_{1} \cdot \overrightarrow{n}_{1} \cdot dA_{1}} + \int_{A_{2}}{\rho \cdot \overrightarrow{v}_{2} \cdot \overrightarrow{n}_{2} \cdot dA_{2}} + \int_{A_{3}}{\rho \cdot \overrightarrow{v}_{3} \cdot \overrightarrow{n}_{3} \cdot dA_{3}} = 0$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/proyecto/t3.png}
+\end{figure}
+
+$$\overrightarrow{n_{2}} = \overrightarrow{j} \cdot \overrightarrow{n_{1}} = - \overrightarrow{i} \cdot \overrightarrow{n_{3}} = \overrightarrow{i}$$
+
+$$\overrightarrow{v_{1}} = v_{1} \cdot \overrightarrow{i} \cdot \overrightarrow{v_{1}} = v_{2} \cdot \overrightarrow{j} \cdot \overrightarrow{v_{3}} = v_{3} \cdot (\overrightarrow{i})$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = |\overrightarrow{v_{1}}| \cdot |\overrightarrow{n_{1}}| \cdot \cos{(180)}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = |\overrightarrow{v_{2}}| \cdot |\overrightarrow{n_{2}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = |\overrightarrow{v_{3}}| \cdot |\overrightarrow{n_{3}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = -v_{1}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = v_{2}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = v_{3}$$
+
+Nos queda en el balance:
+
+$$-\int_{A_{1}}{v_{1} \cdot dA_{1}} + \int_{A_{2}}{v_{2} \cdot dA_{2}} +  \int_{A_{3}}{v_{3} \cdot dA_{3}} = 0$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+Luego como:
+
+$$A_{1} = A_{3} = \frac{\pi \cdot D_{1}^{2}}{4}$$
+
+$$A_{2} = \frac{\pi \cdot D_{2}^{2}}{4}$$
+
+$$v_{1} A_{1} - v_{3} A_{3} = v_{2} A_{2}$$
+
+Como las áreas no son iguales nos queda una ecuación con dos incógnitas $v_{1}$ y $v_{2}$ por lo que no se puede seguir resolviendo aplicando balance microscópico de masa. \\
+
+Sin embargo, estos cálculos nos servirán en las etapas siguientes para verificar que la simulación del sistema este arrojando resultados correctos.   
+
+\section{Simulación del flujo de aire}
+
+Para poder continuar con el análisis del flujo de aire en el sistema de tuberías lo modelamos en un software para el cálculo de pérdidas de carga en tuberías denominado FLUIDFLOW, cuyas opciones de cálculo se basan en los principios y ecuaciones de mecánica de fluidos más reconocidos universalmente: número de Reynolds, Bernoulli, ecuaciones de Darcy Weisbach, diagrama de Moody, Hazen Williams, Duxbury, Wilson Addie Selgren y Clif entre otros.
+
+\subsection{Modelado con los datos de entrada}
+
+El objetivo con este software es lograr una simulación lo más precisa posible que nos permita sacar conclusiones sobre la reacción del sistema ante un cambio de la energía entregada al motor. Esto requiere no solo el modelado del sistema con sus respectivas cañerías y conexiones, sino también el ingreso correcto de los datos de entrada. Para el modelado y simulación utilizamos todos los cálculos de los apartados anteriores.
+
+\subsubsection{Sistema de suministro de aire}
+
+Comenzamos definiendo el primer límite conocido que representa el medio ambiente que suministra el aire al soplador.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow1.png}
+\end{figure}
+
+En este definimos el tipo de fluido (aire), un volumen que represente el ambiente de donde se extrae el aire, la temperatura ambiente donde consideramos una media de 25°C y una presión de 1[atm] que representa la presión atmosférica máxima. \\
+
+Luego definimos el soplador y cargamos sus características. En nuestro caso tenemos un soplador de desplazamiento positivo con una presión de máxima de 1[Bar] y según los cálculos anteriores una cilindrada de $13.026 \frac{Lts}{rev}$. Consideramos una eficiencia del $90\%$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/proyecto/fluidflow2.png}
+\end{figure}
+
+Cargamos el soplador en el modelo y  definimos su velocidad de operación de 2250 RPM según el folleto de Repicky. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow3.png}
+\end{figure}
+
+\subsubsection{Sistema de distribución de aire}
+
+El modelado del sistema de distribución de aire requiere definir el tipo de tubería a utilizar, el software tiene una base de datos con una serie de tuberías de diferentes materiales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{src/imagenes/proyecto/fluidflow4.png}
+\end{figure}
+
+Si bien no está disponible la tubería de HDPE, la más parecida según su relación de diámetros y rugosidad es la PE polietileno. \\
+
+\textbf{Tubería principal} \\
+
+Definimos el primer tramo desde el soplador al primer acople T de 6 pulgadas de diámetro nominal y 6,455[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow5.png}
+\end{figure}
+
+Luego para los dos primeros tramos después de la T también le asignamos 6 pulgadas de diámetro nominal y 1[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow6.png}
+\end{figure}
+
+Por ultimo cada tramo de tubería posterior para ambos lados, son también de  6 pulgadas de diámetro nominal y 1,467[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow7.png}
+\end{figure}
+
+\textbf{Tuberías grilla de aireación} \\
+
+Como se mencionó anteriormente la grilla de aireación está compuesta de tubos de 3 pulgadas de dímetro nominal con una longitud de 8,6 [m].
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow8.png}
+\end{figure}
+
+\textbf{Condiciones de salida} \\
+
+Por último definimos el límite de salida que representa la pileta con el agua residual cuyas características se definen según los datos provistos por EGGER para la temperatura y los cálculos anteriores para la presión.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/proyecto/fluidflow9.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/proyecto/fluidflow10.png}
+\end{figure}
+
+\subsection{Modelado e ingreso de datos de entrada}
+
+Antes de comenzar con el análisis de los resultados arrojados por el software, vale la pena aclarar que estamos en presencia de un sistema muy complejo para un simple análisis matemático aplicando dinámica de fluidos. Lo ideal sería realizar ensayos y mediciones sobre el sistema real en funcionamiento. Pero de todos modos los cálculos anteriores y la simulación del sistema nos sirven para sacar las primeras conclusiones sobre la posible reacción del mismo a
+un cambio en la velocidad de giro del motor. \\
+
+\textbf{Soplador Trabajando a 2250 RPM} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/fluidflow11.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/fluidflow12.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/fluidflow13.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/proyecto/fluidflow14.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/fluidflow15.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/fluidflow16.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/proyecto/fluidflow17.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/fluidflow18.png}
+\end{figure}
+
+\subsubsection{Conclusiones Simulación}
+
+Al realizar la simulación en FLUIDFLOW pudimos observar cómo cambia el caudal de ingreso de aire en función a la velocidad de operación del soplador (RPM) y como se distribuye el mismos en cada sección de cañería trabajando a la presión hidrostática de $1.665bar$. Por otra parte como vimos en formulas anteriores este caudal está relacionado de manera directa con la velocidad del aire, parámetro que determina las pérdidas de presión en las cañerías y acoples, resultados
+que también se vieron reflejados en la simulación. \\
+
+Si bien el objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos, parámetro que es muy complejo para determinarlo de forma analítica. Sin embargo los resultados a los que se llegó con la simulación nos van a permitir realizar un primer ajuste del controlador que luego se irá mejorando y ajustando cuando se realicen las pruebas en el sistema real.
+
+\section{Desarrollo del sistema de control}
+
+\subsection{El oxígeno disuelto (OD)}
+
+\begin{tcolorbox}[title=¿Qué es el oxígeno disuelto?]
+    El OD es la cantidad de oxígeno disuelto en el agua. La mayoría de los organismos acuáticos necesitan oxígeno para sobrevivir y crecer.
+\end{tcolorbox}
+
+En este caso, si se desea que los microorganismos del lodo puedan asimilar los componentes orgánicos del efluente es necesario que estos tengan la cantidad adecuada. El principal objetivo del sistema de control, es mantener el oxígeno disuelto en los niveles aceptables. \\
+
+El oxígeno disuelto se establece como la concentración actual (mg/L) o como la cantidad de oxígeno que puede tener el agua a una temperatura determinada. Se conoce también como el porcentaje de saturación y se expresa en partes por millón (ppm). \\
+
+El OD varia en función de:
+
+\begin{itemize}
+    \item{Temperatura.}
+    \item{Oxígeno disuelto de las fuentes (entradas).}
+    \item{Altitud.}
+    \item{Salinidad.}
+\end{itemize}
+
+\subsubsection{La temperatura}
+
+Al aumentar la temperatura, disminuye la cantidad de oxigeno disuelto en el agua. Cuando el
+agua contiene todo el oxígeno disuelto a una temperatura dada, se dice que está 100 por cien
+saturada de oxígeno. \\
+
+La tabla siguiente muestra la concentración de oxígeno disuelto equivalente a un grado de saturación del 100 por cien para la temperatura anotada (y la presión barométrica normal):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/tablaOD.png}
+\end{figure}
+
+\subsubsection{Oxígeno disuelto de las fuentes (entradas)}
+
+Corresponde al OD que trae consigo el caudal de ingreso de agua residual. El mismo, se genera mediante el proceso de aireación natural, es aquella que se efectúa por contacto del agua con el aire. Cuando cambiamos la superficie de agua que entra en contacto con el aire, la sometemos a aireación en forma permanente, sin embargo, el proceso de difusión de los gases en el agua es sumamente lenta. Se difunde lentamente y su distribución depende del movimiento del agua. Este proceso es natural y continuo, de modo que continuamente existe intercambio de oxigeno entre el agua y el aire. La dirección y velocidad depende del contacto entre ambos.
+
+\subsubsection{Altitud}
+
+El agua contiene menos oxígeno en los lugares altos. Esto se debe a la presión atmosférica y su efecto sobre el proceso de difusión de oxigeno en el agua. A menor altitud mayor presión atmosférica que favorece el proceso de difusión.
+
+\subsubsection{Salinidad}
+
+Cuando la salinidad aumenta, el oxígeno disuelto disminuye. Esto se debe a que la densidad del agua aumenta por la concentración de sales, afectando el proceso de difusión de oxigeno y generando una disminución de la capacidad de absorción.
+
+\subsection{El sensor de OD}
+
+Actualmente, para medir el OD, la empreza EGGER tiene el sensor DissolvedOxygenMonitor Model Q46D:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/q46D.jpg}
+    \caption{Sensor de OD actualmente en funcionamiento.}
+\end{figure}
+
+El sensor óptico de OD funciona según un principio basado en la luz llamado fluorescencia, que es un tipo de luminiscencia. Ciertos compuestos químicos absorberán un tipo de energía luminosa y luego emitirán un tipo diferente de energía luminosa. Esta emisión de luz se llama luminiscencia. \\
+
+La parte activa del sensor tiene un compuesto a base de metal incrustado en una matriz estructural. Una fuente de luz dentro del sensor ilumina este compuesto que absorbe luz a una longitud de onda específica. Luego, el compuesto emite luz a una longitud de onda diferente que es captada por un fotodetector dentro del sensor. A medida que el oxígeno se difunde en el material del sensor activo, interactúa con el compuesto absorbente de luz e interfiere con la reacción de la misión. Esta interacción, llamada extinción, hace que el material que absorbe la luz libere energía en una forma distinta a la luz. El grado de extinción es proporcional a la concentración de oxígeno disuelto. La reacción de extinción es reversible, lo que permite que este sensor mida concentraciones crecientes y decrecientes de oxígeno. \\
+
+El sensor óptico no lleva electrolito interno, por lo que el mantenimiento de este tipo de sensor se limita al cambio del elemento óptico. Con el tiempo, el elemento perderá la capacidad de absorber la luz debido a un proceso llamado decoloración. Con algunos sensores, este proceso se acelera mucho cuando se expone a la luz solar directa y causará daños irreversibles al elemento del sensor. Este elemento sensor óptico está diseñado para durar varios años en funcionamiento normal. El diseño del sensor permite la exposición a la luz solar directa sin dañar el elemento del sensor.
+
+\subsection{Demanda bioquímica de oxígeno (DBO)}
+
+\begin{tcolorbox}[title=¿Qué es el DBO?]
+    La demanda bioquímica de oxígeno es la cantidad de oxígeno necesaria para que se produzca la oxidación bioquímica de la materia orgánica contenida en un líquido. Esta oxidación es llevada a cabo por microorganismos presentes en el mismo a través de procesos metabólicos como la respiración.
+\end{tcolorbox}
+
+La determinación de este parámetro permite estimar los efectos de las descargas de efluentes domésticos e industriales sobre la calidad de las aguas de los cuerpos receptores, porque brinda una idea de la cantidad de oxígeno disuelto que deberá aportar el cuerpo receptor para depurar el vuelco. \\
+
+Para realizar el ensayo, las muestras se incuban en la oscuridad a 20°C, durante un tiempo determinado. Antes y después de esta incubación se determina la concentración de oxígeno disuelto. La diferencia entre estos dos valores es la cantidad de oxígeno que requieren los microorganismos para consumir la materia orgánica biodegradable del líquido. Como el tiempo de incubación adoptado es de 5 días, el nombre de este parámetro se abrevia DBO5. \\
+
+En la actualidad, se practican tres técnicas para medir la concentración de oxígeno disuelto: el método respirométrico y los métodos de Winkler y de electrodo de membrana que se describieron en la sección precedente. El método respirométrico se basa en la disminución de la presión de la cámara de aire del recipiente que contiene la muestra; la disminución de esta presión es proporcional al oxígeno que se consumió. En las plantas donde se practican varias determinaciones diarias, el método del electrodo de membrana resulta más apropiado, pues no necesita un equipo específico por cada muestra y, además, es más rápido. En efecto, la primera técnica requiere un manómetro por recipiente.
+
+\subsubsection{¿Por qué se determina?}
+
+La DBO5 es el parámetro universalmente adoptado para determinar los niveles de polución orgánica biodegradable de un cuerpo de agua y de los efluentes que allí se vuelcan. Por esta razón, las normativas vigentes exigen su determinación. \\
+
+La DBO5 permite evaluar el rendimiento de la planta depuradora y es uno de los principales parámetros que se contemplan para diseñar y calcular las dimensiones de nuevas instalaciones de tratamiento de aguas residuales. \\
+
+Además, en función de este parámetro, se calculan los indicadores de proceso tales como la carga másica (F/M), y se ajustan las variables globales, por ejemplo, los niveles de aireación y los tiempos de permanencia.
+
+\subsubsection{Inconvenientes en la muestra}
+
+\begin{itemize}
+    \item{Requiere de un tiempo de espera de 5 días entre la toma de la muestra y la obtención del resultado. Esto es poco práctico a la hora de tomar decisiones diarias relativas al proceso de depuración.}
+    \item{Los resultados se pueden ver afectados por el estado de conservación de la muestra, la temperatura del ensayo, la falta de oscuridad y la calidad del agua de dilución, entre otros.}
+    \item{La técnica es compleja, pues se debe preparar agua de dilución, sembrar, determinar oxígeno disuelto y realizar cálculos para obtener un valor final (otros parámetros se determinan mediante técnicas más directas). Asimismo, requiere de personal especializado.}
+\end{itemize}
+
+\subsection{Demanda química de oxígeno (DQO)}
+
+\begin{tcolorbox}[title=¿Qué es la DQO?]
+        La demanda química de oxígeno (DQO) es la cantidad de oxígeno que se requiere para oxidar los compuestos de una muestra con un oxidante fuerte. Mientras que la DBO5 solo detecta el material orgánico que degradan los microorganismos, la DQO incluye también los compuestos orgánicos no biodegradables y algunos compuestos inorgánicos.
+\end{tcolorbox}
+
+En la determinación de DQO el material orgánico es oxidado con dicromato de potasio, en medio ácido, en presencia de un catalizador. Para ello, se emplea una mezcla de ácido sulfúrico y dicromato (Cr2O7-2) de potasio con iones de plata (Ag+) como catalizadores. En estas condiciones, tras 2 horas de digestión, a 150 °C, el cromo hexavalente del dicromato pasa al estado de oxidación trivalente(Cr+3), es decir, se reduce, oxidando la materia orgánica. \\
+
+En la actualidad, la técnica más utilizada para determinar la DQO es el método de reflujo cerrado en termorreactor con cuantificación colorimétrica. El mercado ofrece kits de viales y soluciones preparadas que han simplificado el ensayo y evitan la preparación de soluciones y titulaciones prolongadas y laboriosas.
+
+\subsubsection{¿Por qué se determina?}
+
+La DQO es uno de los parámetros regulados por todas las normas de vuelco para plantas depuradoras. Brinda una rápida idea del contenido total de compuestos orgánicos y es de gran ayuda para detectar ingresos de líquidos de origen industrial. Valores elevados de DQO en el afluente pueden alertar sobre vuelcos industriales con elevado contenido orgánico. \\
+
+En el proceso de depuración, sirve principalmente como un parámetro de control y confirmación de otras mediciones. En efecto, la DQO suele presentar una alta correlación con la DBO5 y con la materia en suspensión (2,5-3,5:1), de manera que su resultado sirve para confirmar o bien estimar otros parámetros. \\
+
+Los métodos colorimétricos comerciales de uso actual son ensayos sencillos y rápidos (alrededor de 3 horas en total).
+
+\subsection{Valores límite vigentes}
+
+Actualmente en Concordia, Entre Ríos, Argentina, rige sobre los efluentes líquidos \href{https://www.entrerios.gov.ar/ambiente/userfiles/files/archivos/Normativas/Res_\%20554-15.pdf}{la siguiente normativa.}
+
+\section{Desarrollo del sistema de control}
+
+El control del oxígeno disuelto en función a la demanda bioquímica de oxígeno, es muy complicado de determinar por sensado. Como se describió anteriormente la única forma de conocer este valor es mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, que el setpoint de OD sea determinado por ensayos, pero el control de los sopladores y la cantidad de aire estrangulado, sea corregido en función al valor del sensor de OD. Es por esto que se abordo un desarrollo de control genérico pero altamente adaptable a los requerimientos y tiempos de respuesta del proceso. \\
+
+Un control PID es el mas adecuado en este caso, ya que tiene las componentes proporcional, integral y derivativa. Si una de ellas no es necesaria, se puede directamente anular, pero aún sigue manteniendo la capacidad de adaptación de un control completo.
+
+\subsection{Sistema a controlar}
+
+Como ya hemos planteado, se propone controlar el nivel de OD en base a la cantidad de aire estrangulado de los sopladores. Esto permite que los motores no trabajen siempre a valores nominales, permitiendo un desbloqueo en el potencial de ahorro energético. \\
+
+Se sabe de parte de una de las docentes que traba en la industria, que el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea una situación desfavorable. Nuestro sistema de control tendrá que variar muy lentamente la frecuencia de los sopladores para poder lograr una compensación adecuada del proceso.
+
+\subsection{Análisis de un control PID}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/pid.png}
+    \caption{Diagrama de bloques de un sistema retroalimentado.}
+\end{figure}
+
+\begin{itemize}
+    \item{$r(t)$: entrada de referencia.}
+    \item{$e(t)$: señal de error.}
+    \item{$v(t)$: variable regulada.}
+    \item{$m(t)$: variable manipulada.}
+    \item{$p(t)$: señal de perturbación.}
+    \item{$y(t)$: variable controlada.}
+    \item{$b(t)$: variable de retroalimentación como resultado de haber detectado la variable controlada por medio del sensor.}
+\end{itemize}
+
+En teoría, todo sistema de lazo abierto puede convertirse a lazo cerrado; sin embargo, la limitante es el sensor, ya que no siempre es posible detectar la salida del proceso. \\
+
+Las características de los sistemas de lazo cerrado son: 
+
+\begin{itemize}
+    \item{Aumento de exactitud en el control del proceso.}
+    \item{Sensibilidad reducida en las variaciones de las características del sistema.}
+    \item{Efectos reducidos de la no linealidad y la distorsión.}
+    \item{Aumento de ancho de banda del sistema.}
+    \item{Tendencia a la inestabilidad.}
+\end{itemize}
+
+\subsubsection{Aumento de exactitud en el control del proceso}
+
+La retroalimentación atenúa el error para lograr el objetivo de control.
+
+\subsubsection{Sensibilidad reducida en las variaciones de las características del sistema}
+
+Se refiere a que, dentro de ciertos límites, uno o varios componentes del sistema pueden sustituirse por elementos semejantes al componente original, sin que se aprecien resultados significativos en el desempeño del sistema resultante.
+
+\subsubsection{Efectos reducidos de la no linealidad y la distorsión}
+
+Los efectos de la no linealidad y de la distorsión, dentro de ciertos rangos, pueden ser no significativos debido a la retroalimentación, ya que ésta tiende a ajustar la respuesta del sistema.
+
+\subsubsection{Aumento de ancho de banda del sistema}
+
+Con la retroalimentación, el rango de operación del sistema en el dominio de la frecuencia $\omega$ se incrementa.
+
+\subsubsection{Tendencia a la inestabilidad}
+
+Salvo las anteriores características, el único problema, pero grave, que causa la retroalimentación es la tendencia del sistema a la inestabilidad.
+
+\subsection{Desarrollo del controlador}
+
+\subsubsection{Aproximación del sistema}
+
+Como mencionamos anteriormente, no tuvimos la oportunidad de realizar mediciones y ensayos de prueba para poder determinar su modelo matemático aproximado y ver como este responde ante diferentes entradas. Es por esto que investigamos una relación de variación del OD respecto del tiempo, para poder así, probar distintas entradas. \\
+
+Basándonos en el articulo académico denominado \cite{CPCOD}, sostiene que la dinámica de cambio de la concentración de OD se puede representar por:
+
+$$\frac{\delta C_{o}}{\delta t} = K_{L} a (C_{\infty}^{\Theta} - C_{o})$$
+
+Donde:
+
+\begin{itemize}
+    \item{$C_{o}$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+    \item{$C_{\infty}^{\Theta}$: concentración de saturación del oxígeno disuelto en el volumen del líquido a una temperatura T del agua y a una presión atmosférica de campo en $g/m^{3}$.}
+    \item{$K_{L}$: el coeficiente de transferencia de oxígeno y  el área total de contacto interfacial por unidad de volumen de líquido. Como se admite imposible medir el área interfacial $a$, se estima el termino total $K_{L} a$.}
+\end{itemize}
+
+Si aplicamos balance de oxigeno en el bioreactor tenemos:
+
+$$\frac{\delta C_{o}}{\delta t} = \frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V} C_{o} + a (1 - e^{\frac{-Q_{A}}{b}}) (C_{\infty}^{\Theta} - C_{o})$$
+
+Donde:
+
+\begin{itemize}
+    \item{$V$: volumen del bioreactor $871,03 m^{3}$.}
+    \item{$Q_{f}$: flujo de entrada de agua residual $12 m^{3}/h$ promedio diario.}
+    \item{$Q_{r}$ flujo recirculación de biomasa aproximadamente 50\% del $Q_{f}$ $6 m^{3}/h$.}
+    \item{$C_{0f}$: concentración DO en el flujo de entrada $8,23mg/l$ o $8230mg/m^3$.}
+\end{itemize}
+
+En nuestro caso considerando un sistema ideal en el cual, todo el caudal de aire suministrado por el soplador ingresa a la pileta (no se consideran perdidas) tenemos: 
+
+\begin{itemize}
+    \item{$Q_{A}$ = caudal de aire $0.78 m^3/h \cdot RPM$.}
+    \item{$RPM$: fijadas por el variador.}
+    \item{$C_{o}$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+    \item{$C_{\infty}^{\Theta}$: valores de tabla para diferentes temperaturas.}
+\end{itemize}
+
+Los valores de los parámetros $a$ y $b$ son determinados por identificación por medio del modelo de Smith. \\ 
+
+Reemplazando:
+
+$$\frac{dC_{0}}{dt} = {\frac {12 m^{3}/h} {871,03 m^{3}}} * 8230mg/m^3 - {\frac {12 m^{3}/h+6 m^{3}/h} {871,03 m^{3}}} * C_{0} + 8,5 *(1- e^{\frac {-{0.78 m^3/h } * RPM} {2,4767}}) (C^{\Theta }_{\infty} - C_{0})$$
+
+\subsubsection{Controlador}
+
+Es por esto, que se plantea el uso de un controlador PID genérico, en donde variando algún parámetro de configuración, tenemos la posibilidad de adaptarlo. \\
+
+Procedemos a analizar la ecuación de un control PID y a extraer parámetros configurables:
+
+$$o(t) = Kp \cdot e(t) + \frac{Kp}{Ti} \cdot \int e(t) \cdot dt + Kp \cdot Td \cdot \frac{de(t)}{dt}$$
+
+En donde:
+
+\begin{itemize}
+    \item{$o(t)$: es la salida del controlador en función del tiempo.}
+    \item{$Kp$: es la constante de proporcionalidad.}
+    \item{$e(t)$: es el error del sistema en función del tiempo.}
+    \item{$Ti$: es un factor de proporcionalidad ajustable que indica el tiempo de integración.}
+    \item{$Td$: es la ganancia del control derivativo.}
+\end{itemize}
