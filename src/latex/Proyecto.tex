@@ -800,19 +800,19 @@ Actualmente en Concordia, Entre Ríos, Argentina, rige sobre los efluentes líqu
 
 \section{Desarrollo del sistema de control}
 
-Según lo expuesto por Ricardo Hernández Gaviño, en su libro “Introducción a los sistemas de control”, un sistema de control automático es una interconexión de elementos que forman una configuración denominada sistema, de tal manera que el arreglo resultante es capaz de controlarse por sí mismo con el fin de reducir las probabilidades de fallo y obtener los resultados deseados. 
+Según lo expuesto por \cite{ISC}, un sistema de control automático es una interconexión de elementos que forman una configuración denominada sistema, de tal manera que el arreglo resultante es capaz de controlarse por sí mismo con el fin de reducir las probabilidades de fallo y obtener los resultados deseados. \\
 
 El desarrollo de un controlador es un proceso complejo que requiere conocer los fenómenos físico-químicos que rigen el sistema a controlar, realizar modelos matemáticos, simulaciones, análisis de resultados y posterior implementación.  Por esta razón, se lo divide en etapas que se describen a continuación. 
 
 \subsection{Sistema a controlar}
 
-Se plantea el control de un sistema "Pileta lodos activos Zona aireación", que consiste en mantener una concentración de oxígeno disuelto (OD) en el agua residual en función a la demanda bioquímica de oxígeno (DBO), independientemente de la temperatura y el flujo de entrada y salida. 
+Se plantea el control de un sistema "Pileta lodos activos Zona aireación", que consiste en mantener una concentración de oxígeno disuelto (OD) en el agua residual en función a la demanda bioquímica de oxígeno (DBO), independientemente de la temperatura y el flujo de entrada y salida. \\
 
 El aporte de oxígeno es producido por un soplador de lóbulos rotativos, accionando mediante un motor trifásico con variador, permitiendo regular el caudal de aire en función a la frecuencia.  Al circular este caudal en el interior de una grilla de aireación, ubicada en la parte inferior de la pileta, se genera una presión en el sistema de distribución provocando que el aire ingrese a la pileta y se transfiera al líquido.\\
 
-Consideraciones: \\
+\textbf{Consideraciones:} \\
 
-Una consideración importante, tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis.   Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida.
+Una consideración importante, tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis.   Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida. \\
 
 Por otro lado, se conoce por parte de una docente que traba en la industria, que el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea un sistema de control con un tiempo de respuesta muy lento. 
 
@@ -820,7 +820,7 @@ Por otro lado, se conoce por parte de una docente que traba en la industria, que
 
 Al no conocer el modelo matemático del sistema, ni como este responde ante diferentes entradas. Se tiene que investigar una relación de variación del OD respecto del tiempo, para poder así, ensayar distintas entradas. Es decir, debemos encontrar un modelo matemático que nos aproxime a la respuesta del sistema. \\
 
-Basándos en el articulo académico denominado \cite{CPCOD}, sostiene que la dinámica de cambio de la concentración de OD se puede representar por:
+Basándos en el articulo académico \cite{CPCOD}, en donde se sostiene que la dinámica de cambio de la concentración de OD se puede representar por:
 
 $$\frac{dC_{o}}{dt} = K_{L} a (C_{\infty}^{\Theta} - C_{o})$$
 
@@ -864,7 +864,7 @@ Considerando la concentraciónde oxígeno disuelto en el seno del liquido como v
 \begin{equation}
     \frac{dC_{o}}{dt} + (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) C_{o} = a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta}
     \label{eqn:oxigenoD}
-\end{equation} \\
+\end{equation}
 
 Como se puede apreciar en \eqref{eqn:oxigenoD}, es una ecuación diferencial lineal de primer orden, la cual no es separable. De la forma:
 
@@ -881,6 +881,7 @@ $$ \int P(t) = (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} 
 Al multiplicar ambos lados de la ecuación \eqref{eqn:oxigenoD} se obtiene:
 
 $$\frac{dC_{o}}{dt} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} + (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) C_{o}  e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} = $$
+
 \begin{equation}
     a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t}
     \label{eqn:consentracionOD_FI}
@@ -914,66 +915,71 @@ Despejando la concentración de oxigeno disuelto en función a un caudal en RPM 
     \label{eqn:consentracionOD_FI_F}
 \end{equation}
 
-Para lograr un sistema de control preciso, la fórmula matemática que modela el comportamiento del sistema tiene que ser lo más exacta posible y permitir ajustarse a las condiciones reales. Para cumplir con este objetivo, se modelada y ensaya la formula en python donde se analizan los resultados arrojados.    
-    \subsection{Resultados de la implementación en Python }
-    Para valores de: 
-    \begin{itemize}
-        \item{$V$:$871,03 m^{3}$.}
-        \item{$Q_{f}$:$12 m^{3}/h$ promedio diario.}
-        \item{$Q_{r}$:$6 m^{3}/h$.}
-        \item {$t$:$h$.}
-        \item{$C_{0f}$:$8,23g/m^3$.}
-        \item{$RPM$:2800}
-        \item{$Q_{A}$=$0.78 m^3/h \cdot RPM$.}
-        \item{$C_{\infty}^{\Theta}$: $8,23g/m^{3}$}
-        \item{$a$:8.5}
-        \item{$b$:2}
-    \end{itemize}
-    Se obtiene la siguiente grafica en función al tiempo t: 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=.35]{src/imagenes/proyecto/analisis1.png}
-        \caption{Concentración de oxigeno disuelto en el seno del liquido.}
-    \end{figure}
+Para lograr un sistema de control preciso, la fórmula matemática que modela el comportamiento del sistema tiene que ser lo más exacta posible y permitir ajustarse a las condiciones reales. Para cumplir con este objetivo, se modelada y ensaya la formula en python donde se analizan los resultados arrojados.
 
-    Como se puede apreciar los resultados obtenidos con estos valores no se condicen con los esperados según lo expuesto en las bibliografías. Pero, si cambiamos el valor de $a = -8.5$, tenemos: 
-    
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=.35]{src/imagenes/proyecto/analisis2.png}
-        \caption{Concentración de oxigeno disuelto en el seno del liquido.}
-    \end{figure}
+\subsection{Resultados de la implementación en Python}
 
-    Esta vez, los resultados obtenidos son mas satisfactorios, pero no del todo precisos. Además, al variar las RPM deberíamos obtener una variación en el nivel de estabilización de la concentración de OD. Si pasamos de 2800 a 200 RPM.   
+Para valores de:
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=.35]{src/imagenes/proyecto/analisis3.png}
-        \caption{Concentración de oxigeno disuelto en el seno del liquido.}
-    \end{figure}
-    Ahora si pasamos de 200 a 0.05 RPM si podemos notar un cambio en el valor de estabilización. 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=.35]{src/imagenes/proyecto/analisis4.png}
-        \caption{Concentración de oxigeno disuelto en el seno del liquido.}
-    \end{figure}
-    En este análisis, se observa que, con los valores característicos, el comportamiento no es el esperado y se concluye que estamos en presencia de un sistema dinámico y multivariable, dependiente de las condiciones operativas de cada sistema en particular. Lo que nos lleva a dar de baja la formula \eqref{eqn:consentracionOD_FI_F}, pero nos permite observar los efectos que provoca el variar cada uno de ellos. Dentro de estos, se puede mencionar, cambios en el nivel y tiempo de estabilización, en la concentración inicial de OD del sistema y en el contenido minimo de oxigeno. 
-    Por último, lo más importante, se define el comportamiento del modelo matemático del sistema como una ecuación diferencial de primer orden y la concentración de oxígeno disuelto como una exponencial inversa.
+\begin{itemize}
+    \item{$V$:$871,03 m^{3}$.}
+    \item{$Q_{f}$:$12 m^{3}/h$ promedio diario.}
+    \item{$Q_{r}$:$6 m^{3}/h$.}
+    \item {$t$:$h$.}
+    \item{$C_{0f}$:$8,23g/m^3$.}
+    \item{$RPM$:2800}
+    \item{$Q_{A}$=$0.78 m^3/h \cdot RPM$.}
+    \item{$C_{\infty}^{\Theta}$: $8,23g/m^{3}$}
+    \item{$a$:8.5}
+    \item{$b$:2}
+\end{itemize}
 
-\subsection{Solución al problema de adaptabilidad del modelo matemático}
-
-En relación a la expuesto en el apartado anterior, el modelo matemático con valores característicos, tomados de la información suministrada y de la investigación, no arroja los resultados esperados que se describen en las diferentes bibliografías. Esto dificulta la implementación y ajuste del controlador. 
-Con el fin de solucionar esta problemática, se desarrolla un programa en Python donde se simula el comportamiento del sistema, a partir de la implementación de un modelo matemático variable que recibe como dato de entrada las RPM y genera una salida de concentración de OD. Este, se comunica con el programa del controlador principal, quien recibe los valores de la concentración de OD y genera una salida de control en RPM. 
-Es decir, se cuenta con un programa que simula ser el sistema real, donde podemos ajustar su comportamiento y ensayar las pruebas necesarias del controlador. 
-En el siguiente esquema se detalla la solución abordada:  
+Se obtiene la siguiente grafica en función al tiempo t: 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[angle=90, scale=.40]{src/imagenes/proyecto/EsquemaSistemaLA.png}
+    \includegraphics[scale=.35]{src/imagenes/proyecto/analisis1.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Como se puede apreciar los resultados obtenidos con estos valores no se condicen con los esperados según lo expuesto en las bibliografías. Pero, si cambiamos el valor de $a = -8.5$, tenemos: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/analisis2.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Esta vez, los resultados obtenidos son mas satisfactorios, pero no del todo precisos. Además, al variar las RPM deberíamos obtener una variación en el nivel de estabilización de la concentración de OD. Si pasamos de 2800 a 200 RPM.   
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/analisis3.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Ahora si pasamos de 200 a 0.05 RPM si podemos notar un cambio en el valor de estabilización. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/proyecto/analisis4.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+En este análisis, se observa que, con los valores característicos, el comportamiento no es el esperado y se concluye que estamos en presencia de un sistema dinámico y multivariable, dependiente de las condiciones operativas de cada sistema en particular. Lo que nos lleva a dar de baja la formula \eqref{eqn:consentracionOD_FI_F}, pero nos permite observar los efectos que provoca el variar cada uno de ellos. Dentro de estos, se puede mencionar, cambios en el nivel y tiempo de estabilización, en la concentración inicial de OD del sistema y en el contenido minimo de oxigeno. 
+Por último, lo más importante, se define el comportamiento del modelo matemático del sistema como una ecuación diferencial de primer orden y la concentración de oxígeno disuelto como una exponencial inversa.
+
+\subsection{Solución al problema de adaptabilidad del modelo matemático}
+
+En relación a la expuesto en el apartado anterior, el modelo matemático con valores característicos, tomados de la información suministrada y de la investigación, no arroja los resultados esperados que se describen en las diferentes bibliografías. Esto dificulta la implementación y ajuste del controlador. Con el fin de solucionar esta problemática, se desarrolla un programa en Python donde se simula el comportamiento del sistema, a partir de la implementación de un modelo matemático variable que recibe como dato de entrada las RPM y genera una salida de concentración de OD. Este, se comunica con el programa del controlador principal, quien recibe los valores de la concentración de OD y genera una salida de control en RPM. Es decir, se cuenta con un programa que simula ser el sistema real, donde podemos ajustar su comportamiento y ensayar las pruebas necesarias del controlador. En el siguiente esquema se detalla la solución abordada:  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90,scale=.40]{src/imagenes/proyecto/esquemaSistemaLA.png}
     \caption{Esquema del Sistema de control y simulación}
 \end{figure}
 
-Al abordar esta solución, se abre la posibilidad de ajustar la respuesta de la simulación al sistema real. Si se dispone de la gráfica de concentración de OD en función al tiempo, solo se requiere modificar los parámetros k, T y a. 
+Al abordar esta solución, se abre la posibilidad de ajustar la respuesta de la simulación al sistema real. Si se dispone de la gráfica de concentración de OD en función al tiempo, solo se requiere modificar los parámetros $k$, $T$ y $a$. 
 
 \subsection{Modelo matemático adaptativo de la ASCE}
 
@@ -983,12 +989,12 @@ En esta norma se propone un modelo simple para la transferencia de oxígeno, en 
 $$\frac{dC}{dt} = k_{o2} \cdot \Theta^{T} \cdot Q(t) \cdot (C_{sat} - C(t))$$
 
 \begin{itemize}
-    \item{$k_{o2} \cdot \Theta^{T} \cdot Q(t) $:Coeficiente de transferencia de oxígeno.}
-    \item{$k_{o2}$:Parametro de ajuste.}
-    \item{$\cdot \Theta^{T}$: Coeficiente dependiente de la temperatura.}
-    \item {$Q(t)$:Caudal de aire en funcion al tiempo.}
+    \item{$k_{o2} \cdot \Theta^{T} \cdot Q(t) $: coeficiente de transferencia de oxígeno.}
+    \item{$k_{o2}$: parametro de ajuste.}
+    \item{$\cdot \Theta^{T}$: coeficiente dependiente de la temperatura.}
+    \item {$Q(t)$: caudal de aire en funcion al tiempo.}
     \item {$C_{sat}$: concentración de saturación del oxígeno disuelto en el volumen del líquido a una temperatura T del agua y a una presión atmosférica de campo en $g/m^{3}$.}
-    \item {$C(t)$:concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+    \item {$C(t)$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
 \end{itemize}
 
 A efectos prácticos para una mejor adaptabilidad de la formula, se transforma la ecuación en:
@@ -998,12 +1004,15 @@ $$\frac{dC}{dt} = k_{o2} \cdot Q \cdot (C_{sat} - C(t))$$
 Para resolver la ecuación diferencial, pasamos al espacio de Laplace:
 
 $$s \cdot C(s) - C(0) = k_{o2} \cdot Q \cdot C_{sat} - k_{o2} \cdot Q \cdot C(s)$$
+
 $$s \cdot C(s) + k_{o2} \cdot Q \cdot C(s) = k_{o2} \cdot Q \cdot C_{sat} + C(0)$$
+
 $$C(s) \cdot (s + k_{o2} \cdot Q) = k_{o2} \cdot Q \cdot C_{sat} + C(0)$$
+
 $$C(s) = \frac{k_{o2} \cdot Q \cdot C_{sat} + C(0)}{s + k_{o2} \cdot Q}$$
 
 \begin{itemize}
-    \item{$C(0)$:Concentración de OD al inicio de la aireación.}
+    \item{$C(0)$: concentración de OD al inicio de la aireación.}
 \end{itemize}
 
 Reescribiendo: 
@@ -1016,6 +1025,7 @@ Reescribiendo:
 Considerando: 
 
 $$\frac{C(0)}{s + k_{o2} \cdot Q} = \frac{a}{s}$$
+
 $$\frac{k_{o2} \cdot Q \cdot C_{sat}}{s + k_{o2} \cdot Q} = \frac{k}{T \cdot s + 1}$$
 
 Reemplazando en \eqref{eqn:COD} tenemos:
@@ -1025,14 +1035,11 @@ Reemplazando en \eqref{eqn:COD} tenemos:
     \label{eqn:COD_F}
 \end{equation}
 
-La ecuación \eqref{eqn:COD_F} expresa la función de transferencia del sistema, adaptable según los parámetros a, T y k.  Esta formula es el cociente de la salida (concentración de oxígeno disuelto), sobre la entrada (caudal de aire o RPM). 
-Es decir, al multiplicar ambos lados de la ecuación por la entrada en el espacio de Laplace y transformarla al espacio temporal, tendremos la concentración de oxígeno disuelto en función al tiempo. Es importante mencionar, que la funcion de entrada es sumistrada por el controlador.
-Esta entrada, debe tener la particularidad de ser tipo rampa, para suponer una referencia con variación continua en el tiempo. 
+La ecuación \eqref{eqn:COD_F} expresa la función de transferencia del sistema, adaptable según los parámetros a, T y k.  Esta formula es el cociente de la salida (concentración de oxígeno disuelto), sobre la entrada (caudal de aire o RPM). Es decir, al multiplicar ambos lados de la ecuación por la entrada en el espacio de Laplace y transformarla al espacio temporal, tendremos la concentración de oxígeno disuelto en función al tiempo. Es importante mencionar, que la funcion de entrada es sumistrada por el controlador. Esta entrada, debe tener la particularidad de ser tipo rampa, para suponer una referencia con variación continua en el tiempo. 
 
 \subsection{Desarrollo del controlador}
 
-El controlador es el encargado de comparar la variable de proceso medida con un valor de referencia de entrada (setPoint), para determinar la desviación y producir una señal de control que reduzca ese error a un valor aproximado a cero.
-La manera en la cual el controlador ejecuta la señal de control se denomina acción de control, es la cantidad dosificada de energía que afecta al sistema para producir la salida o la respuesta deseada.
+El controlador es el encargado de comparar la variable de proceso medida con un valor de referencia de entrada (setPoint), para determinar la desviación y producir una señal de control que reduzca ese error a un valor aproximado a cero. La manera en la cual el controlador ejecuta la señal de control se denomina acción de control, es la cantidad dosificada de energía que afecta al sistema para producir la salida o la respuesta deseada. \\
  
 En nuestro caso, el controlador detecta la señal de error, comparando el setPoint seteado en relación al valor de OD que llega por TCP-IP. La acción de control, es generar una salida en valor de frecuencia al variador.  
 
@@ -1115,26 +1122,25 @@ Buscando facilitar la comprensión del software por parte del operario, se progr
     \item{$Kp \cdot Td \cdot$ = $Kd$: ganancia derivativa.}
 \end{itemize}
 
+Por otro lado, para implementar la formula en Qt: \\ 
 
-Por otro lado, para implementar la formula en Qt:\\ 
-
-En la parte integral, se busca definir $ \int e(t) \cdot dt$ de forma tal que se puede codificar. Si nos basamos en lo expuesto por Ron Larson en su libro “Calculo 1 de una variable”, se puede aproximar el área bajo la curva, o mejor dicho la integral, por integración numérica. Ya sea por la regla de SIMPSON o la de los TRAPECIOS. 
+En la parte integral, se busca definir $ \int e(t) \cdot dt$ de forma tal que se puede codificar. Si nos basamos en lo expuesto por \cite{LRSN}, se puede aproximar el área bajo la curva, o mejor dicho la integral, por integración numérica. Ya sea por la regla de SIMPSON o la de los TRAPECIOS. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.70]{src/imagenes/proyecto/Sumatoria.png}
+    \includegraphics[scale=.70]{src/imagenes/proyecto/sumatoria.png}
     \caption{Integración numérica.}
 \end{figure}
 
 Por lo tanto: 
 
-$$\int e(t) \cdot dt = \sum_{i=1}^{n} e(t_{i})$$ \\
+$$\int e(t) \cdot dt = \sum_{i=1}^{n} e(t_{i})$$
 
-De igual manera, en la parte derivativa $\frac{de(t)}{dt}$ se tiene expresar de forma tal que sea codificable. Tomando como referencia lo expuesto por JAMES STEWART en su libro “CÁLCULO DE UNA VARIABLE TRASCENDENTES TEMPRANAS”, se puede definir la derivada, como la pendiente de la recta tangente: 
+De igual manera, en la parte derivativa $\frac{de(t)}{dt}$ se tiene expresar de forma tal que sea codificable. Tomando como referencia lo expuesto en \cite{STW}, se puede definir la derivada, como la pendiente de la recta tangente: 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.70]{src/imagenes/proyecto/Derivada.png}
+    \includegraphics[scale=.70]{src/imagenes/proyecto/derivada.png}
     \caption{Derivada por definición.}
 \end{figure}
 
