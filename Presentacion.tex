@@ -29,6 +29,7 @@
 \usepackage{etoolbox}
 \usepackage{tcolorbox}
 \usepackage{afterpage}
+\usepackage{appendix}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,6 +88,12 @@
 \renewcommand{\footrulewidth}{0.5pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Anexos %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\appendixname}{Anexos}
+\renewcommand{\appendixtocname}{Anexos}
+\renewcommand{\appendixpagename}{Anexos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%% Información del documento %%%%%%%%%%%%%%%%%%
 \title{\titulodocumento}
 \author{\autordocumento}
@@ -140,7 +147,28 @@
 
 % Capitulos
 \input{src/latex/Identificacion_del_problema.tex}
-\input{src/latex/Anexos.tex}
+\afterpage{\blankpage}
+\newpage
+\input{src/latex/Definicion_del_proyecto.tex}
+\afterpage{\blankpage}
+\newpage
+\input{src/latex/Diseño_conceptual.tex}
+\afterpage{\blankpage}
+\newpage
+\input{src/latex/Diseño_de_ingenieria.tex}
+\afterpage{\blankpage}
+\newpage
+\input{src/latex/Prototipo.tex}
+\afterpage{\blankpage}
+\newpage
+\input{src/latex/Conclusiones.tex}
+
+% Anexos
+\afterpage{\blankpage}
+\newpage
+\appendix
+\input{src/latex/Planos_y_diagramas.tex}
+\input{src/latex/Desarrollos_complementarios.tex}
 
 % Referencias
 \afterpage{\blankpage}
