@@ -28,6 +28,15 @@
 \usepackage{outlines}
 \usepackage{etoolbox}
 \usepackage{tcolorbox}
+\usepackage{afterpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% Variables del documento %%%%%%%%%%%%%%%%%%
@@ -105,15 +114,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Aviso
+\afterpage{\blankpage}
 \input{src/latex/Aviso.tex}
 
 % Informacion adicional
 \input{src/latex/Informacion_adicional.tex}
 
 % Indice
+\afterpage{\blankpage}
 \newpage
-\section*{Contenido global}
+\section*{Contenido}
 \tableofcontents
+\afterpage{\blankpage}
 \newpage
 
 % Desarrollo del trabajo
@@ -121,17 +133,12 @@
 
 % Capitulos
 \input{src/latex/Introduccion.tex}
-\input{src/latex/Identificacion_del_problema.tex}
-\input{src/latex/Marco_teorico.tex}
-\input{src/latex/Proyecto.tex}
-\input{src/latex/Hardware.tex}
-\input{src/latex/Software.tex}
-\input{src/latex/Tecnologias.tex}
-\input{src/latex/Prototipo.tex}
-\input{src/latex/Conclusiones.tex}
-\input{src/latex/Anexos.tex}
 
 % Referencias
+\afterpage{\blankpage}
+\newpage
+\pagestyle{empty}
+
 \bibliography{src/referencias/bibliography}
 \bibliographystyle{unsrt}
 \nocite{*}
