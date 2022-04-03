@@ -124,9 +124,6 @@
 \afterpage{\blankpage}
 \input{src/latex/Aviso.tex}
 
-% Informacion adicional
-\input{src/latex/Informacion_adicional.tex}
-
 % Indice
 \afterpage{\blankpage}
 \newpage
@@ -135,17 +132,21 @@
 \afterpage{\blankpage}
 \newpage
 
-% Introducción
-\input{src/latex/Resumen.tex}
-\newpage
-\input{src/latex/Introduccion.tex}
-\afterpage{\blankpage}
-\newpage
-
 % Desarrollo del trabajo
 \setcounter{page}{1}
 
+% Introducción
+\input{src/latex/Informacion_adicional.tex}
+\newpage
+\afterpage{\blankpage}
+\input{src/latex/Abstract.tex}
+\afterpage{\blankpage}
+\newpage
+
 % Capitulos
+\input{src/latex/Introduccion.tex}
+\afterpage{\blankpage}
+\newpage
 \input{src/latex/Identificacion_del_problema.tex}
 \afterpage{\blankpage}
 \newpage
@@ -155,26 +156,23 @@
 \input{src/latex/Diseño_conceptual.tex}
 \afterpage{\blankpage}
 \newpage
-\input{src/latex/Diseño_de_ingenieria.tex}
-\afterpage{\blankpage}
-\newpage
-\input{src/latex/Prototipo.tex}
+\input{src/latex/Diseño_e_ingenieria.tex}
 \afterpage{\blankpage}
 \newpage
 \input{src/latex/Conclusiones.tex}
-
-% Anexos
 \afterpage{\blankpage}
 \newpage
+
+% Anexos
 \appendix
 \input{src/latex/Planos_y_diagramas.tex}
 \afterpage{\blankpage}
 \newpage
 \input{src/latex/Desarrollos_complementarios.tex}
-
-% Referencias
 \afterpage{\blankpage}
 \newpage
+
+% Referencias
 \pagestyle{empty}
 
 \bibliography{src/referencias/bibliography}
