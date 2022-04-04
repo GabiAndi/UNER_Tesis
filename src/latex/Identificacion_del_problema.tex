@@ -8,16 +8,77 @@
 
 \section{Planta de tratamientos en EGGER}
 
-Mención breve de la empresa, seguido de una descripción resumida de las etapas del proceso de tratamiento de las aguas residuales. \\
+\href{https://www.egger.com/shop/es\_AR}{EGGER} es una industria que se dedica a la elaboración de productos a base de madera. Fundada en 1961 se pone en marcha la primera fábrica de tableros de partículas en St. Johann in Tirol (Austria).
 
-En el proceso biológico del tratamiento, se hará mas hincapié debido a que en esa parte se centra nuestra solución de control.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.2]{src/imagenes/logo/eggerLogo.png}
+\end{figure}
+
+La planta de EGGER en Concordia, esta ubicada en el Parque Industrial, es un complejo productivo de 360.000 $m^2$ y más de 50.000 $m^2$ cubiertos, donde se fabrican y distribuyen más de 500.000 $m^3$ anuales de tableros de MDF, PB, Melaminas, Molduras y Revestimientos, abasteciendo a Argentina, el Mercosur, EE.UU. y Canadá. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/industria/eggerConcordia.jpg}
+    \caption{Planta de EGGER en Concordia.}
+\end{figure}
+
+La planta de tratamiento de efluentes consiste en un conjunto de instalaciones y equipos destinados a tratar los efluentes líquidos industriales generados en las dos líneas de producción de tableros de fibra de madera (MDF). La materia prima en forma de chips húmedos, antes de ser desfibrada, sufre un proceso de vaporización a baja presión. Luego es comprimida por un tornillo cónico donde se produce una corriente liquida con alta carga de materia orgánica en suspensión. La misma se compone de los extractos típicos de la madera, su propia humedad y el vapor de agua condensado que fuera utilizado para el calentamiento. \\
+
+Por lo tanto, el objetivo del tratamiento de las aguas residuales, es producir un efluente reutilizable y un residuo sólido para su posterior uso.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/tratamiento/diagramaDePlantaDeEfluentes.png}
+    \label{fgr:digramaDeTratamientoDeEfluentes}
+    \caption{Diagrama de flujo del proceso de tratamiento}
+\end{figure}
+
+El proceso de tratamiento posee cuatro etapas:
+
+\begin{enumerate}
+    \item{\textbf{Preliminar:} tratamiento de solidos gruesos. Filtrado físico por rejillas, etc.}
+    \item{\textbf{Primario:} tratamiento de solidos en suspensión. Añadido de químicos floculantes.}
+    \item{\textbf{Secundario:} tratamiento biológico. Lodos activos.}
+    \item{\textbf{Terciario:} tratamiento final. Desinfección y filtrado ultrafino.}
+\end{enumerate}
+
+En la figura \ref{fgr:digramaDeTratamientoDeEfluentes} se ve de manera simplicada cada etapa individual del proceso (para mas información ver anexo \ref{anexo:tratamientoDeEfluentes}). Sin embargo, es necesario conocer un poco mas sobre el tratamiento secundario de tipo biológico. Es por esto que recomendamos leer la sección \ref{anexo:tratamientoSecundario} del anexo.
 
 \section{Planteo de la problemática}
 
-Ahora que se describo el proceso de tratamientos de aguas, es mas fácil introducir a la problemática especifica. \\
+El proceso de tratamiento de efluentes opera de manera ininterrumpida las 24hs del día, los 365 días del año. Lo que supone que todo el sistema debe estar a punto para evitar contratiempos, o paradas innecesarias que perjudiquen directamente a los demás procesos que dependen de este. \\
 
-Acá iría la descripción del problema exponiendo los inconvenientes que el modo de operación actual de la planta generá
+Es lógico asumir que un proceso que opera de manera ininterrumpida, posea grandes requerimientos energéticos. De hecho, la etapa secundaria de una planta de tratamento de efluentes es responsable de mas 90\% del consumo total de la misma. \\
+
+El tratamiento secundario de tipo biológico de EGGER, posee dos sopladores de \href{https://es.wikipedia.org/wiki/Compresor_volum%C3%A9trico_tipo_Roots}{lóbulos rotativos}, impulsados cada uno de ellos por un motor trifásico de 75HP (55kW). \\
+
+Estos motores son los causantes del elevado consumo de electricidad de toda la planta, y no siempre es necesario que funcionen a potencia nominal \footnote{Actualmente los sopladores \textbf{no} poseen un control de velocidad a demanda, y el proceso de puesta en marcha de los motores se realiza mediante un arranque directo.}, ya que depende del estado actual del efluente cuanto aire requiere que esten soplando. Ademas, como ningún motor seria capaz de soportan tanto tiempo ininterrumpido de operación, ambos tienen una rotación de uso de 15 días aproximadamente, esta conmutación se realiza de manera manual y es causante de muchas fallas estructurales en la cañeria de transporte de aire (golpe de ariete, fatiga, etc). \\
+
+Los dispositivos actuales que controlan el proceso (PLC, HMI, etc.) no tiene comunicación entre ellos más allá de la captura de datos. Las válvulas son operadas manualmente. El operario tiene que intervenir en el proceso en cada regulación y cambio de sopladores. \\
+
+A todo esto, se suma el hecho de tener un sistema \textit{bobo}, es decir, sin análisis de los datos producidos, sin conectividad con el exterior de la planta de tratamiento y sin la de toma de decisiones respecto a las variables que intervienen.
 
 \section{Jutificación}
 
-Porque es necesario cambiar la forma de operación basado en las consecuencias que genera el no tener un control automático.
+La intervención manual del operario para cada ajuste del sistema, y el poco control sobre el mismo produce:
+
+\begin{itemize}
+    \item{Riesgos de daños mecánicos a las tuberias en la rotación de operación de sopladores.}
+    \item{Consumo elevado del sistema.}
+    \item{Poco control en los requerimientos de OD.}
+    \item{Falta de análisis de las métricas producidas.}
+    \item{Muy bajo margen de mejora en la eficiencia total del proceso.}
+\end{itemize}
+
+Si icorporamos un sistema de control basado en tecnologías de Industria 4.0, tendremos:
+
+\begin{itemize}
+    \item{Desbloqueo de un potencial ahorro energético.}
+    \item{Contro dinámico en el suministro de OD.}
+    \item{Métricas en tiempo real de todo el sistema.}
+    \item{Almacenamiento de todas las métricas producidas para un posterior análisis.}
+    \item{Control a distancia del proceso.}
+    \item{Desbloqueo de potenciales mejoras.}
+    \item{Posibidad de ampliación del sistema de control a otras areas del proceso.}
+\end{itemize}
