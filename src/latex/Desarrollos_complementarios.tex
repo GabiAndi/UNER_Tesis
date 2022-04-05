@@ -205,3 +205,45 @@ El flujo de agua es descendente. Durante el funcionamiento, el lecho de carbón 
 \section{Desarrollo matemático del sistema}
 
 \section{Desarrollo del sistema de control}
+
+\section{Configuración de la Raspberry Pi}
+
+\label{anexo:configuracionDeLaRaspberry}
+
+\subsection{Instalación del S.O.}
+
+La Raspberry Pi utiliza Raspberry Pi OS, que es el sistema operativo oficial distribuido por el fabricante de las placas. Esta basado en Debian y es compatible con todos los modelos de placas. La imagen de instalación se puede descargar desde la \href{https://www.raspberrypi.com/software/operating-systems/}{página oficial de Raspberry}. \\
+
+Si bien es cierto que se pueden instalar otros sistemas operativos como: Arch Linux ARM, Ubuntu, etc. En este caso preferimos utilizar Raspberry Pi OS por ser soportado oficialmente. \\
+
+Para instalar el sistema en la Raspberry Pi, lo que debemos hacer es (una vez descargada la imagen) descomprimir el archivo .zip y grabar el archivo .img en una tarjeta micro SD de por lo menos 32GB. \\
+
+Cuando se termine de grabar el .img en la micro SD, ahora procedemos a crear un archivo llamado \textit{ssh} en la partición /boot, esto permitirá que desde el primer booteo el sistema inicie también el servidor ssh. \\
+
+Y listo, ahora ya podemos extraer la tarjeta de memoria, colocarla en la Raspberry y conectarla a la corriente.
+
+\subsection{Configurar el entorno de desarrollo}
+
+Existen varios motivos por los cuales uno se encuentra con la necesidad de configurar un entorno de desarrollo personalizado:
+
+\begin{itemize}
+    \item{La versión que se distribuye con el sistema operativo no esta actualizada.}
+    \item{Es necesario un compilador cruzado para una arquitectura en especifico.}
+    \item{Las versiones precompiladas no están configuradas se necesita.}
+\end{itemize}
+
+Nosotros vamos a crear aplicaciones Qt para la Raspberry Pi 3B+, y como las versiones modernas de GCC y de Qt no vienen compiladas por defecto para la arquitectura, hay que configurar un entorno personalizado. \\
+
+Para crear un toolchain de C++ y Qt, tenemos que:
+
+\begin{itemize}
+    \item{Compilar la última versión del compilador (valga la redundancia) para nuestra máquina de escritorio (x86\_64).}
+    \item{Compilar la última versión del compilador, pero de manera cruzada para la plataforma de destino. En este caso es la Raspberry Pi 3B+ (armv7).}
+    \item{Compilar la versión de Qt para la plataforma de destino (Raspberry Pi 3B+ armv7).}
+\end{itemize}
+
+En resumen lo que haremos es crear un compilador cruzado con las librerías de Qt instaladas. Y así poder generar binarios para la Raspberry Pi 3B+ desde nuestra computadora de escritorio. Que son dos arquitecturas completamente distintas. \\
+
+Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa este conectada y funcionando, viendonos limitados por la potencia de cómputo al mover un entorno de escritorio completo. \\
+
+El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí, sin embargo tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.

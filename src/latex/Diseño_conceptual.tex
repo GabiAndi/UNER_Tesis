@@ -8,22 +8,90 @@
 
 \section{Justificación técnica}
 
-Porque la propuesta de solución elegida nosotros creemos que es la que mejor se adapta a la problemática. \\
+En cuanto a sistemas de control para industria, existen multitud de variantes y alternativas que elegir. Las Computadoras Lógicas Programables (PLC) son la opción mas utilizada en industria debido a su estandarización y robustes, en donde si ocurre una falla, en el 99\% de los casos no fue ocacionada por el propio PLC. \\
 
-Para cada respuesta se expresa el criterio de elección en base a los conocimientos que nosotros tenemos, a lo que investigamos y lo que el sentido común dice.
+También podemos encontrar computadoras destinadas a fines industriales (IPC), con un factor de forma entre un nettop y un rack de servidores. Las PC industriales tienen estándares más altos de confiabilidad y precisión que una computadora personal para uso en oficina. \\
 
-\section{Alternativas existentes}
+Existen mas metodos de control, incluso en sensores podemos tener una electrónica de toma de datos y ajuste, sin embargo para este desarrollo en particular se diseñera un sistema de control desde cero utilizando un microcomputador muy conocido, una \href{https://www.xataka.com/ordenadores/raspberry-pi-3-model-b-analisis-mas-potencia-y-mejor-wifi-para-un-minipc-que-sigue-asombrando}{Raspberry Pi 3B+}. La electrónica de control y de transducción entre señales también se diseñará, para poder adaptarse a sistemas de control de potencia industrial que operan con otros estandares. \\
 
-Como se suele controlar normalmente este tipo de sistemas, que ventajas y desventajas tienen respecto a nuestra solución, y que inconvenientes trae la incorporación de estos sistemas alternativos.
+Utilizar un microcomputador como la Raspberry Pi y diseñar la electrónica de control tiene una serie de ventajas. Dentro de ellas la mas destacable es la \textbf{flexibilidad} que otorgan este tipo de sistemas, que al ser libres, toda su documentación y desarrollo esta disponible para que cualquier persona pueda leer o modificar lo que quiera. Esto también implica que su uso no este limitado por licencias privativas. \\
+
+Como el sistema de control es un desarrollo desde cero, se puede personalizar tanto como se quisiera para poder suplir las necesidades requeridas, esto es una ventaja respecto a los sistemas estandarizados. Sin embargo, no todo es color de rosas, el utilizar tecnologías OpenSource y OpenHard, a menudo imponen que el desarrollo nuestro también sea libre. Para procesos industriales en un principio esto no supone un impedimento, ya que a menudo no todas las empresas tienen una planta de tratamiento de efluentes con exactamente los mismos requerimientos. Para fines comerciales el valor agregado al proceso no tiene que ver con el desarrollo de las tecnologías aplicadas en el, sino con el producto fruto de ellas. Resumiendolo, nosotros estamos lucrando en base a un esfuerzo comunitario \\
+
+Para presentar un análisis resumido se muestra la siguiente tabla comparativa:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            & \textbf{PLC} & \textbf{IPC} & \textbf{Microcomputador} \\ \hline
+            \textbf{Entras y salidas} & Si & Si & Si \\ \hline
+            \textbf{Expanción} & Si & Si & Si \\ \hline
+            \textbf{Estandar} & Si & Si & No \\ \hline
+            \textbf{Protecciones} & Si & Si & No \tablefootnote{Las protecciones son añadidas con electrónica externa} \\ \hline
+            \textbf{Programables} & Si & Si & Si \\ \hline
+            \textbf{Control total del sistema} & No & No & Si \\ \hline
+            \textbf{Libre uso \tablefootnote{No se pueden modificar sus componentes para ser utilizados en un desarrollo propio o personalizado.}} & No & No & Si \\ \hline
+            \textbf{Garantía} & Oficial & Oficial & Si \tablefootnote{A cargo del propio desarrollador, esto puede resultar un inconvente.} \\ \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\section{Modificaciones al proceso actual}
+
+Para poder incorporar nuestro sistema de control al proceso que está corriendo actualmente la industria, se requerirá de ciertas modificaciones. Sin embargo, como premisa principal, si el controlador entra en una falla irrecuperable, este se debe anular completamente y pasar a un modo de operación manual muy simular a como se realiza actualmente. \\
+
+El primer cambio importante se realizará en la \textit{etapa de potencia} debido a que los sopladores estan conectados directamente a los contactores de arranque. Nuestro sistema de control es capaz de variar la velocidad del motor para ajustar el caudal de aire soplado, es por esto que se incorporará un variador de frecuencia y un par de contactores de enclavamiento a la entrada del mismo. \\
+
+Se añadirá en paralelo a los sistemas digitales que actualmente operan (PLCs, HMI, SCADA, etc), nuestro sistema de control de potencia para el variador de velocidad. Todo esta electrónica de control se ubicará en un gabinete hermético al lado del variador de velocidad. Los bornes de salida irán conectados al variador y a los contactores, el conector de video se conectará a una minipantalla para poder observar el estado actual del sistema, y por último la salida de red se conectará a un switch en la planta. \\
+
+Para la comunicación en red, un switch local proporcionará acceso a todos los elementos del sistema, además deberá proporcionar salida a internet. \\
+
+Un servidor se incorporará con el objetivo de guardar toda la telemetría generada por la etapa de control. Este servidor correrá una base de datos y proporcionará paneles de visualización de todas las métricas generadas. \\
+
+Se recomienda también una pantalla fija, para visualizar el SCADA de la planta, si bien es cierto que también se puede hacer a travez de un dispositivo móvil, el tamaño de un monitor es mucho mayor. \\
+
+Por último cabe resaltar que toda comunicación fuera de empresa con la infraestructura de red de la planta, se realizará mediante una VPN. Esto permite que solo los usuarios registrados tengan capacidad de conectarse con el sistema.
+
+\section{Metodologías de trabajo}
+
+\subsection{Kanban}
+
+Kanban es una forma de ayudar a los equipos a encontrar un equilibrio entre el trabajo que necesitan hacer y la disponibilidad de cada miembro del equipo. La metodología Kanban se basa en una filosofía centrada en la mejora continua, donde las tareas se representan en una lista de acciones pendientes en un flujo de trabajo constante. \\
+
+La metodología Kanban se implementa por medio de tableros Kanban. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo. En un tablero Kanban, el trabajo se muestra en un proyecto en forma de tablero organizado por columnas. \\
+
+Para esto se utilizó el panel de Project Management de GitHub que es gratis y muy completo, además de integrarse con el desarrollo de software.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.28]{src/imagenes/metodologias/kanban.png}
+    \caption{Panel de gestión de proyecto en GitHub.}
+\end{figure}
+
+\subsection{Waterfall}
+
+Esta metodología es una aproximación lineal al desarrollo y ha sido la más utilizada durante los últimos 30 años. La secuencia que sigue este método está compuesta de las siguientes fases:
+
+\begin{itemize}
+    \item{Captura y documentación de requisitos.}
+    \item{Diseño.}
+    \item{Desarrollo.}
+    \item{Test.}
+    \item{Corrección de errores y ajustes finales.}
+    \item{Puesta en producción.}
+\end{itemize}
+
+En un desarrollo waterfall puro, cada una de estas fases representan una etapa diferenciada en el desarrollo del producto final. Cada una de estas etapas deben darse por concluidas antes de comenzar con la siguiente. Además, entre cada una de ellas, generalmente tenemos un hito bloqueante que nos impide avanzar a la siguiente si este no se libera adecuadamente.
 
 \section{Análisis económico inicial}
 
-Costos del proyecto tanto en componentes como en horas de desarrollo por nuestra parte (un estimado inicial).
+\pendiente{Análisis económico inicial}
 
-\section{Análisis de impacto}
+\subsection{Costo de componentes}
 
-Que cambios deben realizarse para incorporar el sistema de control, en que afecta al proceso y que cambios de hábito tendrá el operario con la instalación del dispositivo.
+\pendiente{Costo de componentes}
 
-\section{Metodología planteada}
+\subsection{Costo del desarrollo}
 
-Como nosotros pretendemos encarar la solución propuesta y como pensamos llevar a cabo el desarrollo del sistema (paso a paso).
+\pendiente{Costo del desarrollo}

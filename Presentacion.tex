@@ -30,6 +30,9 @@
 \usepackage{tcolorbox}
 \usepackage{afterpage}
 \usepackage{appendix}
+\usepackage{tablefootnote}
+\usepackage{xargs}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,6 +69,13 @@
 \newtcolorbox{bash}[1]{%
     title=#1
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Pendientes %%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommandx{\quitar}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\agregar}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\informacion}[2][1=]{\todo[linecolor=lime,backgroundcolor=lime!25,bordercolor=lime,#1]{#2}}
+\newcommandx{\pendiente}[2][1=]{\todo[linecolor=orange,backgroundcolor=orange!25,bordercolor=orange,#1]{#2}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%% Configuracion de paginas %%%%%%%%%%%%%%%%%%%
@@ -121,6 +131,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Aviso
+\newpage
 \afterpage{\blankpage}
 \input{src/latex/Aviso.tex}
 
@@ -129,8 +140,13 @@
 \newpage
 \section*{Contenido}
 \tableofcontents
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
+
+% Pendientes
+\listoftodos[Tareas]
+\newpage
+\afterpage{\blankpage}
 
 % Desarrollo del trabajo
 \setcounter{page}{1}
@@ -140,37 +156,37 @@
 \newpage
 \afterpage{\blankpage}
 \input{src/latex/Abstract.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 
 % Capitulos
 \input{src/latex/Introduccion.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Identificacion_del_problema.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Caracterizacion.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Diseño_conceptual.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Diseño_e_ingenieria.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Conclusiones.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 
 % Anexos
 \appendix
 \input{src/latex/Planos_y_diagramas.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 \input{src/latex/Desarrollos_complementarios.tex}
-\afterpage{\blankpage}
 \newpage
+\afterpage{\blankpage}
 
 % Referencias
 \pagestyle{empty}
