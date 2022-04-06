@@ -247,3 +247,541 @@ En resumen lo que haremos es crear un compilador cruzado con las librerías de Q
 Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa este conectada y funcionando, viendonos limitados por la potencia de cómputo al mover un entorno de escritorio completo. \\
 
 El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí, sin embargo tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.
+
+\section{Características del sistema}
+
+\label{anexo:caracteristicasDelSistema}
+
+\subsection{Sistema de suministro de aire}
+
+Según la información proporcionado por EGGER el sistema de suministro de aire está compuesto por un de desplazamiento positivo tipo lóbulos rotativos, marca Repicky, modelo R3.0 con una capacidad de $1631 \frac{m^{3}}{h}$. A este soplador se le acopla un motor con una potencia de 75Hp.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/blowerInformation.png}
+\end{figure}
+
+Para tener más información del sistema se accede al sitio web del fabricante Repicky donde descargamos un folleto del soplador. Las siguientes imágenes son fragmentos del mismo que fueron utilizadas para una mejor caracterización. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/caracteristicasConstructivas.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/tablaDeSeccionSopladores.png}
+\end{figure}
+
+Como no tenemos información sobre las características del motor, salvo su potencia, entramos a la tabla anterior según el modelo R3.0 y seleccionamos un soplador de características similares. \\
+
+De la siguiente imagen podemos extraer las RPM del motor para cumplir con el caudal y la presión generada:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/caudalPresion.png}
+\end{figure}
+
+$$P = 75.8HP$$
+
+$$Q = 1759 \frac{m^{3}}{h} = 29.316 \frac{m^{3}}{min}$$
+
+$$RPM = 2250 \frac{rev}{min}$$
+
+$$C = \frac{Q}{RPM} \frac{29.316 \frac{m^{3}}{min}}{2250 \frac{rev}{min}} = 0.013026 \frac{m^{3}}{rev} = 13.026 \frac{Lts}{rev}$$
+
+$$v = \frac{Q}{A} = \frac{0.4886 \frac{m^{3}}{s}}{\pi  \left( \frac{0.158m}{2} \right)^{2}} = 24.9 \frac{m}{s}$$
+
+Cabe resaltar que la información del fabricante no coincide en su totalidad con la proporcionada por EGGER, debido a las tolerancias de $\pm 5\%$ especificadas por el fabricante.
+
+\begin{itemize}
+    \item{$C$: cilindrada.}
+    \item{$v$: velocidad de salida del soplador.}
+\end{itemize}
+
+\subsection{Sistema de distribución de aire}
+
+Tomando como referencia la información proporcionada por EGGER el sistema de distribución de aire está compuesto por una tubería principal en T de 150NB a la que se le acoplan 12 tubos de 80NB con 20 perforaciones c/u de 7mm de diámetro que forman la grilla de aireación. El material de los tubos es HDPE (polietileno de alta densidad).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/sistema/informacionDeAireacion.png}
+    \caption{Información de las rejillas de difusión.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.325]{src/imagenes/sistema/diagramaRegillas1.png}
+    \caption{Diagrama de distribución de aire en la pileta.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.375]{src/imagenes/sistema/diagramaRegillas2.png}
+    \caption{Diagrama de las rejillas difusoras.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/diagramaRegillasInventor.png}
+    \caption{Diagrama modelado en Inventor.}
+\end{figure}
+
+Para dimensionar los diámetros de las tuberías nos basamos en la Norma ASTMF-714:2012 de Tuberías lisas HDPE, el diagrama e información del sistema de aireación proporcionado por EGGER y los datos del fabricante Repicky.
+
+\subsubsection{Datos del fabricante Repicky:}
+
+El folleto de Repicky nos provee una tabla de medidas generales, donde extraemos la conexión de salida para el Modelo del soplador R3.0 que es de 6 pulgadas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/normaTuberias.png}
+\end{figure}
+
+\subsubsection{Norma ASTMF-714:2012 para Tuberías lisas HDPE:}
+
+Al no contar con información de la empresa sobre los espesores de las tuberías nos basamos en la Norma ASTMF-714:2012. Con los diámetros nominales mencionados anteriormente entramos a la tabla y comparamos las presiones de trabajo máxima de las tuberías según la norma y la suministrada por el fabricante del soplador, que es de 1[bar] o 14,5[Psi]. Donde llegamos a la conclusión que trabajando con los espesores de la primera columna 51[Psi] o 63[Psi] dependiendo el tipo de tubería, tenemos un margen de seguridad de 36.5[Psi] o 48.5[Psi].
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/tuberiaLisaHDPENorma.png}
+\end{figure}
+
+La relación SDR corresponde al cociente entre el diámetro externo y el espesor de la tubería. \\
+
+\textbf{Salida 150NB o 6 pulgadas:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/tuberiaLisaHDPENorma2.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/graficaTuberiaLisa.jpg}
+\end{figure}
+
+$$D_{n} = 168.3mm$$
+
+$$e = 5.2mm$$
+
+$$SDR = \frac{D_{e}}{e} = 32.5 = SDR \cdot e$$ \\
+
+\textbf{Conductos Perforados 80 NB:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/tuberiaLisaHDPENorma3.png}
+\end{figure}
+
+$$D_{n} = 88.9mm$$
+
+$$e = 2.7mm$$
+
+$$SDR = \frac{D_{e}}{e} = 32.5 = SDR \cdot e$$
+
+$$D_{e} = 32.5 \cdot 2.7 = 87.75mm$$
+
+$$D_{i} = D_{e} - e = 87.75mm - 2 \cdot 2.7mm = 82.35mm$$
+
+\section{Cálculos del sistema}
+
+\label{anexo:calculosDelSistema}
+
+\subsection{Presión del volumen de agua sobre la salida de aire}
+
+Una de las principales características que debe cumplir el sistema de control es garantizar el ingreso continuo de aire en la pileta de lodos activos. \\
+
+El aire se debe suministrar por medio de un proceso de compresión para que pueda salir a través de los orificios o difusores; esto solo es posible, si la presión del aire comprimido es superior a la presión absoluta que se ejerce sobre los difusores, la cual es resultado de la presión hidrostática del agua y la presión atmosférica. Por esta razón surge la necesidad de analizar la relación de presiones entre el sistema de aireación y el volumen de agua residual. \\
+
+Comenzamos el análisis realizando un modelo en Inventor de la pileta con su respectivo sistema de aireación. Esto nos permitió obtener las dimensiones exactas y determinar la altura del volumen de agua con respecto a la grilla de aireación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/piletas1.png}
+\end{figure}
+
+En la siguiente imagen se puede observar el plano con las cotas necesarias para los cálculos: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/sistema/piletas2.png}
+\end{figure}
+
+Para los cálculos nos basamos en una rama de la dinámica de fluidos la hidrostática, para ser más precisos en el concepto de fuerzas hidrostáticas sobre superficies sumergidas. \\
+
+Partimos de los siguientes datos suministrados por EGGER:
+
+$$h = 6.455m$$
+
+$$\rho = 1.03 \frac{g}{cm^{3}} = 1030 \frac{Kg}{m^{3}}$$
+
+$$g = 9.81\frac{m}{s^{2}}$$
+
+Como se mencionó anteriormente en la caracterización del sistema de distribución de aire, tenemos 12 conductos de polietileno de alta densidad con 20 perforaciones c/u de diámetro $7mm$. Los mismos se encuentran sumergidos en la pileta de lodos activos a una profundidad de 6,455[m]. \\
+
+Un aspecto a resaltar es que si bien las perforaciones están realizadas sobre la cara de un tubo cilíndrico, para simplificar los cálculos se consideraran las fuerzas hidrostáticas sobre una superficie plana sumergida y no sobre una superficie curva sumergida.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/sistema/tuberias1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/tuberias2.png}
+\end{figure}
+
+Para calcular la distribución de presión en el punto de interés se parte de la "ecuación diferencial de la hidrostática":
+
+$$\rho \cdot g - \nabla p = 0$$
+
+\begin{itemize}
+    \item{$\rho$: densidad.}
+    \item{$g$: aceleración de la gravedad.}
+    \item{$\nabla p$: vector gradiente de campo de presiones.}
+\end{itemize}
+
+Su carácter vectorial implica las siguientes ecuaciones:
+
+$$\frac{\delta p}{\delta x} = p \cdot g_{x} ; \frac{\delta p}{\delta y} = p \cdot g_{y} ; \frac{\delta p}{\delta z} = p \cdot g_{z}$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{src/imagenes/sistema/presionesHidroestatica.png}
+\end{figure}
+
+Como uno de sus ejes coincide con la aceleración de la gravedad tenemos:
+
+$$\frac{\delta p}{\delta x} = 0 ; \frac{\delta p}{\delta y} = 0 ; \frac{\delta p}{\delta z} = p \cdot g_{z}$$
+
+La ecuación nos dice que la presión no depende de las coordenadas x e y, siendo sólo función de z. Esto es, todos los puntos del fluido que se encuentren a una misma altura estarán a la misma presión, independientemente de la forma del recipiente. \\
+
+Por otra parte, la funcionalidad de la presión con la altura la determinaremos integrando la componente z. 
+
+$$\frac{\delta p}{\delta z} = -\rho \cdot g_{z} \rightarrow p = -\rho \cdot g \cdot z + C$$
+
+La condición de borde es que la presión en z = h es la atmosférica. Quedando:
+
+$$p = p_{o} + \rho \cdot g \cdot (h - z)$$
+
+Donde $z = 0$ debido a que consideramos directamente la altura del orificio.
+
+$$p = p_{o} + \rho \cdot g \cdot h$$
+
+$$h = 6.445m$$
+
+$$\rho 1.03 \frac{g}{cm^{3}} = 1030 \frac{Kg}{m^{3}}$$
+
+$$g = 9.81 \frac{m}{s^{2}}$$
+
+$$p = p_{o} + 1030 \frac{Kg}{m^{3}} \cdot 9.81 \frac{m}{s^{2}} \cdot 6.445m = p_{o} + 65156.77 \frac{Kg}{m \cdot s^{2}}$$
+
+$$p = p_{o} + 0.651bar$$
+
+Donde según el Histórico del Tiempo en Concordia la presión atmosférica máxima es de 1014hPa:
+
+$$p_{o} + 1.014hPa$$
+
+$$p = 1.014hPa$$
+
+La presión que debe vencer el aire para ingresar a la pileta es de $1.665bar$.
+
+En cualquier área pequeña $dA$ existe una fuerza $dF$ que actúa de modo perpendicular al área, debido a la presión $p$ del fluido. Pero la magnitud de la presión a cualquier profundidad $h$ en un líquido estático de peso específico $\gamma$ es $p = \gamma \cdot h$.
+Entonces, la fuerza es:
+
+$$dF = p(dA) = \gamma \cdot h (dA)$$
+
+La suma de las fuerzas en toda la superficie se obtiene por medio del proceso matemático de integración:
+
+$$F = \int_{A}{-np(dA)} = p \cdot \pi \cdot r^{2}$$
+
+$$1Pa = 1 \frac{Kg}{m \cdot s^{2}}$$
+
+$$1014hPa = 101400Pa$$
+
+$$F = \left( p_{o} + 65156.77 \frac{Kg}{m \cdot s^{2}} \right) \cdot \pi \cdot (0.007m)^{2}$$
+
+$$F = 1.539 \times 10^{-4} m^{2} \cdot p_{o} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 1.539 \times 10^{-4} m^{2} \cdot 101400 \frac{Kg}{m \cdot s^{2}} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 15.61 \frac{Kgm}{s^{2}} + 10.03 \frac{kgm}{s^{2}}$$
+
+$$F = 25.63 \frac{Kgm}{s^{2}} = 25.63 N$$
+
+Para poder ingresar a la pileta de lodos, el aire debe de ejercer una fuerza de $25.63 N$ sobre el área de cada orificio de la grilla de aireación.
+
+\subsection{Cálculos del Flujo de aire en las tuberías}
+
+En este apartado se busca determinar la de velocidad del aire en el sistema de cañerías en función al caudal de entrada para luego poder estimar de manera aproximada las pérdidas en las mismas. Como no tenemos la información precisa del sistema de tuberías desde la bomba hasta la grilla interna de la pileta, supondremos que la salida de esta es un tubo que se conecta mediante un acople en T directo a la grilla.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/diagramaRegillasInventor.png}
+\end{figure}
+
+Para la realización de los cálculos nos basamos en las siguientes Hipótesis:
+
+\begin{itemize}
+    \item{Partimos de un estado estacionario.}
+    \item{Volumen de control fijo: para todas las áreas se cumple que $\omega = 0$ (velocidad relativa de las áreas).}
+    \item{No tenemos datos para calcular el perfil de velocidades del fluido, por lo que se considera flujo turbulento con perfiles de velocidad planos, cuyo valor es su valor medio.}
+    \item{Fluido incompresible y puro (densidad constante).}
+    \item{Fuerzas gravitatorias (peso del fluido en el volumen de control) despreciables.}
+    \item{La velocidad del fluido en áreas solidas es nula.}
+\end{itemize}
+
+\subsubsection{En la primera conexión en T tenemos:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/sistema/t.png}
+\end{figure}
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot D^{2}}{4}$$
+
+$$D = D_{i} 158.9mm = 0.1589m$$
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot (0.1589m)^{2}}{4} = 0.01975 m^{2}$$
+
+Luego tenemos las dos variables a controlar que son la velocidad y el caudal de aire que se relacionan mediante la siguiente formula:
+
+$$v = \frac{Q}{A}$$
+
+Aplicando balance microscópico de masa:
+
+$$\frac{\delta}{\delta t} \int_{v(t)}{\rho \cdot dv} + \int_{v(t)}{\rho (\overrightarrow{v} - \overrightarrow{\gamma}) \cdot \overrightarrow{n} \cdot dA}$$
+
+\begin{itemize}
+    \item{$\rho$: densidad.}
+    \item{$\overrightarrow{v}$: velocidad del fluido.}
+    \item{$\overrightarrow{\gamma}$: velocidad relativa de las áreas. $= 0$.}
+    \item{$ \overrightarrow{n}$: normal a la superficie.}
+\end{itemize}
+
+Considerando las hipótesis planteadas anteriormente nos queda:
+
+$$\int_{A_{1}}{\rho \cdot \overrightarrow{v}_{1} \cdot \overrightarrow{n}_{1} \cdot dA_{1}} + \int_{A_{2}}{\rho \cdot \overrightarrow{v}_{2} \cdot \overrightarrow{n}_{2} \cdot dA_{2}} + \int_{A_{3}}{\rho \cdot \overrightarrow{v}_{3} \cdot \overrightarrow{n}_{3} \cdot dA_{3}} = 0$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/sistema/t2.png}
+\end{figure}
+
+$$\overrightarrow{n_{1}} = \overrightarrow{j} \cdot \overrightarrow{n_{2}} = - \overrightarrow{i} \cdot \overrightarrow{n_{3}} = \overrightarrow{i}$$
+
+$$\overrightarrow{v_{1}} = v_{1} \cdot (-\overrightarrow{j}) \cdot \overrightarrow{v_{2}} = v_{2} \cdot (-\overrightarrow{i}) \cdot \overrightarrow{v_{3}} = v_{3} \cdot (\overrightarrow{i})$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = |\overrightarrow{v_{1}}| \cdot |\overrightarrow{n_{1}}| \cdot \cos{(180)}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = |\overrightarrow{v_{2}}| \cdot |\overrightarrow{n_{2}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = |\overrightarrow{v_{3}}| \cdot |\overrightarrow{n_{3}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = -v_{1}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = v_{2}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = v_{3}$$
+
+Nos queda en el balance:
+
+$$-\int_{A_{1}}{v_{1} \cdot dA_{1}} + \int_{A_{2}}{v_{2} \cdot dA_{2}} +  \int_{A_{3}}{v_{3} \cdot dA_{3}} = 0$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+Luego como:
+
+$$A_{1} = A_{2} = A_{3} = \frac{\pi \cdot D^{2}}{4}$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+$$v_{2} = v_{3} = \frac{v_{1}}{2}$$
+
+Suponiendo que el aire se distribuye de manera uniforme en las 12 ramificaciones en T de los difusores, realizamos un plateo análogo al anterior que nos da como resultado:
+
+$$\int_{A_{1}}{\rho \cdot \overrightarrow{v}_{1} \cdot \overrightarrow{n}_{1} \cdot dA_{1}} + \int_{A_{2}}{\rho \cdot \overrightarrow{v}_{2} \cdot \overrightarrow{n}_{2} \cdot dA_{2}} + \int_{A_{3}}{\rho \cdot \overrightarrow{v}_{3} \cdot \overrightarrow{n}_{3} \cdot dA_{3}} = 0$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.8]{src/imagenes/sistema/t3.png}
+\end{figure}
+
+$$\overrightarrow{n_{2}} = \overrightarrow{j} \cdot \overrightarrow{n_{1}} = - \overrightarrow{i} \cdot \overrightarrow{n_{3}} = \overrightarrow{i}$$
+
+$$\overrightarrow{v_{1}} = v_{1} \cdot \overrightarrow{i} \cdot \overrightarrow{v_{1}} = v_{2} \cdot \overrightarrow{j} \cdot \overrightarrow{v_{3}} = v_{3} \cdot (\overrightarrow{i})$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = |\overrightarrow{v_{1}}| \cdot |\overrightarrow{n_{1}}| \cdot \cos{(180)}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = |\overrightarrow{v_{2}}| \cdot |\overrightarrow{n_{2}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = |\overrightarrow{v_{3}}| \cdot |\overrightarrow{n_{3}}| \cdot \cos{(0)}$$
+
+$$\overrightarrow{v_{1}} \cdot \overrightarrow{n_{1}} = -v_{1}$$
+
+$$\overrightarrow{v_{2}} \cdot \overrightarrow{n_{2}} = v_{2}$$
+
+$$\overrightarrow{v_{3}} \cdot \overrightarrow{n_{3}} = v_{3}$$
+
+Nos queda en el balance:
+
+$$-\int_{A_{1}}{v_{1} \cdot dA_{1}} + \int_{A_{2}}{v_{2} \cdot dA_{2}} +  \int_{A_{3}}{v_{3} \cdot dA_{3}} = 0$$
+
+$$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
+
+Luego como:
+
+$$A_{1} = A_{3} = \frac{\pi \cdot D_{1}^{2}}{4}$$
+
+$$A_{2} = \frac{\pi \cdot D_{2}^{2}}{4}$$
+
+$$v_{1} A_{1} - v_{3} A_{3} = v_{2} A_{2}$$
+
+Como las áreas no son iguales nos queda una ecuación con dos incógnitas $v_{1}$ y $v_{2}$ por lo que no se puede seguir resolviendo aplicando balance microscópico de masa. \\
+
+Sin embargo, estos cálculos nos servirán en las etapas siguientes para verificar que la simulación del sistema este arrojando resultados correctos.
+
+\section{Simulación del sistema}
+
+Para poder continuar con el análisis del flujo de aire en el sistema de tuberías lo modelamos en un software para el cálculo de pérdidas de carga en tuberías denominado FLUIDFLOW, cuyas opciones de cálculo se basan en los principios y ecuaciones de mecánica de fluidos más reconocidos universalmente: número de Reynolds, Bernoulli, ecuaciones de Darcy Weisbach, diagrama de Moody, Hazen Williams, Duxbury, Wilson Addie Selgren y Clif entre otros.
+
+\subsection{Modelado con los datos de entrada}
+
+El objetivo con este software es lograr una simulación lo más precisa posible que nos permita sacar conclusiones sobre la reacción del sistema ante un cambio de la energía entregada al motor. Esto requiere no solo el modelado del sistema con sus respectivas cañerías y conexiones, sino también el ingreso correcto de los datos de entrada. Para el modelado y simulación utilizamos todos los cálculos de los apartados anteriores.
+
+\subsubsection{Sistema de suministro de aire}
+
+Comenzamos definiendo el primer límite conocido que representa el medio ambiente que suministra el aire al soplador.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow1.png}
+\end{figure}
+
+En este definimos el tipo de fluido (aire), un volumen que represente el ambiente de donde se extrae el aire, la temperatura ambiente donde consideramos una media de 25°C y una presión de 1[atm] que representa la presión atmosférica máxima. \\
+
+Luego definimos el soplador y cargamos sus características. En nuestro caso tenemos un soplador de desplazamiento positivo con una presión de máxima de 1[Bar] y según los cálculos anteriores una cilindrada de $13.026 \frac{Lts}{rev}$. Consideramos una eficiencia del $90\%$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/sistema/fluidflow2.png}
+\end{figure}
+
+Cargamos el soplador en el modelo y  definimos su velocidad de operación de 2250 RPM según el folleto de Repicky. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow3.png}
+\end{figure}
+
+\subsubsection{Sistema de distribución de aire}
+
+El modelado del sistema de distribución de aire requiere definir el tipo de tubería a utilizar, el software tiene una base de datos con una serie de tuberías de diferentes materiales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{src/imagenes/sistema/fluidflow4.png}
+\end{figure}
+
+Si bien no está disponible la tubería de HDPE, la más parecida según su relación de diámetros y rugosidad es la PE polietileno. \\
+
+\textbf{Tubería principal} \\
+
+Definimos el primer tramo desde el soplador al primer acople T de 6 pulgadas de diámetro nominal y 6,455[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow5.png}
+\end{figure}
+
+Luego para los dos primeros tramos después de la T también le asignamos 6 pulgadas de diámetro nominal y 1[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow6.png}
+\end{figure}
+
+Por ultimo cada tramo de tubería posterior para ambos lados, son también de  6 pulgadas de diámetro nominal y 1,467[m] de longitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow7.png}
+\end{figure}
+
+\textbf{Tuberías grilla de aireación} \\
+
+Como se mencionó anteriormente la grilla de aireación está compuesta de tubos de 3 pulgadas de dímetro nominal con una longitud de 8,6 [m].
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow8.png}
+\end{figure}
+
+\textbf{Condiciones de salida} \\
+
+Por último definimos el límite de salida que representa la pileta con el agua residual cuyas características se definen según los datos provistos por EGGER para la temperatura y los cálculos anteriores para la presión.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/fluidflow9.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.25]{src/imagenes/sistema/fluidflow10.png}
+\end{figure}
+
+\subsection{Modelado e ingreso de datos de entrada}
+
+Antes de comenzar con el análisis de los resultados arrojados por el software, vale la pena aclarar que estamos en presencia de un sistema muy complejo para un simple análisis matemático aplicando dinámica de fluidos. Lo ideal sería realizar ensayos y mediciones sobre el sistema real en funcionamiento. Pero de todos modos los cálculos anteriores y la simulación del sistema nos sirven para sacar las primeras conclusiones sobre la posible reacción del mismo a
+un cambio en la velocidad de giro del motor. \\
+
+\textbf{Soplador Trabajando a 2250 RPM} \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow11.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow12.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/fluidflow13.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.3]{src/imagenes/sistema/fluidflow14.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow15.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow16.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/fluidflow17.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow18.png}
+\end{figure}
+
+\subsection{Conclusiones Simulación}
+
+Al realizar la simulación en FLUIDFLOW pudimos observar cómo cambia el caudal de ingreso de aire en función a la velocidad de operación del soplador (RPM) y como se distribuye el mismos en cada sección de cañería trabajando a la presión hidrostática de $1.665bar$. Por otra parte como vimos en formulas anteriores este caudal está relacionado de manera directa con la velocidad del aire, parámetro que determina las pérdidas de presión en las cañerías y acoples, resultados
+que también se vieron reflejados en la simulación. \\
+
+Si bien el objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos, parámetro que es muy complejo para determinarlo de forma analítica. Sin embargo los resultados a los que se llegó con la simulación nos van a permitir realizar un primer ajuste del controlador que luego se irá mejorando y ajustando cuando se realicen las pruebas en el sistema real.
