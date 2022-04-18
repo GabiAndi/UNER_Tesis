@@ -130,6 +130,11 @@
 \end{titlepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Pendientes
+\newpage
+\afterpage{\blankpage}
+\listoftodos[Tareas]
+
 % Aviso
 \newpage
 \afterpage{\blankpage}
@@ -143,12 +148,8 @@
 \newpage
 \afterpage{\blankpage}
 
-% Pendientes
-\listoftodos[Tareas]
-\newpage
-\afterpage{\blankpage}
-
-% Desarrollo del trabajo
+% Numero de pagina
+\pagenumbering{roman}
 \setcounter{page}{1}
 
 % Introducción
@@ -159,6 +160,10 @@
 \newpage
 \afterpage{\blankpage}
 
+% Numero de pagina
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
 % Capitulos
 \input{src/latex/Introduccion.tex}
 \newpage
@@ -166,10 +171,10 @@
 \input{src/latex/Identificacion_del_problema.tex}
 \newpage
 \afterpage{\blankpage}
-\input{src/latex/Caracterizacion.tex}
+\input{src/latex/Diseño_conceptual.tex}
 \newpage
 \afterpage{\blankpage}
-\input{src/latex/Diseño_conceptual.tex}
+\input{src/latex/Definicion_del_proyecto.tex}
 \newpage
 \afterpage{\blankpage}
 \input{src/latex/Diseño_e_ingenieria.tex}

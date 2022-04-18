@@ -202,6 +202,64 @@ El equipo consta de un tanque cilíndrico de chapa de acero de $1,3m$ de diámet
 
 El flujo de agua es descendente. Durante el funcionamiento, el lecho de carbón se va compactando con lo cual es necesario efectuar lavados contracorriente al menos cada 24 horas.
 
+\section{Eficiencia energética}
+
+\label{anexo:calculoEconomicoInicial}
+	
+Gracias al control a demanda de los sopladores, los motores encargados de la aireación no funcionarían al $100\%$ siempre, esto provocara el desbloqueo de un potencial ahorro energético.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/economia/sopladores.png}
+\end{figure}
+
+En ventiladores y bombas centrífugas se cumple que el caudal es proporcional a la velocidad, la presión o altura es proporcional al cuadrado de la relación de velocidad y, por consiguiente, la potencia (caudal x altura) es proporcional al cubo de la relación de velocidades.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| l | l |}
+            \hline
+            \multicolumn{2}{| c |}{Sopladores de aireación} \\ \hline
+            Tipo & Desplazamiento positivo \\
+            Marca & Repicky \\
+            Modelo & R3.0 \\
+            Capacidad & 1.631$m^{3} / h$ \\
+            Tamaño del motor & 75HP \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \caption{Características de los Sopladores Repicky R3.0 encargados del proceso de aireación.}
+\end{table}
+
+Esto significa que si a $1500rpm$ se consumen $75HP$ de potencia, a $750rpm$ consumirá:
+
+$$P_{out} = \left( \frac{750rpm}{1500rpm} \right)^{3} \cdot 75HP = 9.375HP$$
+
+En otras palabras, al disminuir la velocidad a la mitad (o caudal a la mitad), se consumen sólo $9.375HP$, es decir, se ahorra un $87.5\%$. \\
+
+Tomando como fuente el proyecto de grado \cite{ATEVF} en donde se detalla y se cita un estudio de ahorro energético en diversas aplicaciones de motores de inducción utilizando variadores de frecuencia, podemos ver la siguiente tabla:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| l | l | l |}
+            \hline
+            \textbf{Aplicación} & \textbf{Ahorro promedio} & \textbf{Aplicabilidad} \\ \hline
+            Bombas & 35\% & 60\% \\ \hline
+            Ventiladores & 35\% & 60\% \\ \hline
+            Compresores de aire & 15\% & 30\%\\ \hline
+            Compresores fríos & 15\% & 40\% \\ \hline
+            Tornillos sin fin & 15\% & 60\% \\ \hline
+            Otros & 15\% & 60\% \\ \hline
+        \end{tabular}
+    \end{center}
+
+    \caption{Potencial de ahorro en el sector industrial.}
+\end{table}
+
+Este caso las bombas impulsoras son equipos que se encuentran sometidos a variaciones durante su operación. Por eso es importante la incorporación de variadores de frecuencia a los motores encargados de generar la estrangulación de aire. \\
+
+Se puede observar que el ahorro promedio ronda en torno a los $35\%$. Esto se puede traducir directamente en costo energético.
+
 \section{Desarrollo matemático del sistema}
 
 \section{Desarrollo del sistema de control}
