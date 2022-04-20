@@ -1187,7 +1187,7 @@ Cuando se termine de grabar el .img en la micro SD, ahora procedemos a crear un 
 
 Y listo, ahora ya podemos extraer la tarjeta de memoria, colocarla en la Raspberry y conectarla a la corriente.
 
-\subsection{Configurar el entorno de desarrollo}
+\subsection{Configuración el entorno de desarrollo}
 
 Existen varios motivos por los cuales uno se encuentra con la necesidad de configurar un entorno de desarrollo personalizado:
 
@@ -1212,3 +1212,392 @@ En resumen lo que haremos es crear un compilador cruzado con las librerías de Q
 Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa este conectada y funcionando, viendonos limitados por la potencia de cómputo al mover un entorno de escritorio completo. \\
 
 El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí, sin embargo tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.
+
+\section{Protocolo de comunicación}
+
+\label{anexo:protocoloDeComunicacion}
+
+El protocolo seguido es el siguiente:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| p{2.75cm} | p{6cm} | p{4cm} |}
+            \hline
+            \textbf{Dato} & \textbf{Descripción} & \textbf{Tipo de dato} \\ \hline
+            \multicolumn{3}{| c |}{Cabecera} \\ \hline
+            0x53 - 'S' & Caracter de cabecera 1 & byte sin signo \\ \hline
+            0x43 - 'C' & Caracter de cabecera 2 & byte sin signo \\ \hline
+            0x50 - 'P' & Caracter de cabecera 3 & byte sin signo \\ \hline
+            0x41 - 'A' & Caracter de cabecera 4 & byte sin signo \\ \hline
+            0x3A - ':' & Caracter de token & byte sin signo \\ \hline
+            \multicolumn{3}{| c |}{Estructura del paquete} \\ \hline
+            0xXX - 'LEN1' & Tamaño del paquete byte 1 & byte sin signo \\ \hline
+            0xXX - 'LEN2' & Tamaño del paquete byte 2 & byte sin signo \\ \hline
+            \multicolumn{3}{| c |}{Datos} \\ \hline
+            0xXX - 'CMD' & Comando & byte sin signo \\ \hline
+            0xXX - 'PAYL' & Contenido del comando & n bytes sin signo \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+Los comandos disponibles son:
+
+\pendiente{Añadir comandos}
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| p{2cm} | p{3cm} | p{7cm} |}
+            \hline
+            \textbf{ID} & \textbf{Dirección} & \textbf{Paquete} \\ \hline
+            \multicolumn{3}{| c |}{Comandos de datos} \\ \hline
+            0x00 & HMI -> RPI & GET\_SENSOR \\ \hline
+            0x01 & RPI -> HMI & REQUEST\_GET\_SENSOR \\ \hline
+            0x10 & HMI -> RPI & SET\_SENSOR \\ \hline
+            0x11 & RPI -> HMI & REQUEST\_SET\_SENSOR \\ \hline
+            0x20 & HMI -> RPI & GET\_SYSTEM\_STATE \\ \hline
+            0x21 & RPI -> HMI & REQUEST\_GET\_SYSTEM\_STATE \\ \hline
+            0x30 & HMI -> RPI & SET\_SYSTEM\_STATE \\ \hline
+            0x31 & RPI -> HMI & REQUEST\_SET\_SYSTEM\_STATE \\ \hline
+            \multicolumn{3}{| c |}{Comandos de gestión} \\ \hline
+            0xA0 & HMI -> RPI & KEEP\_ALIVE \\ \hline
+            0xA0 & RPI -> HMI & KEEP\_ALIVE \\ \hline
+            0xA1 & HMI -> RPI & LOGIN \\ \hline
+            0xA2 & HMI -> RPI & FORCE\_LOGIN \\ \hline
+            0xA3 & RPI -> HMI & LOGIN\_REQUEST \\ \hline
+            0xA4 & RPI -> HMI & DISCONNECT\_CODE \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\subsubsection{Paquete GET\_SENSOR}
+
+Este paquete pide al controlador que envíe el estado de los sensores:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica de que sensor se quiere obtener la información.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_GET\_SENSOR}
+
+Devolución del estado del sensor:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el sensor.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete SET\_SENSOR}
+
+Este paquete setea los valores de un sensor para la simulación en condiciones controladas:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_SET\_SENSOR}
+
+Confirmación del seteo de las variables de los sensores:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Sensor de nivel de foso:} 0x00.}
+        \item{\textbf{Sensor de nivel de lodo:} 0x01.}
+        \item{\textbf{Sensor de temperatura:} 0x02.}
+        \item{\textbf{Sensor de OD:} 0x03.}
+        \item{\textbf{Sensor de nivel de PH en zona anóxica:} 0x04.}
+        \item{\textbf{Sensor de nivel de PH en pileta de aireación:} 0x05.}
+        \item{\textbf{Sensor de corriente del motor:} 0x10.}
+        \item{\textbf{Sensor de voltaje del motor:} 0x11.}
+        \item{\textbf{Sensor de temperatura del motor:} 0x12.}
+        \item{\textbf{Sensor de velocidad del motor:} 0x13.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete GET\_SYSTEM\_STATE}
+
+Este paquete pide al controlador que envíe el estado del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el parámetro del que se quiere obtener la información.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_GET\_SYSTEM\_STATE}
+
+Devolución del estado del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica el sensor.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete SET\_SYSTEM\_STATE}
+
+Este paquete setea los valores del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c |}
+            \hline
+            Parámetro & Valor \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete REQUEST\_SET\_SYSTEM\_STATE}
+
+Confirmación del seteo de las variables del sistema:
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Parámetro \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Parámetro:} indica la variable que se seteará.}
+    \begin{itemize}
+        \item{\textbf{Estado del sistema de control:} 0x00.}
+        \item{\textbf{Setpoint de OD:} 0x01.}
+        \item{\textbf{Valor del error producido por el PID:} 0x02.}
+        \item{\textbf{Valor de la constante de proporcionalidad del controlador PID:} 0x03.}
+        \item{\textbf{Acción correctiva proporcional del controlador PID:} 0x04.}
+        \item{\textbf{Valor de la constante de derivación del controlador PID:} 0x05.}
+        \item{\textbf{Acción correctiva derivativa del controlador PID:} 0x06.}
+        \item{\textbf{Valor de la constante de integración del controlador PID:} 0x07.}
+        \item{\textbf{Acción correctiva integral del controlador PID:} 0x08.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete KEEP\_ALIVE}
+
+Este paquete solo sirve para comprobar conexiones.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Modo  \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Modo:} tipo de paquete.}
+    \begin{itemize}
+        \item{\textbf{Petición:} 0x00.}
+        \item{\textbf{Respuesta:} 0xFF.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete LOGIN}
+
+Paquete que manda la información de autenticación del nuevo usuario a conectarse.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c | c | c | c |}
+            \hline
+            Tamaño usuario & Usuario & Tamaño contraseña & Contraseña \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Tamaño usuario:} tamaño del usuario, 1 byte.}
+    \item{\textbf{Usuario:} nombre de usuario, hasta 256 bytes.}
+    \item{\textbf{Tamaño contraseña:} tamaño de la contraseña, 1 byte.}
+    \item{\textbf{Contraseña:} contraseña, hasta 256 bytes.}
+\end{itemize}
+
+\subsubsection{Paquete LOGIN\_REQUEST}
+
+Respuesta de la petición de conexión.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Respuesta \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Respuesta:} resultado del login.}
+    \begin{itemize}
+        \item{\textbf{0x00:} login incorrecto, error de usuario o contraseña.}
+        \item{\textbf{0xAA:} un usuario ya esta conectado.}
+        \item{\textbf{0xFF:} login correcto.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete FORCE\_LOGIN}
+
+Indica que se desea establecer la conexión actual como el usuario activo.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Confirmación \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Confirmación:} confirmación del login.}
+    \begin{itemize}
+        \item{\textbf{0x00:} no conectar.}
+        \item{\textbf{0xFF:} conectar.}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Paquete DISCONNECT\_CODE}
+
+Informa el motivo de la desconexión por parte del servidor.
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{| c |}
+            \hline
+            Código \\ \hline
+        \end{tabular}
+    \end{center}    
+\end{table}
+
+\begin{itemize}
+    \item{\textbf{Código:} motivo de desconexión.}
+    \begin{itemize}
+        \item{\textbf{0x00:} timeout para el login.}
+        \item{\textbf{0xFF:} se inicio sesión desde otro dispositivo.}
+    \end{itemize}
+\end{itemize}
