@@ -260,52 +260,6 @@ Este caso las bombas impulsoras son equipos que se encuentran sometidos a variac
 
 Se puede observar que el ahorro promedio ronda en torno a los $35\%$. Esto se puede traducir directamente en costo energético.
 
-\section{Desarrollo matemático del sistema}
-
-\section{Desarrollo del sistema de control}
-
-\section{Configuración de la Raspberry Pi}
-
-\label{anexo:configuracionDeLaRaspberry}
-
-\subsection{Instalación del S.O.}
-
-La Raspberry Pi utiliza Raspberry Pi OS, que es el sistema operativo oficial distribuido por el fabricante de las placas. Esta basado en Debian y es compatible con todos los modelos de placas. La imagen de instalación se puede descargar desde la \href{https://www.raspberrypi.com/software/operating-systems/}{página oficial de Raspberry}. \\
-
-Si bien es cierto que se pueden instalar otros sistemas operativos como: Arch Linux ARM, Ubuntu, etc. En este caso preferimos utilizar Raspberry Pi OS por ser soportado oficialmente. \\
-
-Para instalar el sistema en la Raspberry Pi, lo que debemos hacer es (una vez descargada la imagen) descomprimir el archivo .zip y grabar el archivo .img en una tarjeta micro SD de por lo menos 32GB. \\
-
-Cuando se termine de grabar el .img en la micro SD, ahora procedemos a crear un archivo llamado \textit{ssh} en la partición /boot, esto permitirá que desde el primer booteo el sistema inicie también el servidor ssh. \\
-
-Y listo, ahora ya podemos extraer la tarjeta de memoria, colocarla en la Raspberry y conectarla a la corriente.
-
-\subsection{Configurar el entorno de desarrollo}
-
-Existen varios motivos por los cuales uno se encuentra con la necesidad de configurar un entorno de desarrollo personalizado:
-
-\begin{itemize}
-    \item{La versión que se distribuye con el sistema operativo no esta actualizada.}
-    \item{Es necesario un compilador cruzado para una arquitectura en especifico.}
-    \item{Las versiones precompiladas no están configuradas se necesita.}
-\end{itemize}
-
-Nosotros vamos a crear aplicaciones Qt para la Raspberry Pi 3B+, y como las versiones modernas de GCC y de Qt no vienen compiladas por defecto para la arquitectura, hay que configurar un entorno personalizado. \\
-
-Para crear un toolchain de C++ y Qt, tenemos que:
-
-\begin{itemize}
-    \item{Compilar la última versión del compilador (valga la redundancia) para nuestra máquina de escritorio (x86\_64).}
-    \item{Compilar la última versión del compilador, pero de manera cruzada para la plataforma de destino. En este caso es la Raspberry Pi 3B+ (armv7).}
-    \item{Compilar la versión de Qt para la plataforma de destino (Raspberry Pi 3B+ armv7).}
-\end{itemize}
-
-En resumen lo que haremos es crear un compilador cruzado con las librerías de Qt instaladas. Y así poder generar binarios para la Raspberry Pi 3B+ desde nuestra computadora de escritorio. Que son dos arquitecturas completamente distintas. \\
-
-Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa este conectada y funcionando, viendonos limitados por la potencia de cómputo al mover un entorno de escritorio completo. \\
-
-El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí, sin embargo tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.
-
 \section{Características del sistema}
 
 \label{anexo:caracteristicasDelSistema}
@@ -837,9 +791,424 @@ un cambio en la velocidad de giro del motor. \\
     \includegraphics[scale=.35]{src/imagenes/sistema/fluidflow18.png}
 \end{figure}
 
-\subsection{Conclusiones Simulación}
+\section{El oxígeno disuelto (OD)}
 
-Al realizar la simulación en FLUIDFLOW pudimos observar cómo cambia el caudal de ingreso de aire en función a la velocidad de operación del soplador (RPM) y como se distribuye el mismos en cada sección de cañería trabajando a la presión hidrostática de $1.665bar$. Por otra parte como vimos en formulas anteriores este caudal está relacionado de manera directa con la velocidad del aire, parámetro que determina las pérdidas de presión en las cañerías y acoples, resultados
-que también se vieron reflejados en la simulación. \\
+\label{anexo:oxigenoDisuelto}
 
-Si bien el objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos, parámetro que es muy complejo para determinarlo de forma analítica. Sin embargo los resultados a los que se llegó con la simulación nos van a permitir realizar un primer ajuste del controlador que luego se irá mejorando y ajustando cuando se realicen las pruebas en el sistema real.
+El oxígeno disuelto se establece como la concentración actual en mg/L, o como la cantidad de oxígeno que puede tener el agua a una temperatura determinada. El OD varia en función de:
+
+\begin{itemize}
+    \item{Temperatura.}
+    \item{Oxígeno disuelto de las fuentes (entradas).}
+    \item{Altitud.}
+    \item{Salinidad.}
+\end{itemize}
+
+\subsection{Variaciones del OD}
+
+\subsubsection{La temperatura}
+
+Al aumentar la temperatura, disminuye la cantidad de oxigeno disuelto en el agua. Cuando el agua contiene todo el oxígeno disuelto a una temperatura dada, se dice que está 100 por cien saturada de oxígeno. \\
+
+La tabla siguiente muestra la concentración de oxígeno disuelto equivalente a un grado de saturación del 100 por cien para la temperatura anotada (y la presión barométrica normal):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/tablaOD.png}
+\end{figure}
+
+\subsubsection{Oxígeno disuelto de las fuentes}
+
+Corresponde al OD que trae consigo el caudal de ingreso de agua residual. El mismo, se genera mediante el proceso de aireación natural, por contacto del agua con el aire. Cuando cambiamos la superficie de agua que entra en contacto con el aire, la sometemos a aireación en forma permanente, sin embargo, el proceso de difusión de los gases en el agua es sumamente lenta y su distribución depende del movimiento de la misma. Este proceso es natural y continuo, cuya dirección y velocidad depende del contacto entre el aire y el agua.
+
+\subsubsection{Altitud}
+
+El agua contiene menos oxígeno en los lugares altos. Esto se debe a la presión atmosférica y su efecto sobre el proceso de difusión de oxigeno en el agua. A menor altitud mayor presión atmosférica que favorece el proceso de difusión.
+
+\subsubsection{Salinidad}
+
+Cuando la salinidad aumenta, el oxígeno disuelto disminuye. Esto se debe a que la densidad del agua aumenta por la concentración de sales, afectando el proceso de difusión de oxigeno y generando una disminución de la capacidad de absorción.
+
+\subsection{El sensor de OD}
+
+Actualmente, para medir el OD, la empreza EGGER tiene el sensor DissolvedOxygenMonitor Model Q46D:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/sensorOD.jpg}
+    \caption{Sensor de OD actualmente en funcionamiento.}
+\end{figure}
+
+El sensor óptico de OD funciona según un principio basado en la luz llamado fluorescencia, que es un tipo de luminiscencia. Ciertos compuestos químicos absorberán un tipo de energía luminosa y luego emitirán un tipo diferente de energía luminosa. Esta emisión de luz se llama luminiscencia. \\
+
+La parte activa del sensor tiene un compuesto a base de metal incrustado en una matriz estructural. Una fuente de luz dentro del sensor ilumina este compuesto que absorbe luz a una longitud de onda específica. Luego, el compuesto emite luz a una longitud de onda diferente que es captada por un fotodetector dentro del sensor. A medida que el oxígeno se difunde en el material del sensor activo, interactúa con el compuesto absorbente de luz e interfiere con la reacción de la misión. Esta interacción, llamada extinción, hace que el material que absorbe la luz libere energía en una forma distinta a la luz. El grado de extinción es proporcional a la concentración de oxígeno disuelto. La reacción de extinción es reversible, lo que permite que este sensor mida concentraciones crecientes y decrecientes de oxígeno.
+
+\subsection{Demanda bioquímica de oxígeno (DBO)}
+
+La determinación de este parámetro permite estimar los efectos de las descargas de efluentes domésticos e industriales sobre la calidad de las aguas de los cuerpos receptores, porque brinda una idea de la cantidad de oxígeno disuelto que deberá aportar el cuerpo receptor para depurar el vuelco. \\
+
+Para realizar el ensayo, las muestras se incuban en la oscuridad a 20°C, durante un tiempo determinado. Antes y después de esta incubación se determina la concentración de oxígeno disuelto. La diferencia entre estos dos valores es la cantidad de oxígeno que requieren los microorganismos para consumir la materia orgánica biodegradable del líquido. Como el tiempo de incubación adoptado es de 5 días, el nombre de este parámetro se abrevia DBO5.
+
+\subsubsection{¿Por qué se determina?}
+
+La DBO5 es el parámetro universalmente adoptado para determinar los niveles de polución orgánica biodegradable de un cuerpo de agua y de los efluentes que allí se vuelcan. Por esta razón, las normativas vigentes exigen su determinación. \\
+
+La DBO5 permite evaluar el rendimiento de la planta depuradora y es uno de los principales parámetros que se contemplan para diseñar y calcular las dimensiones de nuevas instalaciones de tratamiento de aguas residuales.
+
+\subsection{Demanda química de oxígeno (DQO)}
+
+Mientras que la DBO5 solo detecta el material orgánico que degradan los microorganismos, la DQO incluye también los compuestos orgánicos no biodegradables y algunos compuestos inorgánicos. \\
+
+En la actualidad, la técnica más utilizada para determinar la DQO es el método de reflujo cerrado en termorreactor con cuantificación colorimétrica. El mercado ofrece kits de viales y soluciones preparadas que han simplificado el ensayo y evitan la preparación de soluciones y titulaciones prolongadas y laboriosas.
+
+\subsubsection{¿Por qué se determina?}
+
+La DQO es uno de los parámetros regulados por todas las normas de vuelco para plantas depuradoras. Brinda una rápida idea del contenido total de compuestos orgánicos y es de gran ayuda para detectar ingresos de líquidos de origen industrial. Valores elevados de DQO en el afluente pueden alertar sobre vuelcos industriales con elevado contenido orgánico. \\
+
+En el proceso de depuración, sirve principalmente como un parámetro de control y confirmación de otras mediciones. En efecto, la DQO suele presentar una alta correlación con la DBO5 y con la materia en suspensión (2,5-3,5:1), de manera que su resultado sirve para confirmar o bien estimar otros parámetros. \\
+
+Los métodos colorimétricos comerciales de uso actual son ensayos sencillos y rápidos (alrededor de 3 horas en total).
+
+\subsection{Valores límite vigentes}
+
+Actualmente en Concordia, Entre Ríos, Argentina, rige sobre los efluentes líquidos \href{https://www.entrerios.gov.ar/ambiente/userfiles/files/archivos/Normativas/Res_\%20554-15.pdf}{la siguiente normativa.}
+
+\section{Aproximación del sistema}
+
+\label{anexo:aproximacionDelSistema}
+
+Basándos en el articulo académico \cite{CPCOD}, en donde se sostiene que la dinámica de cambio de la concentración de OD se puede representar como:
+
+$$\frac{dC_{o}}{dt} = K_{L} a (C_{\infty}^{\Theta} - C_{o})$$
+
+Donde:
+
+\begin{itemize}
+    \item{$C_{o}$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+    \item{$C_{\infty}^{\Theta}$: concentración de saturación del oxígeno disuelto en el volumen del líquido a una temperatura T del agua y a una presión atmosférica de campo en $g/m^{3}$. Igual a $7,5g/m^{3}$}
+    \item{$K_{L}$: el coeficiente de transferencia de oxígeno y  el área total de contacto interfacial por unidad de volumen de líquido. Como se admite imposible medir el área interfacial $a$, se estima el termino total $K_{L} a$.}
+\end{itemize}
+
+Si aplicamos balance de oxigeno en el bioreactor tenemos:
+
+$$\frac{dC_{o}}{dt} = \frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V} C_{o} + a (1 - e^{\frac{-Q_{A}}{b}}) (C_{\infty}^{\Theta} - C_{o})$$
+
+Donde:
+
+\begin{itemize}
+    \item{$V$: volumen del bioreactor $871,03 m^{3}$.}
+    \item{$Q_{f}$: flujo de entrada de agua residual $12 m^{3}/h$ promedio diario.}
+    \item{$Q_{r}$ flujo recirculación de biomasa aproximadamente 50\% del $Q_{f}$ $6 m^{3}/h$.}
+    \item{$C_{0f}$: concentración DO en el flujo de entrada $8,23mg/l$ o $8,23g/m^3$.}
+\end{itemize}
+
+En nuestro caso, se considera un sistema ideal en el cual, todo el caudal de aire suministrado por el soplador ingresa a la pileta (no se consideran perdidas), entonces tenemos: 
+
+\begin{itemize}
+    \item{$Q_{A}$: caudal de aire $0.78 m^3/h \cdot RPM$.}
+    \item{$RPM$: fijadas por el variador.}
+    \item{$C_{o}$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+    \item{$C_{\infty}^{\Theta}$: valores de tabla para diferentes temperaturas.}
+\end{itemize}
+
+Los valores de los parámetros $a$ y $b$ son determinados por identificación por medio del modelo de Smith. \\ 
+
+Considerando la concentraciónde oxígeno disuelto en el seno del liquido como variable del y reordenando los términos: 
+
+\begin{equation}
+    \frac{dC_{o}}{dt} + (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) C_{o} = a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta}
+    \label{eqn:oxigenoD}
+\end{equation}
+
+Como se puede apreciar en \eqref{eqn:oxigenoD}, es una ecuación diferencial lineal de primer orden, la cual no es separable. De la forma:
+
+$$\frac{dy}{dt} + P(t) y = Q(t)$$
+
+Toda ecuación diferencial lineal de primer orden se puede resolver al multiplicar ambos lados de la ecuación por una función adecuada I (x) llamada factor integrante.
+
+$$factor-integrante = I(t) = e^{\int P(t) dt}$$
+
+$$ P(t) = (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) $$
+
+$$ \int P(t) = (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t $$
+
+Al multiplicar ambos lados de la ecuación \eqref{eqn:oxigenoD} se obtiene:
+
+$$\frac{dC_{o}}{dt} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} + (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) C_{o} $$
+
+\begin{equation}
+    e^{(a (1-e^{\frac{-Q_{A}}{b}}) - \frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} = a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t}
+    \label{eqn:consentracionOD_FI}
+\end{equation}
+
+En la ecuación \eqref{eqn:consentracionOD_FI} se puede apreciar que: 
+
+$$\frac{dC_{o}}{dt} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} + (a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) C_{o}$$
+
+$$e^{(a (1-e^{\frac{-Q_{A}}{b}}) - \frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} = \frac{d(e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} C_{o})}{dt} $$
+
+Sustituyendo en la ecuación \eqref{eqn:consentracionOD_FI} :
+
+\begin{equation}
+    \frac{d(e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} C_{o})}{dt} = 
+    a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t}
+    \label{eqn:consentracionOD_FI_1}
+\end{equation}
+
+Al integrar ambos lados de \eqref{eqn:consentracionOD_FI_1}:
+
+$$e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t} C_{o} =$$
+
+\begin{equation}
+    \frac{a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta} e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t}}{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V})} + C
+    \label{eqn:consentracionOD_FI_2}
+\end{equation}
+
+Despejando la concentración de oxigeno disuelto en función a un caudal en RPM de la ecuación \eqref{eqn:consentracionOD_FI_2}:
+
+\begin{equation}
+    C_{o} = \frac{a (1 - e^{\frac{-Q_{A}}{b}}) C_{\infty}^{\Theta}}{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V})} + \frac{C}{e^{(a (1-e^{\frac{-Q_{A}}{b}})-\frac{Q_{f}}{V} C_{of} - \frac{Q_{f} + Q_{r}}{V}) t}}
+    \label{eqn:consentracionOD_FI_F}
+\end{equation}
+
+Para lograr un sistema de control preciso, la fórmula matemática que modela el comportamiento del sistema tiene que ser lo más exacta posible y permitir ajustarse a las condiciones reales. Para cumplir con este objetivo, se modelada y ensaya la formula en python donde se analizan los resultados arrojados. \\
+
+Para valores de:
+
+\begin{itemize}
+    \item{$V$: $871,03 m^{3}$.}
+    \item{$Q_{f}$: $12 m^{3}/h$ promedio diario.}
+    \item{$Q_{r}$: $6 m^{3}/h$.}
+    \item {$t$: $h$.}
+    \item{$C_{0f}$: $8,23g/m^3$.}
+    \item{$RPM$: 2800}
+    \item{$Q_{A}$: $0.78 m^3/h \cdot RPM$.}
+    \item{$C_{\infty}^{\Theta}$: $8,23g/m^{3}$}
+    \item{$a$: 8.5}
+    \item{$b$: 2}
+\end{itemize}
+
+Se obtiene la siguiente grafica en función al tiempo t: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/analisis1.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Como se puede apreciar los resultados obtenidos con estos valores no se condicen con los esperados según lo expuesto en las bibliografías. Pero, si cambiamos el valor de $a = -8.5$, tenemos: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/analisis2.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Esta vez, los resultados obtenidos son mas satisfactorios, pero no del todo precisos. Además, al variar las RPM deberíamos obtener una variación en el nivel de estabilización de la concentración de OD. Si pasamos de 2800 a 200 RPM.   
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/analisis3.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+Ahora si pasamos de 200 a 0.05 RPM si podemos notar un cambio en el valor de estabilización. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/analisis4.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
+
+En este análisis, se observa que, con los valores característicos, el comportamiento no es el esperado y se concluye que estamos en presencia de un sistema dinámico y multivariable, dependiente de las condiciones operativas de cada sistema en particular. Lo que nos lleva a dar de baja la formula \eqref{eqn:consentracionOD_FI_F}, pero nos permite observar los efectos que provoca el variar cada uno de ellos. Dentro de estos, se puede mencionar, cambios en el nivel y tiempo de estabilización, en la concentración inicial de OD del sistema y en el contenido minimo de oxigeno. \\
+
+Por último, lo más importante, se define el comportamiento del modelo matemático del sistema como una ecuación diferencial de primer orden y la concentración de oxígeno disuelto como una exponencial inversa.
+
+\subsection{Solución al problema de adaptabilidad del modelo matemático}
+
+En relación a la expuesto en el apartado anterior, el modelo matemático con valores característicos, tomados de la información suministrada y de la investigación, no arroja los resultados esperados que se describen en las diferentes bibliografías. Esto dificulta la implementación y ajuste del controlador. Con el fin de solucionar esta problemática, se desarrolla un programa en Python donde se simula el comportamiento del sistema, a partir de la implementación de un modelo matemático variable que recibe como dato de entrada las RPM y genera una salida de concentración de OD. Este, se comunica con el programa del controlador principal, quien recibe los valores de la concentración de OD y genera una salida de control en RPM. Es decir, se cuenta con un programa que simula ser el sistema real, donde podemos ajustar su comportamiento y ensayar las pruebas necesarias del controlador. En el siguiente esquema se detalla la solución abordada:
+
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90,scale=.40]{src/imagenes/sistema/esquemaSistemaLA.png}
+    \caption{Esquema del Sistema de control y simulación}
+\end{figure}
+
+\newpage
+
+Al abordar esta solución, se abre la posibilidad de ajustar la respuesta de la simulación al sistema real. Si se dispone de la gráfica de concentración de OD en función al tiempo, solo se requiere modificar los parámetros $k$, $T$ y $a$. 
+
+\subsection{Modelo matemático adaptativo de la ASCE}
+
+Modelo basado en la American Society of Civil Engineers (ASCE, A Standard for the Measurement of Oxygen Transfer in Clean Water, 2a, 1991) y la Environmental Protection Agency (EPA, 1999) de los Estados Unidos: A Standard for the Measurement of Oxygen Transfer in Clean Water.
+En esta norma se propone un modelo simple para la transferencia de oxígeno, en el cual se cuantifica la tasa global de transferencia en términos del producto de un solo coeficiente y una única diferencia global de concentraciones como fuerza motriz. 
+
+$$\frac{dC}{dt} = k_{o2} \cdot \Theta^{T} \cdot Q(t) \cdot (C_{sat} - C(t))$$
+
+\begin{itemize}
+    \item{$k_{o2} \cdot \Theta^{T} \cdot Q(t) $: coeficiente de transferencia de oxígeno.}
+    \item{$k_{o2}$: parametro de ajuste.}
+    \item{$\cdot \Theta^{T}$: coeficiente dependiente de la temperatura.}
+    \item {$Q(t)$: caudal de aire en funcion al tiempo.}
+    \item {$C_{sat}$: concentración de saturación del oxígeno disuelto en el volumen del líquido a una temperatura T del agua y a una presión atmosférica de campo en $g/m^{3}$.}
+    \item {$C(t)$: concentración de oxígeno disuelto en el seno del liquido para el agua residual aproximada en $g/m^{3}$.}
+\end{itemize}
+
+A efectos prácticos para una mejor adaptabilidad de la formula, se transforma la ecuación en:
+
+$$\frac{dC}{dt} = k_{o2} \cdot Q \cdot (C_{sat} - C(t))$$
+
+Para resolver la ecuación diferencial, pasamos al espacio de Laplace:
+
+$$s \cdot C(s) - C(0) = k_{o2} \cdot Q \cdot C_{sat} - k_{o2} \cdot Q \cdot C(s)$$
+
+$$s \cdot C(s) + k_{o2} \cdot Q \cdot C(s) = k_{o2} \cdot Q \cdot C_{sat} + C(0)$$
+
+$$C(s) \cdot (s + k_{o2} \cdot Q) = k_{o2} \cdot Q \cdot C_{sat} + C(0)$$
+
+$$C(s) = \frac{k_{o2} \cdot Q \cdot C_{sat} + C(0)}{s + k_{o2} \cdot Q}$$
+
+\begin{itemize}
+    \item{$C(0)$: concentración de OD al inicio de la aireación.}
+\end{itemize}
+
+Reescribiendo: 
+
+\begin{equation}
+    C(s) = \frac{k_{o2} \cdot Q \cdot C_{sat}}{s + k_{o2} \cdot Q} + \frac{C(0)}{s + k_{o2} \cdot Q}
+    \label{eqn:COD}
+\end{equation}
+
+Considerando: 
+
+$$\frac{C(0)}{s + k_{o2} \cdot Q} = \frac{a}{s}$$
+
+$$\frac{k_{o2} \cdot Q \cdot C_{sat}}{s + k_{o2} \cdot Q} = \frac{k}{T \cdot s + 1}$$
+
+Reemplazando en \eqref{eqn:COD} tenemos:
+
+\begin{equation}
+    C(s) = \frac{k}{T*s+1} + \frac{a}{s}
+    \label{eqn:COD_F}
+\end{equation}
+
+La ecuación \eqref{eqn:COD_F} expresa la función de transferencia del sistema, adaptable según los parámetros a, T y k.  Esta formula es el cociente de la salida (concentración de oxígeno disuelto), sobre la entrada (caudal de aire o RPM). Es decir, al multiplicar ambos lados de la ecuación por la entrada en el espacio de Laplace y transformarla al espacio temporal, tendremos la concentración de oxígeno disuelto en función al tiempo. Es importante mencionar, que la funcion de entrada es sumistrada por el controlador. Esta entrada, debe tener la particularidad de ser tipo rampa, para suponer una referencia con variación continua en el tiempo.
+
+\section{Control PID}
+
+\label{anexo:controlPID}
+
+Se plantea el uso de un controlador PID genérico, en el cual al variar algún parámetro de configuración, tenemos la posibilidad de adaptarlo. \\
+
+Procedemos a analizar la ecuación de un control PID y a extraer parámetros configurables:
+
+\begin{equation}
+    o(t) = Kp \cdot e(t) + \frac{Kp}{Ti} \cdot \int e(t) \cdot dt + Kp \cdot Td \cdot \frac{de(t)}{dt}
+    \label{eqn:controlador}
+\end{equation}
+
+En donde:
+
+\begin{itemize}
+    \item{$o(t)$: es la salida del controlador en función del tiempo.}
+    \item{$Kp$: es la constante de proporcionalidad.}
+    \item{$e(t)$: es el error del sistema en función del tiempo.}
+    \item{$Ti$: es un factor de proporcionalidad ajustable que indica el tiempo de integración.}
+    \item{$Td$: es la ganancia del control derivativo.}
+\end{itemize}
+
+Buscando facilitar la comprensión por parte del operario, se tienen las siguientes variables configurables:
+
+\begin{itemize}
+    \item{$SP$: Expresa la concentración de oxígeno disuelto a la que se estabiliza el sistema (set point).}
+    \item{$Kp$: ganancia proporcional.}
+    \item{$\frac{Kp}{Ti} = Ki$: ganancia integral. }
+    \item{$Kp \cdot Td = Kd$: ganancia derivativa.}
+\end{itemize}
+
+En la parte integral, se busca definir $\int e(t) \cdot dt$ de forma tal que se puede codificar. Si nos basamos en lo expuesto por \cite{LRSN}, se puede aproximar el área bajo la curva, o mejor dicho la integral, por integración numérica. Ya sea por la regla de SIMPSON o la de los TRAPECIOS. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.70]{src/imagenes/sistema/sumatoria.png}
+    \caption{Integración numérica.}
+\end{figure}
+
+Por lo tanto: 
+
+$$\int e(t) \cdot dt = \sum_{i=1}^{n} e(t_{i})$$
+
+De igual manera, en la parte derivativa $\frac{de(t)}{dt}$ se tiene expresar de forma tal que sea codificable. Tomando como referencia lo expuesto en \cite{STW}, se puede definir la derivada, como la pendiente de la recta tangente: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.70]{src/imagenes/sistema/derivada.png}
+    \caption{Derivada por definición.}
+\end{figure}
+
+Por lo tanto: 
+
+$$\frac{de(t)}{dt} = \frac{e(t + h) - e(t)}{h}$$
+
+Donde: 
+
+\begin{itemize}
+    \item{$OD$: valor de concentración de oxígeno disuelto.}
+    \item{$e(t)$: error del sistema.}
+    \item{$h$: intervalo de tiempo entre correcciones.}
+\end{itemize}
+
+De esta forma, reemplazando en \eqref{eqn:controlador} tenemos:
+
+\begin{equation}
+    o(t) = Kp \cdot e(t) + Ki \sum_{i=1}^{n} e(t_{i}) + Kd \frac{e(t + h) - e(t)}{h}
+    \label{eqn:controlador_F}
+\end{equation}
+
+La formula \eqref{eqn:controlador_F} expresa el valor de la acción de control en RPM. 
+
+\agregar{Aquí}
+
+\section{Configuración de la Raspberry Pi}
+
+\label{anexo:configuracionDeLaRaspberry}
+
+\subsection{Instalación del S.O.}
+
+La Raspberry Pi utiliza Raspberry Pi OS, que es el sistema operativo oficial distribuido por el fabricante de las placas. Esta basado en Debian y es compatible con todos los modelos de placas. La imagen de instalación se puede descargar desde la \href{https://www.raspberrypi.com/software/operating-systems/}{página oficial de Raspberry}. \\
+
+Si bien es cierto que se pueden instalar otros sistemas operativos como: Arch Linux ARM, Ubuntu, etc. En este caso preferimos utilizar Raspberry Pi OS por ser soportado oficialmente. \\
+
+Para instalar el sistema en la Raspberry Pi, lo que debemos hacer es (una vez descargada la imagen) descomprimir el archivo .zip y grabar el archivo .img en una tarjeta micro SD de por lo menos 32GB. \\
+
+Cuando se termine de grabar el .img en la micro SD, ahora procedemos a crear un archivo llamado \textit{ssh} en la partición /boot, esto permitirá que desde el primer booteo el sistema inicie también el servidor ssh. \\
+
+Y listo, ahora ya podemos extraer la tarjeta de memoria, colocarla en la Raspberry y conectarla a la corriente.
+
+\subsection{Configurar el entorno de desarrollo}
+
+Existen varios motivos por los cuales uno se encuentra con la necesidad de configurar un entorno de desarrollo personalizado:
+
+\begin{itemize}
+    \item{La versión que se distribuye con el sistema operativo no esta actualizada.}
+    \item{Es necesario un compilador cruzado para una arquitectura en especifico.}
+    \item{Las versiones precompiladas no están configuradas se necesita.}
+\end{itemize}
+
+Nosotros vamos a crear aplicaciones Qt para la Raspberry Pi 3B+, y como las versiones modernas de GCC y de Qt no vienen compiladas por defecto para la arquitectura, hay que configurar un entorno personalizado. \\
+
+Para crear un toolchain de C++ y Qt, tenemos que:
+
+\begin{itemize}
+    \item{Compilar la última versión del compilador (valga la redundancia) para nuestra máquina de escritorio (x86\_64).}
+    \item{Compilar la última versión del compilador, pero de manera cruzada para la plataforma de destino. En este caso es la Raspberry Pi 3B+ (armv7).}
+    \item{Compilar la versión de Qt para la plataforma de destino (Raspberry Pi 3B+ armv7).}
+\end{itemize}
+
+En resumen lo que haremos es crear un compilador cruzado con las librerías de Qt instaladas. Y así poder generar binarios para la Raspberry Pi 3B+ desde nuestra computadora de escritorio. Que son dos arquitecturas completamente distintas. \\
+
+Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa este conectada y funcionando, viendonos limitados por la potencia de cómputo al mover un entorno de escritorio completo. \\
+
+El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí, sin embargo tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.

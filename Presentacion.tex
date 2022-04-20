@@ -28,7 +28,6 @@
 \usepackage{outlines}
 \usepackage{etoolbox}
 \usepackage{tcolorbox}
-\usepackage{afterpage}
 \usepackage{appendix}
 \usepackage{tablefootnote}
 \usepackage{xargs}
@@ -36,11 +35,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand\blankpage{%
-    \null
+\def\blankpage{%
+    \clearpage%
     \thispagestyle{empty}%
     \addtocounter{page}{-1}%
-    \newpage}
+    \null%
+    \clearpage
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% Variables del documento %%%%%%%%%%%%%%%%%%
@@ -131,67 +132,53 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Pendientes
-\newpage
-\afterpage{\blankpage}
-\listoftodos[Tareas]
+\blankpage
+\listoftodos[Pendientes]
 
 % Aviso
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Aviso.tex}
 
 % Indice
-\afterpage{\blankpage}
-\newpage
+\blankpage
 \section*{Contenido}
 \tableofcontents
-\newpage
-\afterpage{\blankpage}
+\blankpage
 
-% Numero de pagina
+% Numero de pagina para primeros capitulos
 \pagenumbering{roman}
 \setcounter{page}{1}
 
 % Introducción
 \input{src/latex/Informacion_adicional.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Abstract.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 
-% Numero de pagina
+% Numero de pagina para posteriores capitulos
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
 % Capitulos
 \input{src/latex/Introduccion.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Identificacion_del_problema.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Diseño_conceptual.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Definicion_del_proyecto.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Diseño_e_ingenieria.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Conclusiones.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 
 % Anexos
 \appendix
 \input{src/latex/Planos_y_diagramas.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 \input{src/latex/Desarrollos_complementarios.tex}
-\newpage
-\afterpage{\blankpage}
+\blankpage
 
 % Referencias
 \pagestyle{empty}

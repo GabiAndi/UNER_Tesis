@@ -73,21 +73,120 @@ Todas las actividades son desarroladas secuencialmente utilizando la metodologí
 
 \subsection{Tiempos de desarrollo}
 
-Llevar cabo un desarrollo completo del sistema se extiende un poco, mas si tenemos en cuenta que lo realizan dos Ingenieros Junior. Con esto en cuenta, consideramos los siguientes plazos: \\
+Llevar cabo un desarrollo completo del sistema se extiende un poco, mas si tenemos en cuenta que lo realizan dos Ingenieros Junior. Con esto en cuenta, consideramos los siguientes plazos:
 
-\pendiente{Gantt de los tiempos de desarrollo}Aquí va el Gantt. \\
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/ingenieria/lineaDeTiempo.png}
+\end{figure}
 
-Resumiendo el Gantt, se estipula un tiempo de desarrollo de 10 meses.
+Resumiendo el esquema, se estipula un tiempo de desarrollo de 10 meses aproximadamente.
 
 \section{Diseño y desarrollo}
 
 \subsection{Modelado del sistema}
 
-\agregar{Modelado del sistema}
+\subsubsection{Sistema de aireación}
+
+Es sistema de aireación esta compuesto por la etapa de suministro de aire, de distribución de aire y expulsión de aire. Podrá ver una descripción mas detallada en el anexo \ref{anexo:caracteristicasDelSistema}. \\
+
+El aporte de oxígeno es producido por un soplador de lóbulos rotativos de la marca \href{https://repicky.com.ar/site/}{Repicky}, accionando mediante un motor trifásico con variador, permitiendo regular el caudal de aire en función a la frecuencia. Al circular este caudal en el interior de una grilla de aireación, ubicada en la parte inferior de la pileta, se genera una presión en el sistema de distribución provocando que el aire ingrese a la pileta y se transfiera al líquido.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/caracteristicasConstructivas.png}
+    \caption{Sistema de suministro de aire.}
+\end{figure}
+
+Para distribuir el aire de manera uniforme a travez de la pileta de aireación, la planta de tratamiento tiene una grilla de cañerias de diametro mas fino.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/diagramaRegillasInventor.png}
+    \caption{Sistema de distribución de aire.}
+\end{figure}
+
+Por último al llegar a los difusores (orificios pequeños en las cañerias), el aire forma burbujas que son expulsadas al líquido para producir la difusión del oxígeno al agua.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/tuberias2.png}
+    \caption{Sistema de expulsión de aire.}
+\end{figure}
+
+Se realizó la simulación del sistema en \href{https://fluidflowinfo.com/}{FLUIDFLOW}, se pudo observar cómo cambia el caudal de ingreso de aire en función a la velocidad de operación del soplador (RPM), y como se distribuye el mismo en cada sección de cañería. \\
+
+El objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos (parámetro que es muy complejo para determinar de manera analítica). Sin embargo los resultados que se obtubieron no fueron concluyentes. Esto nos indica que el ajuste final del sistema se deberá realizar de manera empírica con una serie de pruebas en condiciones controladas.
+
+\subsubsection{Variables del sistema}
+
+Actualmente la planta de tratamiento de efluentes esta sensando:
+
+\begin{itemize}
+    \item{Nivel de PH en la zona anóxica y en la pileta de aireación.}
+    \item{Nivel de foso en la zona anóxica.}
+    \item{Nivel de OD en la pileta de aireación.}
+    \item{Temperatura en la zona de aireación (aunque este parámetro no se visualiza en el SCADA de la planta).}
+\end{itemize}
+
+Para que nuestro sistema de control pueda funcionar, es necesario disponer del nivel de OD, temperatura y PH de la pileta de aireación. Aunque para el servidor de métricas se capturen todas las variables anteriormente mencionadas. \\
+
+Para mas información acerca del OD y el sensor de OD, puede ver el anexo \ref{anexo:oxigenoDisuelto}.
+
+\subsection{Controlador}
+
+El controlador de la pileta de aireación, es quien captura las variables críticas del sistema y provoca una variación de frecuencia en los motores de los sopladores, produciendo asi, un cambio en cantidad de oxígeno insuflado al agua. \\
+
+Una consideración importante, tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida. \\
+
+Por otro lado, el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea un sistema de control con un tiempo de respuesta muy lento.
+
+\subsubsection{Aproximación del sistema}
+
+Al no conocer con exactitud el modelo matemático del sistema, ni como este responde ante diferentes entradas, se aproximo una relación de variación del OD en función al caudal de aire de ingreso. Esta aproximación nos permitió el desarrollo de un controlador ajustable para distintos modos de operación. Puede leer mas en anexo \ref{anexo:aproximacionDelSistema}.
+
+\subsubsection{Controlador PID}
+
+El controlador es el encargado de comparar la variable de proceso medida con un valor de referencia de entrada (set point), para determinar la desviación y producir una señal de control que reduzca ese error a un valor aproximado a cero. La manera en la cual el controlador ejecuta la señal de control se denomina acción de control, es la cantidad dosificada de energía que afecta al sistema para producir la salida o la respuesta deseada. \\
+
+En nuestro caso, el controlador detecta la señal de error, comparando el set point seteado en relación al valor de OD. La acción de control, es generar una salida en valor de frecuencia al variador.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.38]{src/imagenes/sistema/pid.png}
+    \caption{Diagrama de bloques del sistema.}
+\end{figure}
+
+En donde:
+
+\begin{itemize}
+    \item{$r(t)$: entrada de referencia.}
+    \item{$e(t)$: señal de error.}
+    \item{$v(t)$: variable regulada.}
+    \item{$m(t)$: variable manipulada.}
+    \item{$p(t)$: señal de perturbación.}
+    \item{$y(t)$: variable controlada.}
+    \item{$b(t)$: variable de retroalimentación como resultado de haber detectado la variable controlada por medio del sensor.}
+\end{itemize}
+
+Como en todo sistema de control, la salida de este, es la entrada al actuador, quien efectúa la acción de control. En nuestro caso en particular, el actuador es un variador de frecuencia controlado mediante sus entradas digitales, lo que genera que se tenga que considerar dos aspectos fundamentales. \\
+
+El primero es la rampa de aceleración propia del variador. Para una salida del controlador en RPM, se debe convertir a un valor en frecuencia, que luego se transfiere al variador. Este, genera una rampa de aceleración entre el valor actual y el del controlador. Se tiene como dato que la rampa va de 0 a RPMmax en 20s. La consideración de la rampa de aceleración del variador es indispensable para la simulación posterior. \\
+
+El segundo, es la transferencia del valor en frecuencia al variador, como ya se menciono se utilizan las 4 entradas digitales. Tenemos entonces, $2^{4}=16$ estados posibles. Además, si consideramos que tenemos 60Hz se generan saltos discretos de 4Hz.
+Esto provoca, que se pierda precisión en el controlador. Si una acción de control cae en el intervalo no definido, se tiene que optar por aproximarla al valor más cercano. \\
+
+Como ecuación para el controlador utilizamos:
+
+$$e(t) = Kp \cdot e(t) + Ki \sum_{i=1}^{n} e(t_{i}) + Kd \cdot \frac{e(t + h) - e(t)}{h}$$
+
+El proceso para el cálculo de la ecuación que modela el controlador se encuentra en el anexo \ref{anexo:controlPID}.
 
 \subsection{Diseño eléctrico}
 
 Diseño de la etapa de potencia del sistema de control. Selección de componentes, dimensionamiento de conductores, consideraciones técnicas, etc.
+
+\pendiente{Diseño eléctrico}
 
 \subsection{Diseño electrónico}
 

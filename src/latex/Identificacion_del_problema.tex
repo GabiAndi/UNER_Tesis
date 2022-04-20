@@ -53,11 +53,11 @@ Es lógico asumir que un proceso que opera de manera ininterrumpida, posea grand
 
 El tratamiento secundario de tipo biológico de EGGER, posee dos sopladores de \href{https://es.wikipedia.org/wiki/Compresor_volum%C3%A9trico_tipo_Roots}{lóbulos rotativos}, impulsados cada uno de ellos por un motor trifásico de 75HP (55kW). \\
 
-Estos motores son los causantes del elevado consumo de electricidad de toda la planta, y no siempre es necesario que funcionen a potencia nominal \footnote{Actualmente los sopladores \textbf{no} poseen un control de velocidad a demanda, y el proceso de puesta en marcha de los motores se realiza mediante un arranque directo.}, ya que depende del estado actual del efluente cuanto aire requiere que esten soplando. Ademas, como ningún motor seria capaz de soportan tanto tiempo ininterrumpido de operación, ambos tienen una rotación de uso de 15 días aproximadamente, esta conmutación se realiza de manera manual y es causante de muchas fallas estructurales en la cañeria de transporte de aire (golpe de ariete, fatiga, etc). \\
+Estos motores son los causantes del elevado consumo de electricidad de toda la planta, y no siempre es necesario que funcionen a potencia nominal \footnote{Actualmente los sopladores \textbf{no} poseen un control de velocidad a demanda, y el proceso de puesta en marcha de los motores se realiza mediante un arranque directo.}, ya que depende del estado actual del efluente cuanto aire requiere que esten soplando. Ademas, como ningún motor seria capaz de soportar tanto tiempo ininterrumpido de operación, ambos tienen una rotación de uso de 15 días aproximadamente, esta conmutación se realiza de manera manual y es causante de fallas estructurales en la cañeria de transporte de aire (ruptura por golpe de ariete, fatiga, etc). \\
 
-Los dispositivos actuales que controlan el proceso (PLC, HMI, etc.) no tiene comunicación entre ellos más allá de la captura de datos. Las válvulas son operadas manualmente. El operario tiene que intervenir en el proceso en cada regulación y cambio de sopladores. \\
+Los dispositivos actuales que controlan el proceso (PLC, HMI, etc.) no tienen comunicación entre ellos más allá de la captura de datos. Las válvulas son operadas manualmente. El operario tiene que intervenir en el proceso en cada regulación y cambio de sopladores. \\
 
-A todo esto, se suma el hecho de tener un sistema \textit{bobo}, es decir, sin análisis de los datos producidos, sin conectividad con el exterior de la planta de tratamiento y sin la de toma de decisiones respecto a las variables que intervienen.
+A todo esto, se suma el hecho de disponer de un sistema \textit{bobo} de control del proceso, es decir, un sistema sin análisis de los datos producidos, sin conectividad con el exterior de la planta de tratamiento y sin la de toma de decisiones respecto a las variables que intervienen.
 
 \section{Jutificación}
 
@@ -71,4 +71,6 @@ La intervención manual del operario para cada ajuste del sistema, y el poco con
     \item{Muy bajo margen de mejora en la eficiencia total del proceso.}
 \end{itemize}
 
-Todos estos inconvenientes hacen que un sistema que controle el proceso y que proporcione métricas de como lo esta haciendo, sea altamente necesario. Además, si ocurre una situación de error en la que el operario tenga que intervenir, y justo este problema ocurre a la noche, el personal no se daría cuenta hasta el día siguiente. Con lo cuál un control a distancia también es necesario.
+Si ocurre una falla crítica en la que el operario tenga que intervenir rapidamente, y esto sucede durante sus horas de ausencia. El personal del área carece de medios que lo notifiquen del hecho, por lo que la acción correctiva sucederá transcurrido un cierto tiempo desde que se dio lugar a la falla. \\
+
+Todos estos inconvenientes hacen que sea necesario un sistema que controle el proceso y que proporcione métricas de como lo esta haciendo. Además de tener la capacidad de monitorizar su estado a distancia y tomar acciones correctivas para minimizar los daños ocasionados ante una eventual falla del sistema.
