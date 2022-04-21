@@ -16,9 +16,9 @@ Para poder llevar a cabo el desarrollo del proyecto debemos plantearnos una seri
 
 Kanban es una forma de ayudar a los equipos a encontrar un equilibrio entre el trabajo que necesitan hacer y la disponibilidad de cada miembro del equipo. La metodología Kanban se basa en una filosofía centrada en la mejora continua, donde las tareas se representan en una lista de acciones pendientes en un flujo de trabajo constante. \\
 
-La metodología Kanban se implementa por medio de tableros Kanban. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo. En un tablero Kanban, el trabajo se muestra en un proyecto en forma de tablero organizado por columnas. \\
+La metodología Kanban se implementa por medio de tableros Kanban. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo. En un tablero Kanban, el trabajo se muestra en un proyecto en manera de tablero organizado por columnas. \\
 
-Para esto se utilizó el panel de Project Management de GitHub que es gratis y muy completo, además de integrarse con el desarrollo de software.
+Para esto se utilizó el panel de Project Management de GitHub, que es gratis y muy completo, además de integrarse con el desarrollo de software.
 
 \begin{figure}[H]
     \centering
@@ -52,7 +52,7 @@ El desarrollo de este proyecto se divide en 4 grandes etapas:
         \item{Actuadores de potencia.}
         \item{Electrónica del controlador.}
         \item{Electrónica transductora.}
-        \item{Conexiones clableadas.}
+        \item{Conexiones cableadas.}
     \end{enumerate}
     \item{Diseño del software de control.}
     \begin{enumerate}
@@ -62,18 +62,18 @@ El desarrollo de este proyecto se divide en 4 grandes etapas:
         \item{Infraestructura de red.}
         \item{Configuración del servidor de métricas.}
     \end{enumerate}
-    \item{Elavoración del prototipo.}
+    \item{Elaboración del prototipo.}
     \begin{enumerate}
         \item{Limitaciones.}
-        \item{Contrucción.}
+        \item{Construcción.}
     \end{enumerate}
 \end{enumerate}
 
-Todas las actividades son desarroladas secuencialmente utilizando la metodología de waterfall. Unicamente en la etapa de diseño de software se utilizará un enfoque pararelo tipo scrum.
+Todas las actividades son desarrolladas secuencialmente utilizando la metodología de waterfall. Únicamente en la etapa de diseño de software se empleará un enfoque paralelo tipo scrum.
 
 \subsection{Tiempos de desarrollo}
 
-Llevar cabo un desarrollo completo del sistema se extiende un poco, mas si tenemos en cuenta que lo realizan dos Ingenieros Junior. Con esto en cuenta, consideramos los siguientes plazos:
+Llevar cabo un desarrollo completo del sistema se extiende un poco, más si tenemos en cuenta que lo realizan dos Ingenieros Junior. Con esto en cuenta, consideramos los siguientes plazos:
 
 \begin{figure}[H]
     \centering
@@ -95,9 +95,9 @@ De manera muy simplificada, se puede ver el sistema de control como la siguiente
 
 \subsubsection{Sistema de aireación}
 
-Es sistema de aireación esta compuesto por la etapa de suministro de aire, de distribución de aire y expulsión de aire. Podrá ver una descripción mas detallada en el anexo \ref{anexo:caracteristicasDelSistema}. \\
+Es sistema de aireación está compuesto por la etapa de suministro de aire, de distribución de aire y expulsión de aire. Podrá ver una descripción más detallada en el anexo \ref{anexo:caracteristicasDelSistema}. \\
 
-El aporte de oxígeno es producido por un soplador de lóbulos rotativos de la marca \href{https://repicky.com.ar/site/}{Repicky}, accionando mediante un motor trifásico con variador, permitiendo regular el caudal de aire en función a la frecuencia. Al circular este caudal en el interior de una grilla de aireación, ubicada en la parte inferior de la pileta, se genera una presión en el sistema de distribución provocando que el aire ingrese a la pileta y se transfiera al líquido.
+El aporte de oxígeno es producido por un soplador de lóbulos rotativos de la marca \href{https://repicky.com.ar/site/}{Repicky}, accionando mediante un motor trifásico con variador, permitiendo regular el caudal de aire en función a la frecuencia. Al circular este caudal en el interior de una grilla de aireación, ubicada en la parte inferior de la pileta, se genera una presión en el sistema de distribución, provocando que el aire ingrese a la pileta y se transfiera al líquido.
 
 \begin{figure}[H]
     \centering
@@ -105,7 +105,7 @@ El aporte de oxígeno es producido por un soplador de lóbulos rotativos de la m
     \caption{Sistema de suministro de aire.}
 \end{figure}
 
-Para distribuir el aire de manera uniforme a travez de la pileta de aireación, la planta de tratamiento tiene una grilla de cañerias de diametro mas fino.
+Para distribuir el aire de manera uniforme a través de la pileta de aireación, la planta de tratamiento tiene una grilla de cañerías de diámetro más fino.
 
 \begin{figure}[H]
     \centering
@@ -113,7 +113,7 @@ Para distribuir el aire de manera uniforme a travez de la pileta de aireación, 
     \caption{Sistema de distribución de aire.}
 \end{figure}
 
-Por último al llegar a los difusores (orificios pequeños en las cañerias), el aire forma burbujas que son expulsadas al líquido para producir la difusión del oxígeno al agua.
+Por último, al llegar a los difusores (orificios pequeños en las cañerías), el aire forma burbujas que son expulsadas al líquido para producir la difusión del oxígeno al agua.
 
 \begin{figure}[H]
     \centering
@@ -123,7 +123,7 @@ Por último al llegar a los difusores (orificios pequeños en las cañerias), el
 
 Se realizó la simulación del sistema en \href{https://fluidflowinfo.com/}{FLUIDFLOW}, se pudo observar cómo cambia el caudal de ingreso de aire en función a la velocidad de operación del soplador (RPM), y como se distribuye el mismo en cada sección de cañería. \\
 
-El objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos (parámetro que es muy complejo para determinar de manera analítica). Sin embargo los resultados que se obtubieron no fueron concluyentes. Esto nos indica que el ajuste final del sistema se deberá realizar de manera empírica con una serie de pruebas en condiciones controladas.
+El objetivo principal del análisis era determinar qué frecuencia mínima del variador nos garantiza el ingreso de aire a la pileta de lodos activos (parámetro que es muy complejo para determinar de manera analítica). Sin embargo, los resultados que se obtuvieron no fueron concluyentes. Esto nos indica que el ajuste final del sistema se deberá efectuar de manera empírica con una serie de pruebas en condiciones controladas.
 
 \subsubsection{Variables del sistema}
 
@@ -138,25 +138,25 @@ Actualmente la planta de tratamiento de efluentes esta sensando:
 
 Para que nuestro sistema de control pueda funcionar, es necesario disponer del nivel de OD, temperatura y PH de la pileta de aireación. Aunque para el servidor de métricas se capturen todas las variables anteriormente mencionadas. \\
 
-Para mas información acerca del OD y el sensor de OD, puede ver el anexo \ref{anexo:oxigenoDisuelto}.
+Para más información acerca del OD y el sensor de OD, puede ver el anexo \ref{anexo:oxigenoDisuelto}.
 
 \subsection{Controlador}
 
-El controlador de la pileta de aireación, es quien captura las variables críticas del sistema y provoca una variación de frecuencia en los motores de los sopladores, produciendo asi, un cambio en cantidad de oxígeno insuflado al agua. \\
+El controlador de la pileta de aireación, es quien captura las variables críticas del sistema y provoca una variación de frecuencia en los motores de los sopladores, produciendo así, un cambio en cantidad de oxígeno insuflado al agua. \\
 
-Una consideración importante, tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida. \\
+Una consideración importante tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida. \\
 
 Por otro lado, el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea un sistema de control con un tiempo de respuesta muy lento.
 
 \subsubsection{Aproximación del sistema}
 
-Al no conocer con exactitud el modelo matemático del sistema, ni como este responde ante diferentes entradas, se aproximo una relación de variación del OD en función al caudal de aire de ingreso. Esta aproximación nos permitió el desarrollo de un controlador ajustable para distintos modos de operación. Puede leer mas en anexo \ref{anexo:aproximacionDelSistema}.
+Al no conocer con exactitud el modelo matemático del sistema, ni como este responde ante diferentes entradas, se aproximó una relación de variación del OD en función al caudal de aire de ingreso. Esta aproximación nos permitió el desarrollo de un controlador ajustable para distintos modos de operación. Puede leer más en anexo \ref{anexo:aproximacionDelSistema}.
 
 \subsubsection{Controlador PID}
 
-El controlador es el encargado de comparar la variable de proceso medida con un valor de referencia de entrada (set point), para determinar la desviación y producir una señal de control que reduzca ese error a un valor aproximado a cero. La manera en la cual el controlador ejecuta la señal de control se denomina acción de control, es la cantidad dosificada de energía que afecta al sistema para producir la salida o la respuesta deseada. \\
+El controlador es el encargado de comparar la variable de proceso medida con un valor de referencia de entrada (set point), para determinar la desviación y producir una señal de control que reduzca ese error a un valor aproximado a cero. La manera en la cual el controlador ejecuta la señal de control, se denomina acción de control, es la cantidad dosificada de energía que afecta al sistema para producir la salida o la respuesta deseada. \\
 
-En nuestro caso, el controlador detecta la señal de error, comparando el set point seteado en relación al valor de OD. La acción de control, es generar una salida en valor de frecuencia al variador.
+En nuestro caso, el controlador detecta la señal de error, comparando el set point seteado en relación con el valor de OD. La acción de control, es generar una salida en valor de frecuencia al variador.
 
 \begin{figure}[H]
     \centering
@@ -178,9 +178,9 @@ En donde:
 
 Como en todo sistema de control, la salida de este, es la entrada al actuador, quien efectúa la acción de control. En nuestro caso en particular, el actuador es un variador de frecuencia controlado mediante sus entradas digitales, lo que genera que se tenga que considerar dos aspectos fundamentales. \\
 
-El primero es la rampa de aceleración propia del variador. Para una salida del controlador en RPM, se debe convertir a un valor en frecuencia, que luego se transfiere al variador. Este, genera una rampa de aceleración entre el valor actual y el del controlador. Se tiene como dato que la rampa va de 0 a RPMmax en 20s. La consideración de la rampa de aceleración del variador es indispensable para la simulación posterior. \\
+El primero es la rampa de aceleración propia del variador. Para una salida del controlador en RPM, se debe convertir a un valor en frecuencia, que luego se transfiere al variador. Este, genera una rampa de aceleración entre el valor actual y el del controlador. Se tiene como dato que la rampa va de 0 a RPMmax en 20 s. La consideración de la rampa de aceleración del variador es indispensable para la simulación posterior. \\
 
-El segundo, es la transferencia del valor en frecuencia al variador, como ya se menciono se utilizan las 4 entradas digitales. Tenemos entonces, $2^{4}=16$ estados posibles. Además, si consideramos que tenemos 60Hz se generan saltos discretos de 4Hz. Esto provoca, que se pierda precisión en el controlador. Si una acción de control cae en el intervalo no definido, se tiene que optar por aproximarla al valor más cercano. \\
+El segundo, es la transferencia del valor en frecuencia al variador, como ya se mencionó se utilizan las 4 entradas digitales. Tenemos, entonces, $2^{4}=16$ estados posibles. Además, si consideramos que tenemos 60 Hz se generan saltos discretos de 4 Hz. Esto provoca, que se pierda precisión en el controlador. Si una acción de control cae en el intervalo no definido, se tiene que optar por aproximarla al valor más cercano. \\
 
 Como ecuación para el controlador utilizamos:
 
@@ -209,7 +209,7 @@ Para el diseño de la etapa de potencia del sistema de control, se tienen en cue
     \item{Cuando se presenten fallas, los contactores deben desactivarse. }
 \end{itemize}
 
-Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosElectricos}. Además el cálculo de conductores esta en el anexo \ref{anexo:calculoConductores}, y el de protecciones en el anexo \ref{anexo:dimensionamientoDeProtecciones}.
+Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosElectricos}. Además, el cálculo de conductores está en el anexo \ref{anexo:calculoConductores}, y el de protecciones en el anexo \ref{anexo:dimensionamientoDeProtecciones}.
 
 \subsubsection{Componentes seleccionados}
 
@@ -217,17 +217,17 @@ Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosEle
 
 \subsection{Diseño electrónico}
 
-Esta etapa es la mas importante. En ella se encuentra el hardware de control conformado por una Raspberry Pi 3 B+ y electrónica transductora que se encarga de convertir los tipos de señales. Dado que los sistemas de potencia industriales operan de manera estandarizada, nuestro controlador debe ajustarse para respetar dichos estandares. \\
+Esta etapa es la más importante. En ella se encuentra el hardware de control conformado por una Raspberry Pi 3 B+ y electrónica transductora que se encarga de convertir los tipos de señales. Dado que los sistemas de potencia industriales operan de manera estandarizada, nuestro controlador debe ajustarse para respetar dichos estándares. \\
 
-La microcomputadora que opera en el sistema es la \href{https://www.raspberrypi.org/}{Raspberry Pi 3B+}. Esta microcomputadora de bajo consumo, posee pines de entrada y salida que operan con una lógica de 3.3V. Por lo que es necesario realizar una separación de entre el voltaje de operación estandar (24V) y el voltaje de la electrónica de la placa, además de estar aislados galvanicamente. \\
+La microcomputadora que opera en el sistema es la \href{https://www.raspberrypi.org/}{Raspberry Pi 3B+}. Esta microcomputadora de bajo consumo, posee pines de entrada y salida que operan con una lógica de 3.3 V. Por lo que es necesario realizar una separación de entre el voltaje de operación estándar (24 V) y el voltaje de la electrónica de la placa, además de estar aislados galvánicamente. \\
 
-La microcomputadora es la encargada de procesar los datos de los sensores y enviar una respuesta al variador de frecuencia, para así poder controlar la velocidad de los sopladores. Además se encarga de almacenar y enviar los datos de telemetría de todo el proceso al servidor de métricas, para así poder visualizar la información en tiempo real o en un futuro realizar un análisis detallado. \\
+La microcomputadora es la encargada de procesar los datos de los sensores y enviar una respuesta al variador de frecuencia, para así poder controlar la velocidad de los sopladores. Además, se encarga de almacenar y enviar los datos de telemetría de todo el proceso al servidor de métricas, para así poder visualizar la información en tiempo real o en un futuro efectuar un análisis detallado. \\
 
 Los planos, los esquemas y el ensamble 3D se encuentran en el anexo \ref{anexo:planosElectronicos}.
 
 \subsection{Diseño de software}
 
-Los software desarrollados por nosotros y que intervienen en el sistema estan en los siguientes repositorios de GitHub:
+Los software desarrollados por nosotros y que intervienen en el sistema están en los siguientes repositorios de GitHub:
 
 \begin{itemize}
     \item{\href{https://github.com/GabiAndi/UNER_Tesis_Controlador_SCPA}{\textbf{SCPA:}} o Software Controlador de la Planta de Aireación, es ejecutado por la microcomputadora y es el encargado de generar una salida para el variador de frecuencia en función a la acción correctiva adoptada por el PID, de capturar los datos provenientes de los sensores, de transmitir la telemetría al servidor de métricas y de proporcionar una API de configuración del sistema.}
@@ -236,13 +236,13 @@ Los software desarrollados por nosotros y que intervienen en el sistema estan en
     \item{\href{https://github.com/GabiAndi/UNER_Tesis_SCPA}{\textbf{SIMOD:}} es un script de Python encargado de simular el comportamiento de la planta de tratamiento de efluentes.}
 \end{itemize}
 
-Exceptuando a \textit{SIMOD}, el resto de los programas fueron desarrolados con el Framework de Qt, que es multiplataforma y ademas esta escrito en C++ que es un leguaje de sistemas. \\
+Exceptuando a \textit{SIMOD}, el resto de los programas fueron desarrollados con el Framework de Qt, que es multiplataforma y además está escrito en C++ que es un lenguaje de sistemas. \\
 
 La configuración de la Raspberry Pi y el entorno de desarrollo se encuentra en el anexo \ref{anexo:configuracionDeLaRaspberry}.
 
 \subsubsection{Controlador del sistema}
 
-El programa que proporciona el control del sistema de aireación se desarrollo pensando en saparar en distintos hilos de ejecución las distintas partes de código que realicen tareas independientes y posean alguna acción bloqueante. Esto proporciona una mejor respuesta ante fallas inesperadas, como lo pueden ser el bloqueo de alguna tarea de comunicación o la captura de datos por consola. \\
+El programa que proporciona el control del sistema de aireación se desarrolló pensando en separar en distintos hilos de ejecución las distintas partes de código que realicen tareas independientes y posean alguna acción bloqueante. Esto proporciona una mejor respuesta ante fallas inesperadas, como lo pueden ser el bloqueo de alguna tarea de comunicación o la captura de datos por consola. \\
 
 El \textit{SCPA} posee la siguiente estructura de clases:
 
@@ -258,25 +258,25 @@ En donde:
     \item{\textbf{SCPAManager:} es la clase principal del programa, en donde se crean todos los hilos de ejecución para las tareas correspondientes y se administran los recursos de memoria.}
     \item{\textbf{TUIManager:} viene de Text User Interface, y como su nombre lo indica, proporciona una interfaz de control de consola que es solamente accesible por el S.O. de la microcomputadora. Permite la configuración con privilegios administrativos de todo el sistema.}
     \item{\textbf{ControlManager:} es la clase encargada de realizar el control PID y de enviar la salida del mismo al variador de frecuencia.}
-    \item{\textbf{HMIServerManager:} proporciona un servicio de panel administrativo via TCP/IP por el puerto 33600.}
-    \item{\textbf{MetricsManager:} clase que administra todas las métricas del sistema y las envia a las distintas bases de datos que corre el servidor de métricas.}
+    \item{\textbf{HMIServerManager:} proporciona un servicio de panel administrativo vía TCP/IP por el puerto 33600.}
+    \item{\textbf{MetricsManager:} clase que administra todas las métricas del sistema y las envía a las distintas bases de datos que corre el servidor de métricas.}
 \end{itemize}
 
-\textbf{En azul} se encuentra el punto de entrada de la aplicación, \textbf{en verde} la clase principal, \textbf{en amarillo} los distintos hils de ejecución, \textbf{en rojo} los eventos bloqueantes y \textbf{en morado} los logsfiles. Los logfiles son archivos que el programa escribe indicando la ocurrencia de algún evento de posible interes por un administrador.
+\textbf{En azul} se encuentra el punto de entrada de la aplicación, \textbf{en verde} la clase principal, \textbf{en amarillo} los distintos hilos de ejecución, \textbf{en rojo} los eventos bloqueantes y \textbf{en morado} los logsfiles. Los logfiles son archivos que el programa escribe indicando la ocurrencia de algún evento de posible interés por un administrador.
 
 \subsubsection{Interfaz de operación}
 
 Proporciona una interfaz de administración y monitorización fácil de utilizar, permite al operario la configuración de los parámetros del proceso desde prácticamente cualquier dispositivo conectado a internet. \\
 
-La idea de la interfaz de usuario es que proporcione una ayuda visual para el operario a cargo del control del sistema, mas alla de la manipulación de los parámetros de control y la visualización de la planta. Debe permitir el ajuste del controlador PID de la manera mas intuitiva posible. \\
+La idea de la interfaz de usuario es que proporcione una ayuda visual para el operario a cargo del control del sistema, más allá de la manipulación de los parámetros de control y la visualización de la planta. Debe permitir el ajuste del controlador PID de la manera más intuitiva posible. \\
 
 Dentro de las medidas de seguridad se contempla lo siguiente:
 
 \begin{itemize}
     \item{No permitir que el operario establezca una configuración que podría dañar al sistema eléctrico o mecánico.}
     \item{Proporcionar el acceso a operarios que estén datos de alta (sistema de usuarios).}
-    \item{Proporcionar acceso al sistema operativo al administrador o encargado experto (esta persona tiene que conocer a la perfección el sistema puesto que cualquier acción podría comprometer por completo a todo el equipo).}
-    \item{Todo dato que se envié hacia afuera de la industria deberá pasar por la VPN.}
+    \item{Proporcionar acceso al sistema operativo al administrador o encargado experto (esta persona tiene que conocer a la perfección el sistema, puesto que cualquier acción podría comprometer por completo a todo el equipo).}
+    \item{Todo dato que se envíe hacia afuera de la industria deberá pasar por la VPN.}
     \item{Para cualquier tipo de administración directa se realizará mediante SSH y contará con un par de llaves cifradas únicas.}
 \end{itemize}
 
@@ -285,23 +285,23 @@ Debido a que estamos en presencia de un proceso cuyas variables reaccionan de ma
 \begin{enumerate}
     \item{Se leen los sensores cada 60 segundos.}
     \item{El controlador realiza el cálculo de la acción correctiva cada 2 horas, ya que para poder detectar un cambio en la pileta de aireación debe pasar como mínimo una hora y media.}
-    \item{La rampa de aceleración y desaceleración de los sopladores es bastante lenta. Transcurren 20 min entre el valor mínimo (detenido) y el máximo. Esto es necesario para evitar golpes de ariete y cambios bruscos en la presión a la que se someten las tuberias de distribución.}
+    \item{La rampa de aceleración y desaceleración de los sopladores es bastante lenta. Transcurren 20 min entre el valor mínimo (detenido) y el máximo. Esto es necesario para evitar golpes de ariete y cambios bruscos en la presión a la que se someten las tuberías de distribución.}
     \item{Las métricas del controlador se envían con cada lectura de los sensores. Condición necesaria para tener disponibilidad inmediata de los datos.}
 \end{enumerate}
 
-El controlador PID no es capaz de ejercer una acción correctiva continua, debido a las características del propio sistema (saltos en frecuencia, limitaciones de aceleración, tiempos de respuesta muy lentos, etc).
+El controlador PID no es capaz de ejercer una acción correctiva continua, debido a las características del propio sistema (saltos en frecuencia, limitaciones de aceleración, tiempos de respuesta muy lentos, etc.).
 
 \subsubsection{Protocolo de comunicación}
 
 Para que el controlador pueda realizar su trabajo y logre interactuar con los sistemas subyacentes, es necesario una convención en cuanto a la transmisión y recepción de datos. Esto se debe a que los dispositivos pertenecientes al sistema actual interactúan de manera diferente y utilizan sus propios protocolos de comunicación. \\
 
-La comunicación se realiza mediante el protocolo TCP/IP por puerto 33600 y se incorporó un conjunto de comandos personalizado. Todo este desarrollo se encuentra en anexo \ref{anexo:protocoloDeComunicacion}.
+La comunicación se efectúa mediante el protocolo TCP/IP por puerto 33600 y se incorporó un conjunto de comandos personalizado. Todo este desarrollo se encuentra en anexo \ref{anexo:protocoloDeComunicacion}.
 
 \subsubsection{Simulación del modelo matemático}
 
-Para poder realizar pruebas del sistema de control, es necesario simular la planta de tratamiento de efluentes. Es por ello que todo el modelo matemático y los datos de velocidad de respuesta del sensor OD son cargador en un script de python. \\
+Para poder realizar pruebas del sistema de control, es necesario simular la planta de tratamiento de efluentes. Es por ello que todo el modelo matemático y los datos de velocidad de respuesta del sensor OD son cargador en un script de Python. \\
 
-El script esta encargado de obtener en tiempo real la ecuación del sistema. Dicho script genera una salida de OD en función a una entrada rampa, que es la aceleración de rpm producida por el variador de velocidad. Puede consultar el anexo \ref{anexo:solucionDeAdaptabilidad}. \\
+El script está encargado de obtener en tiempo real la ecuación del sistema. Dicho script genera una salida de OD en función a una entrada rampa, que es la aceleración de rpm producida por el variador de velocidad. Puede consultar el anexo \ref{anexo:solucionDeAdaptabilidad}. \\
 
 El esquema completo queda de la siguiente manera:
 
@@ -318,18 +318,18 @@ El esquema completo queda de la siguiente manera:
 
 \subsection{Limitaciones}
 
-Ya que realizar pruebas directamente en un sistema en funcionamiento es complicado, y construir una pileta de aireación no es una opción, el prototipo fue creado para mostrar las generalidades de funcionamiento de la planta y enfocarse mas en el trabajo del sistema de control, la captura de métricas y la gestión del software.
+Ya que realizar pruebas directamente en un sistema en funcionamiento es complicado, y construir una pileta de aireación no es una opción, el prototipo fue creado para mostrar las generalidades de funcionamiento de la planta y enfocarse más en el trabajo del sistema de control, la captura de métricas y la gestión del software.
 
 \subsection{Diseño y desarrollo}
 
-El prototipo se contruyo en la Planta Piloto de la Facultad de Ciencias de Alimentación, utilizando los siguiente componentes:
+El prototipo se construyó en la Planta Piloto de la Facultad de Ciencias de Alimentación, utilizando los siguientes componentes:
 
 \begin{itemize}
-    \item{Un variador de velocidad de 2kW Micromaster 440 de la marca SIEMENS.}
-    \item{Un motor de 1.1kW.}
+    \item{Un variador de velocidad de 2 kW Micromaster 440 de la marca SIEMENS.}
+    \item{Un motor de 1.1 kW.}
     \item{Una Raspberry Pi 3B+.}
-    \item{Un módulo de 4 reles.}
-    \item{Un módulo de 1 rele.}
+    \item{Un módulo de 4 relés.}
+    \item{Un módulo de 1 relé.}
     \item{Cables DuPont para las conexiones.}
     \item{Una pantalla táctil de 4 pulgadas con resolución 800x600.}
     \item{Una computadora de escritorio con mouse y teclado corriendo Debian 11.}
@@ -353,7 +353,7 @@ El prototipo se contruyo en la Planta Piloto de la Facultad de Ciencias de Alime
 
 \pendiente{Fotos de la PC}
 
-El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frequencia calculados de $4Hz$. Para poder realizar esta configuración se realizo el siguiente procedimiento con los parámetros del Micromaster 440:
+El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frecuencia calculados de $4 Hz$. Para poder realizar esta configuración se realizó el siguiente procedimiento con los parámetros del Micromaster 440:
 
 \newpage
 
@@ -364,7 +364,7 @@ El variador de velocidad requiere una configuración determinada para poder func
 
 \newpage
 
-Ya contruido, el prototipo quedo de la siguiente manera:
+Ya construido, el prototipo quedo de la siguiente manera:
 
 \pendiente{Fotos del SCPA}
 
@@ -388,3 +388,14 @@ Ya contruido, el prototipo quedo de la siguiente manera:
 \end{figure}
 
 \subsection{Ensayos y conclusiones}
+
+Para poder validar el prototipo realizamos las siguientes pruebas:
+
+\begin{itemize}
+    \item{\textbf{Pruebas de Software:} en donde se comprobó el funcionamiento de cada componente de los distintos programas.}
+    \item{\textbf{Pruebas de conexionado:} medición de tensiones, continuidad, etc.}
+    \item{\textbf{Pruebas de gestión:} se comprobó la seguridad de acceso, la monitorización de los distintos paneles de control, etc.}
+    \item{\textbf{Pruebas de funcionamiento:} aplicando una serie de configuraciones por defecto, se testeó el PID y las acciones correctivas del controlador, asegurándose de que el sistema no sea inestable y corrija con precisión los desbalances producidos por cambios en el ofset o setpoint.}
+\end{itemize}
+
+Todas las pruebas fueron pasadas con éxito, pero fue necesaria una simulación que si bien es bastante fiel, la misma presenta diferencias de comportamiento respecto al sistema real.

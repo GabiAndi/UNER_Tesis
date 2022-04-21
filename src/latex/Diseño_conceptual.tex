@@ -8,15 +8,15 @@
 
 \section{Justificación técnica}
 
-En cuanto a sistemas de control para industria, existen multitud de variantes y alternativas que elegir. Las Computadoras Lógicas Programables (PLC) son la opción mas utilizada debido a su estandarización y robustes, en donde si ocurre una falla, en el 99\% de los casos no fue ocacionada por el propio PLC. \\
+En cuanto a sistemas de control para industria, existen multitud de variantes y alternativas que elegir. Las Computadoras Lógicas Programables (PLC) son la opción más utilizada debido a su estandarización y robustez, en donde si ocurre una falla, en el 99\% de los casos no fue ocasionada por el propio PLC. \\
 
 También podemos encontrar computadoras destinadas a fines industriales (IPC), con un factor de forma entre un nettop y un rack de servidores. Las PC industriales tienen estándares más altos de confiabilidad y precisión que una computadora personal para uso en oficina. \\
 
 Existen sensores completos en donde se tiene una electrónica de toma de datos y ajuste. Esto presenta una ventaja en cuando a la simplicidad de componentes necesarios para llevar a cabo el control sobre una variable del sistema. \\
 
-Se puede optar por un sistema de control diseñado desde cero. Diseñar la electrónica y el Software tiene una serie de ventajas. Dentro de ellas la mas destacable es la \textbf{flexibilidad}. Al utilizar tecnologías libres, toda su documentación y desarrollo esta disponible para que cualquier persona pueda leer o modificar lo que quiera. Esto también implica que su uso no este limitado por licencias privativas. \\
+Se puede optar por un sistema de control diseñado desde cero. Diseñar la electrónica y el Software tiene una serie de ventajas. Dentro de ellas la más destacable es la \textbf{flexibilidad}. Al utilizar tecnologías libres, toda su documentación y desarrollo está disponible para que cualquier persona pueda leer o modificar lo que quiera. Esto también implica que su utilización no esté limitada por licencias privativas. \\
 
-Este tipo de sistemas al ser un desarrollo propio se pueden personalizar tanto como se quisiera para poder suplir las necesidades requeridas, lo que es una ventaja respecto a los controladores estandarizados. Sin embargo, no todo es color de rosas, el utilizar tecnologías OpenSource y OpenHard, a menudo imponen que todo el desarrollo también sea libre. En procesos industriales esto no es un impedimento, ya que a menudo no todas las empresas tienen una planta de tratamiento de efluentes con exactamente los mismos requerimientos. Para fines comerciales el valor agregado al proceso no tiene que ver con el desarrollo de las tecnologías aplicadas en el, sino con el producto fruto de ellas. \\
+Este tipo de sistemas al ser un desarrollo propio se pueden personalizar tanto como se quisiera para poder suplir las necesidades requeridas, lo que es una ventaja respecto a los controladores estandarizados. Sin embargo, no todo es color de rosas, el emplear tecnologías Open Source y Open Hard, a menudo imponen que todo el desarrollo también sea libre. En procesos industriales esto no es un impedimento, ya que a menudo no todas las empresas tienen una planta de tratamiento de efluentes con exactamente los mismos requerimientos. Para fines comerciales, el valor agregado al proceso no tiene que ver con el desarrollo de las tecnologías aplicadas en él, sino con el producto fruto de ellas. \\
 
 Para presentar un análisis resumido se muestra la siguiente tabla comparativa:
 
@@ -39,31 +39,31 @@ Para presentar un análisis resumido se muestra la siguiente tabla comparativa:
 
 Para poder incorporar un nuevo sistema de control al proceso que está corriendo actualmente la industria, se requerirá de ciertas modificaciones. Sin embargo, como premisa principal, si el controlador entra en una falla irrecuperable, este se debe anular completamente y pasar a un modo de operación manual, similar a como se realiza actualmente. \\
 
-El primer cambio importante se realizará en la \textit{etapa de potencia} debido a que los sopladores estan conectados directamente a los contactores de arranque. El sistema de control es capaz de variar la velocidad del motor para ajustar el caudal de aire soplado, es por esto que se incorporará un variador de frecuencia y un par de contactores de enclavamiento a la entrada del mismo. \\
+El primer cambio importante se hará en la \textit{etapa de potencia} debido a que los sopladores están conectados directamente a los contactores de arranque. El sistema de control es capaz de variar la velocidad del motor para ajustar el caudal de aire soplado, es por esto que se incorporará un variador de frecuencia y un par de contactores de enclavamiento a la entrada del mismo. \\
 
-En paralelo a los sistemas digitales que actualmente operan (PLCs, HMI, SCADA, etc), el controlador tendrá su propia interfaz de visualización y ajuste, en donde se realizarán todas las tareas a cargo del operario.
+En paralelo a los sistemas digitales que actualmente operan (PLC, HMI, SCADA, etc.), el controlador tendrá su propia interfaz de visualización y ajuste, en donde se efectuarán todas las tareas a cargo del operario.
 
 \section{Análisis económico inicial}
 
-Para disponer de un análisis inicial y tener un panorama general de los requerimientos económicos del proyecto, realizamos una estimación del ahorro energético generado por el sistema de control. En este apartado solo se expondrán los cálculos directamente relacionados con el ahorro energético. Puede ver el anexo \ref{anexo:calculoEconomicoInicial} para mas información sobre la metodología empleada para este análisis. \\
+Para disponer de un análisis inicial y tener un panorama general de los requerimientos económicos del proyecto, realizamos una estimación del ahorro energético generado por el sistema de control. En este apartado solo se expondrán los cálculos directamente relacionados con el ahorro energético. Puede ver el anexo \ref{anexo:calculoEconomicoInicial} para más información sobre la metodología empleada para este análisis. \\
 
 Si los sopladores se encuentran funcionando al $100\%$ las 24 horas del día, y su potencia nominal es de $75HP$, o lo que es igual a $55.9275kW$. Podemos calcular el consumo en $kWh$ en un mes, que se verá reflejado directamente en la tarifa eléctrica. \\
 
-El costo de la energía se compone de 2 facturas, la primera es el costo de la energía en el mercado mayorista (CAMMESA) y la segunda factura es el costo del transporte de la Energía, en este caso ENERSA es quien se encarga de vincular al \textbf{usuario mayorista} con el sistema Interconectado (SADI), por lo tanto es quien cobra una tarifa de peaje. \\
+El costo de la energía se compone de 2 facturas, la primera es el costo de la energía en el mercado mayorista (CAMMESA) y la segunda factura es el costo del transporte de la Energía, en este caso ENERSA es quien se encarga de vincular al \textbf{usuario mayorista} con el sistema Interconectado (SADI), por lo tanto, es quien cobra una tarifa de peaje. \\
 
-Puntualmente no tenemos datos del contrato particular de EGGER acerca de la compra en el mercado mayorista, pero como referencia hay un cuadro de la resolución de la secretaria de energía donde figura el costo de la energía y potencia para los grandes usuarios conectados a las distribuidoras (el costo para EGGER debería ser un ligeramente menor a ese precio). \\
+Puntualmente, no tenemos datos del contrato particular de EGGER acerca de la compra en el mercado mayorista, pero como referencia hay un cuadro de la resolución de la secretaria de energía, donde figura el costo de la energía y potencia para los grandes usuarios conectados a las distribuidoras (el costo para EGGER debería ser un ligeramente menor a ese precio). \\
 
-Al día 12 de mayo de 2021, el costo del $MWh$ según la resolución SE N°204-2021 de CAMMESA, que abarca desde mayo a octubre del 2021, es de 5500ARS (55.13USD\footnote{\href{https://www.roadshow.com.ar/dolar-hoy-a-cuanto-cotiza-este-lunes-31-de-mayo-de-2021/}{Precio del dolar} a 31 de mayo del 2021}) en promedio entre pico, valle y resto. Esto significa que el $kWh$ quedaría en 0.5513USD. Además se debe tener en cuenta el \textit{peaje}, a cargo de ENERSA para conectar a EGGER con el sistema interconectado (SADI), cuyo costo promedio es de 0.092ARS (0.0009223USD) por $kWh$.
+Al día 12 de mayo de 2021, el costo del $MWh$ según la resolución SE N.°204-2021 de CAMMESA, que abarca desde mayo a octubre del 2021, es de, 5500 ARS (55.13 USD\footnote{\href{https://www.roadshow.com.ar/dolar-hoy-a-cuanto-cotiza-este-lunes-31-de-mayo-de-2021/}{Precio del dólar} a 31 de mayo del 2021}) en promedio entre pico, valle y resto. Esto significa que el $kWh$ quedaría en 0.5513 USD. Además, se debe tener en cuenta el \textit{peaje}, a cargo de ENERSA para conectar a EGGER con el sistema interconectado (SADI), cuyo costo promedio es de 0.092 ARS (0.0009223 USD) por $kWh$.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=.5]{src/imagenes/economia/costoCammesa.png}
 \end{figure}
 
-Si la potencia eléctrica de los motores es de $55.9275kW$, eso significa un consumo de $55.9275kWh$. Si el rendimiento de los motores en este régimen según la hoja de datos de los Sopladores Repicky R3.0 75HP es del $92.7\%$ con un factor de potencia de $0.86$ entonces el consumo sera de $60.331kWh$ aproximadamente. \\
+Si la potencia eléctrica de los motores es de $55.9275 kW$, eso significa un consumo de $55.9275 kWh$. Si el rendimiento de los motores en este régimen según la hoja de datos de los Sopladores Repicky R3.0 75 HP es del $92.7\%$ con un factor de potencia de $0.86$ entonces el consumo será de $60.331 kWh$ aproximadamente. \\
 
-Si se produce un ahorro cercano al promedio (siendo un poco mas conservadores) del $30\%$ entonces eso implicaría un ahorro de $18.1kWh$. Se debería tener un ahorro de 75304.1ARS (754,92832USD) por mes. Si sumamos el costo, por año se traduce en 886645.15ARS (8888,673USD). \textbf{Casi 900 mil de pesos anuales, o 9 mil dolares.} \\
+Si se produce un ahorro cercano al promedio (siendo un poco más conservadores) del $30\%$ entonces eso implicaría un ahorro de $18.1 kWh$. Se debería tener un ahorro de, 75304.1 ARS (754,92832 USD) por mes. Si sumamos el costo, por año se traduce en, 886645.15 ARS (8888,673 USD). \textbf{Casi 900 mil de pesos anuales, o 9 mil dólares.} \\
 
-Todo esto sin contar las operaciones de parada y marcha de los sopladores, que es en donde mas consumo se puede observar y la instalación esta sometida a picos de corriente enormes. \\
+Todo esto sin contar las operaciones de parada y marcha de los sopladores, que es en donde más consumo se puede observar y la instalación está sometida a picos de corriente enormes. \\
 
-En base a este cálculo podemos decir que incorporar un sistema de control para los sopladores en la pileta de aireación, produce un ahorro de costos del proceso.
+Con base en este cálculo podemos decir que incorporar un sistema de control para los sopladores en la pileta de aireación, produce un ahorro de costos del proceso.
