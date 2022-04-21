@@ -1026,6 +1026,8 @@ Por último, lo más importante, se define el comportamiento del modelo matemát
 
 \subsection{Solución al problema de adaptabilidad del modelo matemático}
 
+\label{anexo:solucionDeAdaptabilidad}
+
 En relación a la expuesto en el apartado anterior, el modelo matemático con valores característicos, tomados de la información suministrada y de la investigación, no arroja los resultados esperados que se describen en las diferentes bibliografías. Esto dificulta la implementación y ajuste del controlador. Con el fin de solucionar esta problemática, se desarrolla un programa en Python donde se simula el comportamiento del sistema, a partir de la implementación de un modelo matemático variable que recibe como dato de entrada las RPM y genera una salida de concentración de OD. Este, se comunica con el programa del controlador principal, quien recibe los valores de la concentración de OD y genera una salida de control en RPM. Es decir, se cuenta con un programa que simula ser el sistema real, donde podemos ajustar su comportamiento y ensayar las pruebas necesarias del controlador. En el siguiente esquema se detalla la solución abordada:
 
 \newpage
@@ -1169,7 +1171,330 @@ De esta forma, reemplazando en \eqref{eqn:controlador} tenemos:
 
 La formula \eqref{eqn:controlador_F} expresa el valor de la acción de control en RPM. 
 
-\agregar{Aquí}
+\section{Cálculo de conductores}
+
+\label{anexo:calculoConductores}
+
+\subsection{Circuito de alimentación del motor}
+
+En lo que respecta a los cálculos para determinación de la sección de los conductores, se realizan en base a lo expuesto por José García Trasancos en su libro, “INSTALACIONES, ELECTRICAS EN MEDIA, y BAJA TENSION”. \\
+
+En este, se consideran tres criterios en el cálculo de la selección de los conductores:
+
+\textbf{Calentamiento del conductor o criterio térmico:} La densidad de corriente en el conductor debe ser limitada para disminuir el calentamiento producido al circular la corriente eléctrica. Este criterio fija la máxima intensidad de corriente por el conductor. \\
+
+\textbf{Caída de tensión en el conductor:} La caída de tensión (diferencia entre la tensión al principio y al final de la línea), se limita para evitar el efecto que la disminución de la tensión de utilización tiene sobre el funcionamiento de los receptores, los cuales deben estar conectados a la tensión nominal para su correcto funcionamiento. \\
+
+\textbf{Capacidad del conductor para soportar la corriente de cortocircuito:} Debe limitarse la intensidad de corriente de cortocircuito, porque su valor muy elevado produce un excesivo calentamiento del conductor y puede originar que las fuerzas que tienden a separar o a juntar conductores próximos recorridos por esa corriente tomen un valor excesivo. Este criterio, no se suele tener en cuenta para el cálculo de sección, porque se considera que la intensidad de corriente y el calentamiento producido no llegan a valores peligrosos antes de que actúen las protecciones contra cortocircuitos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.6]{src/imagenes/sistema/motor.png}
+    \caption{Carácteristicas del motor.}
+\end{figure}
+
+\subsubsection{Calentamiento del conductor o criterio térmico}
+
+Teniendo en cuenta que es una línea trifásica, que alimenta un motor de 75Hp:
+
+$$I_{n} = \frac{P}{\sqrt{3} \cdot V \cdot cos{(\phi)}}$$
+
+Suponiendo la peor condición de operación a una potencia del 100\%:
+
+$$I_{n} = \frac{\frac{55000W}{0.927}}{\sqrt{3} \cdot 380V \cdot cos{(0.86)}} \approx 105A$$
+
+\subsubsection{Selección del conductor}
+
+La intensidad de corriente admisible por conductor para cables instalados en cañerías, embutidas o a la vista, en servicio permanente, será indicada en la Tabla 5.I  \\
+
+Esta Tabla está referida a una temperatura ambiente de 40ºC, 70ºC en el conductor y para tres cables instalados por caño. En condiciones de cortocircuito no deberá superar los 160ºC. Cuando la temperatura ambiente difiera de 40ºC, las intensidades máximas admisibles resultarán de las indicadas en la Tabla 5.I., multiplicadas por el factor de corrección por temperatura de la Tabla 5.II. \\
+
+Si se colocan de 4 a 6 conductores activos en un mismo caño, los valores indicados en la Tabla 5.1. deberán multiplicarse por 0,8 y si se colocan de 7 a 9 conductores activos deberá multiplicarse por 0,7.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.6]{src/imagenes/sistema/tablaSeccionMotor.png}
+\end{figure}
+
+Como no se tiene datos sobre las instalaciones físicas de la industria, se supone una temperatura de 40ºC y 3 conductores activos. Por lo tanto, tenemos un factor de corrección de 1 y una corriente nominal que debe soportar el cable de 131.25 A. \\
+
+Se selecciona un cable de $75mm^{2}$, considerando el factor de corrección tenemos una corriente máxima admisible de 148A. \\
+
+Con un margen de seguridad de:
+
+$$M_{seg} = \frac{(148A - 131.25A) \cdot 100}{148A} = 11.31\%$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/tablaSeccionMotor2.png}
+\end{figure}
+
+Identificación comercial del conductor:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/sistema/seccionMotor.png}
+\end{figure}
+
+\subsubsection{Verificación de la caída de tensión}
+
+La verificación de la caída de tensión considera la diferencia de tensión entre los extremos del conductor, calculada en base a la corriente absorbida por todos los elementos conectados al mismo y susceptibles de funcionar simultáneamente. Se deberá cumplir que no supere la carga máxima admisible por la carga. \\
+
+Se considera que para circuitos de fuerza motriz en régimen: 
+
+$$\Delta U_{adm} = 5\%$$
+
+$$\Delta U_{adm} = 380V \cdot 0.05 = 19V$$
+
+Para el cálculo se aplica la siguiente formula:
+
+$$\Delta U = \frac{L \cdot P}{c \cdot S \cdot V}$$
+
+Despejamos la longitud:
+
+$$L = \frac{\Delta U \cdot c \cdot S \cdot V}{P}$$
+
+La longitud máxima del cable para estar dentro del margen de verificación por caída de tensión será:
+
+$$L = \frac{19V \cdot 48.47 \frac{m}{\Omega \cdot mm^{2}} \cdot 75mm^{2} \cdot 380V}{59331.17W} = 442.37m$$
+
+\subsection{Cables aislados y con envoltura de protección}
+
+Para cables armados o no, formados con conductores de cobre, con aislación y envoltura de material plástico, se aplicarán las intensidades de corrientes admisibles de la tabla 5.III.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.4]{src/imagenes/sistema/tablaSeccionMotor3.png}
+\end{figure}
+
+Nuevamente, como no se tiene datos sobre las instalaciones físicas de la industria, se supone una temperatura de 40ºC. Por lo tanto, tenemos un factor de corrección de 1 y una corriente nominal que debe soportar el cable de 131.25 A. \\
+
+Seleccionamos un cable tetrapolar de $50mm^{2}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.5]{src/imagenes/sistema/tablaSeccionMotor4.png}
+\end{figure}
+
+Aplicando el factor de corrección tenemos una $I_{adm} = 147A$. \\
+
+Con un margen de seguridad de:
+
+$$M_{seg} = \frac{(148A - 131.25A) \cdot 100}{147A} = 10.71\%$$
+
+Identificación comercial del conductor:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/cable1.png}
+\end{figure}
+
+\subsubsection{Verificación de la caída de tensión}
+
+De los cálculos anteriores tenemos que, para circuitos de fuerza motriz se considera:
+
+Se considera que para circuitos de fuerza motriz en régimen: 
+
+$$\Delta U_{adm} = 5\%$$
+
+$$\Delta U_{adm} = 380V \cdot 0.05 = 19V$$
+
+La longitud máxima del cable para estar dentro del margen de verificación por caída de tensión será:
+
+$$L = \frac{19V \cdot 48.47 \frac{m}{\Omega \cdot mm^{2}} \cdot 50mm^{2} \cdot 380V}{59331.17W} = 295m$$
+
+\subsection{Cable para variador de frecuencia}
+
+Con el uso de variadores de frecuencia, se produce la emisión de ondas electromagnéticas de alta frecuencia. Se evita eligiendo los cables con blindaje apropiado, prensacables apropiados y el blindaje adecuado de los tableros y motores. La fuga de ondas electromagnéticas en altas frecuencias se produce cuando quedan, aunque sea pequeños huecos en la pantalla.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/cable2.png}
+\end{figure}
+
+Para una tensión nominal de $I_{n} = 105A \cdot 1.25 = 131.25A$. Seleccionamos del catálogo:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/cable3.png}
+\end{figure}
+
+De una intensidad máxima admisible de $135A$. Con un margen de seguridad de:
+
+$$M_{seg} = \frac{(135A - 131.25A) \cdot 100}{135A} = 2.77\%$$
+
+\subsection{Filtro EMC (emisión electromagnética)}
+
+Un filtro EMC es un elemento generalmente pasivo, de una o varias etapas, que permite atenuar el ruido de radio frecuencia tanto en modo diferencial como en modo común, en una determinada banda de frecuencias denominada banda de rechazo. \\
+
+Estas emisiones de ruido en la línea de alimentación asociadas con drives de frecuencia variable pueden causar disturbios en equipos cercanos. \\
+
+Los disturbios típicos incluyen:
+
+\begin{itemize}
+    \item{Inestabilidad en dimmers y balastros.}
+    \item{Disturbios en la iluminación tales como parpadeo.}
+    \item{Radio recepción pobre.}
+    \item{Inestabilidad en sistemas de control.}
+    \item{Lazos comunes.}
+    \item{Fluctuación en mediciones de flujo.}
+    \item{Fallas en sistemas de cómputo.}
+    \item{I/O Remoto.}
+    \item{Retroalimentación de codificadores.}
+    \item{Molestas fallas de PLCs.}
+    \item{Rebote de medidores análogos.}
+    \item{Problemas con controles de termostatos.}
+\end{itemize}
+
+El dimensionamiento del filtro se realiza a partir de la potencia, tensión y corriente de funcionamiento del variador:
+
+$$P_{n} = 55000W$$
+
+$$V = 380V$$
+
+$$I_{n} = 131.25A$$
+
+El filtro que mejor se adapta a estas prestaciones es:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/emc.png}
+\end{figure}
+
+\subsection{Conectores relé-variador}
+
+Estos conductores conectan la salida de 24V de la fuente interna del variador a los pines de entrada de alimentación de los relés y la salida de estos a las entradas digitales del variador.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/cable4.png}
+\end{figure}
+
+Según la ficha técnica del variador de frecuencia, posee una fuente interna que suministra una tensión de $24V$ con una corriente máxima de $200mA$. \\
+
+En la condición más desfavorable tenemos:
+
+$$P = 24V \cdot 200 \cdot 10^{-3}A = 4.8W$$
+
+Para el diseño del circuito se tiene en cuenta:
+
+$$L_{max} = 1m$$
+
+$$\Delta U_{adm} = 1V$$
+
+Esto da como resultado:
+
+$$S = \frac{P \cdot L}{\Delta U_{adm} \cdot c \cdot V}$$
+
+$$c = 56 \frac{m}{\Omega \cdot mm^{2}}$$
+
+$$S = \frac{4.8W \cdot 1m}{0.1V \cdot 56 \frac{m}{\Omega \cdot mm^{2}} \cdot 24V}$$
+
+Seleccionamos un cable de:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/cable5.png}
+\end{figure}
+
+Verificamos el cumplimiento de la caída de tensión:
+
+$$\Delta U_{adm} = \frac{1m \cdot 4.8W}{56 \frac{m}{\Omega \cdot mm^{2} \cdot 0.25mm^{2} \cdot 24V}}$$
+
+\section{Dimensionamiento de protecciones}
+
+\label{anexo:dimensionamientoDeProtecciones}
+
+\subsection{Protección contra las sobrecargas (cerca del motor)}
+
+Los motores utilizados en régimen continuo deben ser protegidos contra las sobrecargas por un dispositivo integrante del motor o por un dispositivo independiente. \\
+
+Utilizamos un dispositivo independiente cuya corriente nominal o de ajuste es:
+
+$$I_{se} \leq K_{1} \cdot I_{r}$$
+
+Donde $K1$ es el factor que vale $1.25$, para motores con factor de servicio igual o superior a $1.15$ o con elevación de temperatura permisible igual o inferior a 40ºC, o 1.15, para los demás tipos de motores:
+
+$$I_{se} \leq 105A \cdot 1.15 = 120.75A$$
+
+Para este motor de 55kW el Ing. Eléctrico Juan Agustín Ramos, nos sugiere utilizar un relé térmico. \\
+
+Para un ajuste preciso de la corriente de disparo del relé térmico, se requiere medir la corriente nominal mediante ensayo del motor en funcionamiento. Y en base a eso, regular el valor correcto de la intensidad de la corriente. \\
+
+Primera alternativa:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion1.png}
+\end{figure}
+
+Segunda alternativa:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion2.png}
+\end{figure}
+
+Con su correspondiente contactor:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion3.png}
+\end{figure}
+
+\subsection{Protección contra cortocircuito}
+
+La protección de los motores contra los cortocircuitos debe efectuarse por los dispositivos de protección de los circuitos terminales. \\
+
+La corriente nominal o de ajuste del dispositivo de protección del circuito, debe ser igual o inferior a los valores obtenidos de multiplicar la corriente a plena carga por los valores indicados en la Tabla 28.7, es decir:
+
+$$I_{cc} \leq K_{2} \cdot I_{n}$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/sistema/proteccion4.png}
+\end{figure}
+
+$$I_{cc} \leq 1.75 \cdot 105A = 183.75A$$
+
+Para un ajuste preciso de la corriente de disparo del interruptor, se requiere medir la corriente nominal mediante ensayo del motor en funcionamiento. Y en base a eso, regular el valor correcto de la intensidad $I_{cc}$. \\
+
+Primera Alternativa:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion5.png}
+\end{figure}
+
+Segunda alternativa:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion6.png}
+\end{figure}
+
+\subsection{Contactor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/proteccion7.png}
+\end{figure}
+
+\subsection{Fuente de alimentación 24VCC}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/fuente24v.png}
+\end{figure}
+
+Como se puede apreciar el fabricante recomienda como protección, la utilización de un interruptor magnetotérmico de 16A con característica de disparo tipo B.
+
+\subsection{Interruptor magnetotérmico para Fuente de alimentación 24VCC}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.7]{src/imagenes/sistema/fuente24v2.png}
+\end{figure}
 
 \section{Configuración de la Raspberry Pi}
 
@@ -1241,8 +1566,6 @@ El protocolo seguido es el siguiente:
 \end{table}
 
 Los comandos disponibles son:
-
-\pendiente{Añadir comandos}
 
 \begin{table}[H]
     \begin{center}

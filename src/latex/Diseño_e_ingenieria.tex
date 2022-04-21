@@ -202,16 +202,18 @@ En el diseño del circuito eléctrico, se considera una disposición para la con
 Para el diseño de la etapa de potencia del sistema de control, se tienen en cuenta los siguientes aspectos:
 
 \begin{itemize}
-    \item{Primera consideración.}
+    \item{Los contactos entre el motor y el variador deben estar cerrados antes de ejecutar una orden de marcha.}
+    \item{La etapa de potencia debe estar desactivada cuando los contactos entre el motor y el variador estén abiertos.}
+    \item{El circuito debe activar el arranque directo del motor y desactivar el contacto del variador ante una eventual falla del sistema. Manual con selector.}
+    \item{Debe garantizar que nunca se pueda activar ambos contactores de los motores. Un solo motor puede operar.}
+    \item{Cuando se presenten fallas, los contactores deben desactivarse. }
 \end{itemize}
 
-\pendiente{Consideraciones para esquema eléctrico}
-
-Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosElectricos}.
+Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosElectricos}. Además el cálculo de conductores esta en el anexo \ref{anexo:calculoConductores}, y el de protecciones en el anexo \ref{anexo:dimensionamientoDeProtecciones}.
 
 \subsubsection{Componentes seleccionados}
 
-\pendiente{Componentes eléctricos seleccionados}
+\pendiente{Tabla de componentes}
 
 \subsection{Diseño electrónico}
 
@@ -275,8 +277,19 @@ Dentro de las medidas de seguridad se contempla lo siguiente:
     \item{Proporcionar el acceso a operarios que estén datos de alta (sistema de usuarios).}
     \item{Proporcionar acceso al sistema operativo al administrador o encargado experto (esta persona tiene que conocer a la perfección el sistema puesto que cualquier acción podría comprometer por completo a todo el equipo).}
     \item{Todo dato que se envié hacia afuera de la industria deberá pasar por la VPN.}
-    \item{Para cualquier tipo de administración directa se contará con un par de llaves cifradas.}
+    \item{Para cualquier tipo de administración directa se realizará mediante SSH y contará con un par de llaves cifradas únicas.}
 \end{itemize}
+
+Debido a que estamos en presencia de un proceso cuyas variables reaccionan de manera muy lenta, el controlador del sistema funciona de la siguiente manera:
+
+\begin{enumerate}
+    \item{Se leen los sensores cada 60 segundos.}
+    \item{El controlador realiza el cálculo de la acción correctiva cada 2 horas, ya que para poder detectar un cambio en la pileta de aireación debe pasar como mínimo una hora y media.}
+    \item{La rampa de aceleración y desaceleración de los sopladores es bastante lenta. Transcurren 20 min entre el valor mínimo (detenido) y el máximo. Esto es necesario para evitar golpes de ariete y cambios bruscos en la presión a la que se someten las tuberias de distribución.}
+    \item{Las métricas del controlador se envían con cada lectura de los sensores. Condición necesaria para tener disponibilidad inmediata de los datos.}
+\end{enumerate}
+
+El controlador PID no es capaz de ejercer una acción correctiva continua, debido a las características del propio sistema (saltos en frecuencia, limitaciones de aceleración, tiempos de respuesta muy lentos, etc).
 
 \subsubsection{Protocolo de comunicación}
 
@@ -286,26 +299,92 @@ La comunicación se realiza mediante el protocolo TCP/IP por puerto 33600 y se i
 
 \subsubsection{Simulación del modelo matemático}
 
-\pendiente{Simulación del modelo matemático}
+Para poder realizar pruebas del sistema de control, es necesario simular la planta de tratamiento de efluentes. Es por ello que todo el modelo matemático y los datos de velocidad de respuesta del sensor OD son cargador en un script de python. \\
+
+El script esta encargado de obtener en tiempo real la ecuación del sistema. Dicho script genera una salida de OD en función a una entrada rampa, que es la aceleración de rpm producida por el variador de velocidad. Puede consultar el anexo \ref{anexo:solucionDeAdaptabilidad}. \\
+
+El esquema completo queda de la siguiente manera:
+
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=90,scale=.40]{src/imagenes/sistema/esquemaSistemaLA.png}
+\end{figure}
+
+\newpage
 
 \section{Prototipado}
 
 \subsection{Limitaciones}
 
-Porque es un prototipo, que diferencias tiene respecto al controlador final.
+Ya que realizar pruebas directamente en un sistema en funcionamiento es complicado, y construir una pileta de aireación no es una opción, el prototipo fue creado para mostrar las generalidades de funcionamiento de la planta y enfocarse mas en el trabajo del sistema de control, la captura de métricas y la gestión del software.
 
 \subsection{Diseño y desarrollo}
 
-Basado en la parte de diseño de ingeniería, que componentes y tecnología implementamos.
+El prototipo se contruyo en la Planta Piloto de la Facultad de Ciencias de Alimentación, utilizando los siguiente componentes:
 
-\subsection{Ensayos y conclusiones}
+\begin{itemize}
+    \item{Un variador de velocidad de 2kW Micromaster 440 de la marca SIEMENS.}
+    \item{Un motor de 1.1kW.}
+    \item{Una Raspberry Pi 3B+.}
+    \item{Un módulo de 4 reles.}
+    \item{Un módulo de 1 rele.}
+    \item{Cables DuPont para las conexiones.}
+    \item{Una pantalla táctil de 4 pulgadas con resolución 800x600.}
+    \item{Una computadora de escritorio con mouse y teclado corriendo Debian 11.}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/variador.jpg}
+    \caption{Variador de velocidad.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-180,scale=.06]{src/imagenes/prototipo/motor.jpg}
+    \caption{Motor trifásico.}
+\end{figure}
+
+\pendiente{Fotos de los módulos rele}
+
+\pendiente{Fotos de la Raspberry Pi}
+
+\pendiente{Fotos de la PC}
+
+El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frequencia calculados de $4Hz$. Para poder realizar esta configuración se realizo el siguiente procedimiento con los parámetros del Micromaster 440:
+
+\newpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.45]{src/imagenes/prototipo/variadorConfiguracion.png}
+\end{figure}
+
+\newpage
+
+Ya contruido, el prototipo quedo de la siguiente manera:
 
 \pendiente{Fotos del SCPA}
 
-\pendiente{Fotos del GUI\_SCPA}
+\pendiente{Fotos del SCADA}
 
 \pendiente{Fotos del SIMOD}
 
 \pendiente{Fotos de Grafana}
 
-\pendiente{Fotos del variador y las conexiones}
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/hmi.jpg}
+    \caption{Interfaz de operación.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/controlDePotencia.jpg}
+    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/sistemaCompleto.jpg}
+    \caption{Sistema completo.}
+\end{figure}
+
+\subsection{Ensayos y conclusiones}
