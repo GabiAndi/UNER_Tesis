@@ -55,7 +55,7 @@ El tratamiento secundario de tipo biológico de EGGER, posee dos sopladores de \
 
 Estos motores son los causantes del elevado consumo de electricidad de toda la planta, y no siempre es necesario que funcionen a potencia nominal \footnote{Actualmente los sopladores \textbf{no} poseen un control de velocidad a demanda, y el proceso de puesta en marcha de los motores se realiza mediante un arranque directo.}, ya que depende del estado actual del efluente cuanto aire requiere que estén soplando. Además, como ningún motor sería capaz de soportar tanto tiempo ininterrumpido de operación, ambos tienen una rotación de uso de 15 días aproximadamente, esta conmutación se efectúa de manera manual y es causante de fallas estructurales en la cañería de transporte de aire (ruptura por golpe de ariete, fatiga, etc.).
 
-Los dispositivos actuales que controlan el proceso (PLC, HMI, etc.) no tienen comunicación entre ellos más allá de la captura de datos. Las válvulas son operadas manualmente. El operario tiene que intervenir en el proceso en cada regulación y cambio de sopladores.
+Los dispositivos actuales que controlan el proceso (PLC, HMI, etc.) no tienen comunicación entre ellos más allá de la captura de datos. Las válvulas son operadas manualmente, lo que demanda la intervención en el proceso en cada regulación y cambio de sopladores.
 
 A todo esto, se suma el hecho de disponer de un sistema \textit{bobo} de control del proceso, es decir, un sistema sin análisis de los datos producidos, sin conectividad con el exterior de la planta de tratamiento y sin la de toma de decisiones respecto a las variables que intervienen.
 
@@ -73,4 +73,4 @@ La intervención manual del operario para cada ajuste del sistema, y el poco con
 
 Si ocurre una falla crítica en la que el operario tenga que intervenir rápidamente, y esto sucede durante sus horas de ausencia. El personal del área carece de medios que lo notifiquen del hecho, por lo que la acción correctiva sucederá transcurrido un cierto tiempo desde que se dio lugar a la falla.
 
-Todos estos inconvenientes hacen que sea necesario un sistema que controle el proceso y que proporcione métricas de como lo está haciendo. Además de tener la capacidad de monitorizar su estado a distancia y tomar acciones correctivas para minimizar los daños ocasionados ante una eventual falla del sistema.
+Todos estos inconvenientes hacen necesario un sistema que controle el proceso y proporcione métricas de su funcionamiento. Además de tener la capacidad de monitorizar su estado a distancia y tomar acciones correctivas para minimizar los daños ocasionados ante una eventual falla del sistema.

@@ -8,13 +8,13 @@
 
 \section{Justificación técnica}
 
-En cuanto a sistemas de control para industria, existen multitud de variantes y alternativas que elegir. Las Computadoras Lógicas Programables (PLC) son la opción más utilizada debido a su estandarización y robustez, en donde si ocurre una falla, en el 99\% de los casos no fue ocasionada por el propio PLC.
+En cuanto a sistemas de control para industria, existen multitud de variantes y alternativas que elegir. El Controlador Lógico Programable (PLC) es la opción más utilizada debido a su estandarización y robustez, en donde si ocurre una falla, en el 99\% de los casos no fue ocasionada por el propio PLC.
 
 También podemos encontrar computadoras destinadas a fines industriales, con un factor de forma entre un nettop y un rack de servidores. Las PC industriales tienen estándares más altos de confiabilidad y precisión que una computadora personal para uso en oficina.
 
-Existen sensores completos en donde se tiene una electrónica de toma de datos y ajuste. Esto presenta una ventaja en cuando a la simplicidad de componentes necesarios para llevar a cabo el control sobre una variable del sistema.
+Ademas, existen sensores completos en donde se tiene una electrónica de toma de datos y ajuste. Esto presenta una ventaja en cuando a la simplicidad de componentes necesarios para llevar a cabo el control sobre una variable del sistema.
 
-Se puede optar por un sistema de control diseñado desde cero. Diseñar la electrónica y el Software tiene una serie de ventajas. Dentro de ellas la más destacable es la \textbf{flexibilidad}. Al utilizar tecnologías libres, toda su documentación y desarrollo está disponible para que cualquier persona pueda leer o modificar lo que quiera. Esto también implica que su utilización no esté limitada por licencias privativas.
+Por otro lado, se puede optar por un sistema de control diseñado desde cero. Diseñar la electrónica y el Software tiene una serie de ventajas. Dentro de ellas la más destacable es la \textbf{flexibilidad}. Al utilizar tecnologías libres, toda su documentación y desarrollo está disponible para que cualquier persona pueda leer o modificar lo que quiera. Esto también implica que su utilización no esté limitada por licencias privativas.
 
 Este tipo de sistemas al ser un desarrollo propio se pueden personalizar tanto como se quisiera para poder suplir las necesidades requeridas, lo que es una ventaja respecto a los controladores estandarizados. Sin embargo, no todo es color de rosas, el emplear tecnologías Open Source y Open Hard, a menudo imponen que todo el desarrollo también sea libre. En procesos industriales esto no es un impedimento, ya que a menudo no todas las empresas tienen una planta de tratamiento de efluentes con exactamente los mismos requerimientos. Para fines comerciales, el valor agregado al proceso no tiene que ver con el desarrollo de las tecnologías aplicadas en él, sino con el producto fruto de ellas.
 
@@ -45,7 +45,7 @@ En paralelo a los sistemas digitales que actualmente operan (PLC, HMI, SCADA, et
 
 \section{Análisis económico inicial}
 
-Para disponer de un análisis inicial y tener un panorama general de los requerimientos económicos del proyecto, realizamos una estimación del ahorro energético generado por el sistema de control. En este apartado solo se expondrán los cálculos directamente relacionados con el ahorro energético. Puede ver el anexo \ref{anexo:calculoEconomicoInicial} para más información sobre la metodología empleada para este análisis.
+Para disponer de un análisis inicial y tener un panorama general de los requerimientos económicos del proyecto, realizamos una estimación del ahorro energético generado por el sistema de control. En este apartado solo se expondrán los cálculos directamente relacionados con el ahorro energético. Puede ver el anexo \ref{anexo:calculoEconomicoInicial} para más información sobre la metodología empleada en este análisis.
 
 Si los sopladores se encuentran funcionando al $100\%$ las 24 horas del día, y su potencia nominal es de $75HP$, o lo que es igual a $55.9275kW$. Podemos calcular el consumo en $kWh$ en un mes, que se verá reflejado directamente en la tarifa eléctrica.
 
@@ -64,6 +64,6 @@ Si la potencia eléctrica de los motores es de $55.9275 kW$, eso significa un co
 
 Si se produce un ahorro cercano al promedio (siendo un poco más conservadores) del $30\%$ entonces eso implicaría un ahorro de $18.1 kWh$. Se debería tener un ahorro de, 75304.1 ARS (754,92832 USD) por mes. Si sumamos el costo, por año se traduce en, 886645.15 ARS (8888,673 USD). \textbf{Casi 900 mil de pesos anuales, o 9 mil dólares.}
 
-Todo esto sin contar las operaciones de parada y marcha de los sopladores, que es en donde más consumo se puede observar y la instalación está sometida a picos de corriente enormes.
+Todo esto sin contar las operaciones de parada y marcha de los sopladores, que es en donde mayor consumo se puede observar y la instalación está sometida a picos de corriente enormes.
 
 Con base en este cálculo podemos decir que incorporar un sistema de control para los sopladores en la pileta de aireación, produce un ahorro de costos del proceso.

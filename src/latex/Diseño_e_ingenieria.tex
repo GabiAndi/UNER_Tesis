@@ -16,7 +16,7 @@ Para poder llevar a cabo el desarrollo del proyecto debemos plantearnos una seri
 
 Kanban es una forma de ayudar a los equipos a encontrar un equilibrio entre el trabajo que necesitan hacer y la disponibilidad de cada miembro del equipo. La metodología Kanban se basa en una filosofía centrada en la mejora continua, donde las tareas se representan en una lista de acciones pendientes en un flujo de trabajo constante.
 
-La metodología Kanban se implementa por medio de tableros Kanban. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo. En un tablero Kanban, el trabajo se muestra en un proyecto en manera de tablero organizado por columnas.
+La metodología Kanban se implementa por medio de tableros organizados por columnas. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo.
 
 Para esto se utilizó el panel de Project Management de GitHub, que es gratis y muy completo, además de integrarse con el desarrollo de software.
 
@@ -73,7 +73,7 @@ Todas las actividades son desarrolladas secuencialmente utilizando la metodolog�
 
 \subsection{Tiempos de desarrollo}
 
-Llevar cabo un desarrollo completo del sistema se extiende un poco, más si tenemos en cuenta que lo realizan dos Ingenieros Junior. Con esto en cuenta, consideramos los siguientes plazos:
+Llevar adelante el diseño completo de un proyecto de esta magnitud, demanda meses de desarrollo, más si tenemos en cuenta que lo realizan dos Ingenieros Junior cuyo objetivo es mas académico que lucrativo. Se busca aplicar e integrar los conocimientos adquiridos, para generar una propuesta innovadora. Es por esto que consideramos los siguientes plazos:
 
 \begin{figure}[H]
     \centering
@@ -95,7 +95,7 @@ De manera muy simplificada, se puede ver el sistema de control como la siguiente
 
 \subsubsection{Sistema de aireación}
 
-Es sistema de aireación está compuesto por la etapa de suministro de aire, de distribución de aire y expulsión de aire. Podrá ver una descripción más detallada en el anexo \ref{anexo:caracteristicasDelSistema}.
+El sistema de aireación está compuesto por las etapas de suministro, distribución y expulsión de aire. Podrá ver una descripción más detallada en el anexo \ref{anexo:caracteristicasDelSistema}.
 
 El aporte de oxígeno es producido por un soplador de lóbulos rotativos de la marca \href{https://repicky.com.ar/site/}{Repicky}, accionando mediante un motor trifásico con variador, permitiendo regular el caudal de aire en función a la frecuencia. Al circular este caudal en el interior de una grilla de aireación, ubicada en la parte inferior de la pileta, se genera una presión en el sistema de distribución, provocando que el aire ingrese a la pileta y se transfiera al líquido.
 
@@ -144,13 +144,19 @@ Para más información acerca del OD y el sensor de OD, puede ver el anexo \ref{
 
 El controlador de la pileta de aireación, es quien captura las variables críticas del sistema y provoca una variación de frecuencia en los motores de los sopladores, produciendo así, un cambio en cantidad de oxígeno insuflado al agua.
 
-Una consideración importante tiene que ver con la forma de conocer el valor de la DBO, como se describió anteriormente, se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida.
+Una consideración importante tiene que ver con la forma de conocer el valor de la DBO, que se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida.
 
 Por otro lado, el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea un sistema de control con un tiempo de respuesta muy lento.
 
 \subsubsection{Aproximación del sistema}
 
 Al no conocer con exactitud el modelo matemático del sistema, ni como este responde ante diferentes entradas, se aproximó una relación de variación del OD en función al caudal de aire de ingreso. Esta aproximación nos permitió el desarrollo de un controlador ajustable para distintos modos de operación. Puede leer más en anexo \ref{anexo:aproximacionDelSistema}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.35]{src/imagenes/sistema/analisis4.png}
+    \caption{Concentración de oxigeno disuelto en el seno del liquido.}
+\end{figure}
 
 \subsubsection{Controlador PID}
 
@@ -177,7 +183,7 @@ En donde:
 
 Como en todo sistema de control, la salida de este, es la entrada al actuador, quien efectúa la acción de control. En nuestro caso en particular, el actuador es un variador de frecuencia controlado mediante sus entradas digitales, lo que genera que se tenga que considerar dos aspectos fundamentales.
 
-El primero es la rampa de aceleración propia del variador. Para una salida del controlador en RPM, se debe convertir a un valor en frecuencia, que luego se transfiere al variador. Este, genera una rampa de aceleración entre el valor actual y el del controlador. Se tiene como dato que la rampa va de 0 a RPMmax en 20 s. La consideración de la rampa de aceleración del variador es indispensable para la simulación posterior.
+El primero es la rampa de aceleración propia del variador. Para una salida del controlador en RPM, se debe convertir a un valor en frecuencia, que luego se transfiere al variador. La consideración de la rampa de aceleración del variador es indispensable para la simulación posterior.
 
 El segundo, es la transferencia del valor en frecuencia al variador, como ya se mencionó se utilizan las 4 entradas digitales. Tenemos, entonces, $2^{4}=16$ estados posibles. Además, si consideramos que tenemos 60 Hz se generan saltos discretos de 4 Hz. Esto provoca, que se pierda precisión en el controlador. Si una acción de control cae en el intervalo no definido, se tiene que optar por aproximar al valor más cercano.
 
@@ -209,50 +215,6 @@ Para el diseño de la etapa de potencia del sistema de control, se tienen en cue
 \end{itemize}
 
 Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosElectricos}. Además, el cálculo de conductores está en el anexo \ref{anexo:calculoConductores}, y el de protecciones en el anexo \ref{anexo:dimensionamientoDeProtecciones}.
-
-\subsubsection{Componentes seleccionados}
-
-{
-    \newpage
-
-    \thispagestyle{empty}
-
-    \def\arraystretch{2}
-
-    \begin{landscape}
-        \vspace*{\fill}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    \multicolumn{6}{|c|}{Presupuesto} \\ \hline
-                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
-                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
-                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
-                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
-                    Variador de velocidad ATV630D75N4 & 1 & \$1355096,4 & \$1.355.096,40 & \$12.043,16 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/ATV630D75N4?qs=VTAFTc7iVisoUqGEvY%2F1IQ%3D%3D}{Link} \\ \hline
-                    Cables CU/PVC FLEX 1X 70MM2 x 30m & 4 & \$61.452,00 & \$245.808,00 & \$2.184,57 & \href{https://www.ingenieriaboggio.com.ar/shop/product/125260-cable-cu-pvc-flex-1x-70mm2-negro-185223#attr=23969,23970,23971,23972,23973,23974}{Link} \\ \hline
-                    Filtro EMC Input Filter 200A & 1 & \$54.800,40 & \$54.800,40 & \$487,03 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/VW3A4708?qs=YCa%2FAAYMW03NmkBp%252BajfqQ%3D%3D}{Link} \\ \hline
-                    Cables unipolar 6 Colores x 10m & 1 & \$1.639,00 & \$1.639,00 & \$14,57 & \href{https://articulo.mercadolibre.com.ar/MLA-856009578-cable-unipolar-025mm-6-colores-10-metros-de-cada-uno-_JM?matt_tool=14065579&matt_word=&matt_source=google&matt_campaign_id=14508409190&matt_ad_group_id=124055975182&matt_match_type=&matt_network=g&matt_device=c&matt_creative=543394189895&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=131288106&matt_product_id=MLA856009578&matt_product_partition_id=1427499882874&matt_target_id=aud-1250848972453:pla-1427499882874&gclid=Cj0KCQjwgYSTBhDKARIsAB8KukuPr_vO5Ffd5m6K2IcNYiUWn40U5lN2HejytowyrWt9C9rDyTmVOKoaAkGsEALw_wcB}{Link} \\ \hline
-                    Relé de sobrecarga electrónico & 1 & \$49.098,22 & \$49.098,22 & \$436,35 & \href{https://www.pelba.com.ar/productos/industria/reles-industriales/rele-de-sobrecarga-electronicos-3rb2056-1fw2/}{Link} \\ \hline
-                    Interruptor de protección electrónico 250A & 1 & \$168.594,04 & \$168.594,04 & \$1.498,35 & \href{https://www.pelba.com.ar/productos/industria/aparatos-de-maniobra/interruptor-de-proteccion-electronico-250-a-3va2225-5hl42-0aa0/?removed_item=1}{Link} \\ \hline
-                    Contactor 146A 75KW BOB 24VCC 1NA+1NC & 6 & \$106.360,42 & \$638.162,52 & \$5.671,55 & \href{https://www.ingenieriaboggio.com.ar/shop/product/94778-contactor-146a-75kw-ac3-bob-24vca-24vcc-48vca-48vcc-1na-1nc-af146-30-11-11-256034?search=Contactor+75kw+BOB+24VCC+#attr=}{Link} \\ \hline
-                    Selector 3 POS fijas 45° 2NA & 2 & \$1.423,90 & \$2.847,80 & \$25,31 & \href{https://www.ingenieriaboggio.com.ar/shop/product/csw-ck3f45-20-3vf-selector-negro-3-pos-fijas-45o-2na-corta-ip66-completo-csw-ck3f45-20-3vf-245906?search=Selector+3+POS+#attr=}{Link} \\ \hline
-                    Led ojo de buey 24VCC & 3 & \$382,90 & \$1.148,70 & \$10,21 & \href{https://www.ingenieriaboggio.com.ar/shop/product/4050114-ojo-de-buey-c-led-24vca-24vcc-verde-kpl-v-238483#attr=}{Link} \\ \hline
-                    Parada Emergencia 1NC-1NA & 1 & \$4.610,40 & \$4.610,40 & \$40,97 & \href{https://ar.mouser.com/ProductDetail/TE-Connectivity-Alcoswitch/2381881-2?qs=sGAEpiMZZMsqIr59i2oRck%2FaWMJWh8brOjMy1vkp1eg%3D}{Link} \\ \hline
-                    FUENTE 120/230VCA/24VCC 2.5A & 1 & \$20.616,37 & \$20.616,37 & \$183,22 & \href{https://www.ingenieriaboggio.com.ar/shop/product/100199786-fuente-de-alim-sitop-psu100c-120-230vca-24vcc-2-5a-234646#attr=}{Link} \\ \hline
-                    Termomagnetica Bipolar 16A SIEMENS & 1 & \$1.487,83 & \$1.487,83 & \$13,22 & \href{https://www.pelba.com.ar/productos/productos-para-instalaciones/termicas-disyuntores-y-contactores/termicas/termomagnetica-bipolar-16a-5sl3216-6mb/?removed_item=1}{Link} \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-
-        \vspace*{\fill}
-    \end{landscape}
-
-    \newpage
-}
 
 \subsection{Diseño electrónico}
 
@@ -313,7 +275,7 @@ Dentro de las medidas de seguridad se contempla lo siguiente:
 
 \begin{itemize}
     \item{No permitir que el operario establezca una configuración que podría dañar al sistema eléctrico o mecánico.}
-    \item{Proporcionar el acceso a operarios que estén datos de alta (sistema de usuarios).}
+    \item{Proporcionar el acceso a operarios que estén dados de alta (sistema de usuarios).}
     \item{Proporcionar acceso al sistema operativo al administrador o encargado experto (esta persona tiene que conocer a la perfección el sistema, puesto que cualquier acción podría comprometer por completo a todo el equipo).}
     \item{Todo dato que se envíe hacia afuera de la industria deberá pasar por la VPN.}
     \item{Para cualquier tipo de administración directa se realizará mediante SSH y contará con un par de llaves cifradas únicas.}
@@ -358,6 +320,165 @@ El esquema completo queda de la siguiente manera:
         \end{figure}
 
         \vspace*{\fill}
+    \end{landscape}
+
+    \newpage
+}
+
+\subsection{Presupuestos}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|c|c|}
+                    \hline
+                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de potencia}} \\ \hline
+                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
+                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
+                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
+                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
+                    Variador de velocidad ATV630D75N4 & 1 & \$1355096,4 & \$1.355.096,40 & \$12.043,16 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/ATV630D75N4?qs=VTAFTc7iVisoUqGEvY%2F1IQ%3D%3D}{Link} \\ \hline
+                    Cables CU/PVC FLEX 1X 70MM2 x 30m & 4 & \$61.452,00 & \$245.808,00 & \$2.184,57 & \href{https://www.ingenieriaboggio.com.ar/shop/product/125260-cable-cu-pvc-flex-1x-70mm2-negro-185223#attr=23969,23970,23971,23972,23973,23974}{Link} \\ \hline
+                    Filtro EMC Input Filter 200A & 1 & \$54.800,40 & \$54.800,40 & \$487,03 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/VW3A4708?qs=YCa%2FAAYMW03NmkBp%252BajfqQ%3D%3D}{Link} \\ \hline
+                    Cables unipolar 6 Colores x 10m & 1 & \$1.639,00 & \$1.639,00 & \$14,57 & \href{https://articulo.mercadolibre.com.ar/MLA-856009578-cable-unipolar-025mm-6-colores-10-metros-de-cada-uno-_JM?matt_tool=14065579&matt_word=&matt_source=google&matt_campaign_id=14508409190&matt_ad_group_id=124055975182&matt_match_type=&matt_network=g&matt_device=c&matt_creative=543394189895&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=131288106&matt_product_id=MLA856009578&matt_product_partition_id=1427499882874&matt_target_id=aud-1250848972453:pla-1427499882874&gclid=Cj0KCQjwgYSTBhDKARIsAB8KukuPr_vO5Ffd5m6K2IcNYiUWn40U5lN2HejytowyrWt9C9rDyTmVOKoaAkGsEALw_wcB}{Link} \\ \hline
+                    Relé de sobrecarga electrónico & 1 & \$49.098,22 & \$49.098,22 & \$436,35 & \href{https://www.pelba.com.ar/productos/industria/reles-industriales/rele-de-sobrecarga-electronicos-3rb2056-1fw2/}{Link} \\ \hline
+                    Interruptor de protección electrónico 250A & 1 & \$168.594,04 & \$168.594,04 & \$1.498,35 & \href{https://www.pelba.com.ar/productos/industria/aparatos-de-maniobra/interruptor-de-proteccion-electronico-250-a-3va2225-5hl42-0aa0/?removed_item=1}{Link} \\ \hline
+                    Contactor 146A 75KW BOB 24VCC 1NA+1NC & 6 & \$106.360,42 & \$638.162,52 & \$5.671,55 & \href{https://www.ingenieriaboggio.com.ar/shop/product/94778-contactor-146a-75kw-ac3-bob-24vca-24vcc-48vca-48vcc-1na-1nc-af146-30-11-11-256034?search=Contactor+75kw+BOB+24VCC+#attr=}{Link} \\ \hline
+                    Selector 3 POS fijas 45° 2NA & 2 & \$1.423,90 & \$2.847,80 & \$25,31 & \href{https://www.ingenieriaboggio.com.ar/shop/product/csw-ck3f45-20-3vf-selector-negro-3-pos-fijas-45o-2na-corta-ip66-completo-csw-ck3f45-20-3vf-245906?search=Selector+3+POS+#attr=}{Link} \\ \hline
+                    Led ojo de buey 24VCC & 3 & \$382,90 & \$1.148,70 & \$10,21 & \href{https://www.ingenieriaboggio.com.ar/shop/product/4050114-ojo-de-buey-c-led-24vca-24vcc-verde-kpl-v-238483#attr=}{Link} \\ \hline
+                    Parada Emergencia 1NC-1NA & 1 & \$4.610,40 & \$4.610,40 & \$40,97 & \href{https://ar.mouser.com/ProductDetail/TE-Connectivity-Alcoswitch/2381881-2?qs=sGAEpiMZZMsqIr59i2oRck%2FaWMJWh8brOjMy1vkp1eg%3D}{Link} \\ \hline
+                    FUENTE 120/230VCA/24VCC 2.5A & 1 & \$20.616,37 & \$20.616,37 & \$183,22 & \href{https://www.ingenieriaboggio.com.ar/shop/product/100199786-fuente-de-alim-sitop-psu100c-120-230vca-24vcc-2-5a-234646#attr=}{Link} \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|c|c|}
+                    \hline
+                    Termomagnetica Bipolar 16A SIEMENS & 1 & \$1.487,83 & \$1.487,83 & \$13,22 & \href{https://www.pelba.com.ar/productos/productos-para-instalaciones/termicas-disyuntores-y-contactores/termicas/termomagnetica-bipolar-16a-5sl3216-6mb/?removed_item=1}{Link} \\ \hline
+                    Cable para variador Marlew BX 3x50 & 10 & \$6.817,93 & \$68.179,30 & \$605,93 & \href{https://cablesonline.com.ar/producto/cable-vdf-para-variador-de-frecuencia-marlew-bx-3x50-mm2-11-kv-xlpe-pvc-blindaje-doble-de-cobre-norma-iram-2178/}{Link} \\ \hline
+                    &&&&& \\ \hline
+                    \textbf{Total} &&&& \textbf{\$2.612.088,98} & \textbf{\$23.214,44} \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|c|c|}
+                    \hline
+                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de electrónica}} \\ \hline
+                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
+                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
+                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
+                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
+                    Kit Raspberry Pi4 B & 1 & \$53.238 & \$53.238 & \$473,14 & \href{https://articulo.mercadolibre.com.ar/MLA-1100165149-kit-raspberry-pi4-b-4gb-fuente-disipador-gab-mem-16gb-_JM#position=6&search_layout=grid&type=item&tracking_id=1b627038-9d18-4958-ad73-9ff93ce6402f}{Link} \\ \hline
+                    M20-9762042 & 1 & \$181,20 & \$181,20 & \$1,61 & \href{https://ar.mouser.com/ProductDetail/Harwin/M20-9762042?qs=sGAEpiMZZMvlX3nhDDO4AEmvugvXZ4tuK8%2FbdDZ4i9Y%3D}{Link} \\ \hline
+                    895-1C-C-24VDC & 1 & \$216,00 & \$216,00 & \$1,92 & \href{https://ar.mouser.com/ProductDetail/Song-Chuan/895-1C-C-24VDC?qs=XIHh3mCH3ZkfX5Ha9s5H0A%3D%3D}{Link} \\ \hline
+                    PC817X3NSZ9F & 10 & \$29,76 & \$29,76 & \$2,64 & \href{https://ar.mouser.com/ProductDetail/Sharp-Microelectronics/PC817X3NSZ9F?qs=rrS6PyfT74dWYZr%252B0rlaOw%3D%3D}{Link} \\ \hline
+                    RESISTENCIA 1K OHMS 1/4W & 10 & \$0,2 & \$2,00 & \$0,02 & \href{https://tostatronic.com/store/componentes-pasivos/887-resistencia-1k-ohms-14w.html}{Link} \\ \hline
+                    RESISTENCIA 20K OHMS 1/4W & 10 & \$0,5 & \$5,00 & \$0,04 & \href{https://tostatronic.com/store/electronica/1440-resistencia-20k-ohms-14w.html}{Link} \\ \hline
+                    Resistencia 220 1/4w & 10 & \$0,5 & \$5,00 & \$0,04 & \href{https://tostatronic.com/store/componentes-pasivos/889-resistencia-220-14w.html}{Link} \\ \hline
+                    Conector Tipo Wago 3 Pines Entradas & 4 & \$304,26 & \$1.217,04 & \$10,82 & \href{https://articulo.mercadolibre.com.ar/MLA-1104134332-bornera-terminal-conector-tipo-wago-3-pines-entradas-ptec-_JM?quantity=4}{Link} \\ \hline
+                    Costo de fabricación de PCB & 5 &&  \$7.148,40 & \$63.53 & \href{https://jlcpcb.com/}{Link} \\ \hline
+                    &&&&& \\ \hline
+                    \textbf{Total} &&&& \textbf{\$62.310,24} & \textbf{\$553,77} \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \multicolumn{3}{|c|}{\textbf{Costos de desarrollo}} \\ \hline
+                    \multirow{3}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca \\
+                    & Fecha: & 21/04/2022 \\
+                    & Revision: & 1 \\ \hline
+                    \multicolumn{3}{|c|}{Tareas de desarrollo} \\ \hline
+                    Descripción & Horas & Subtotal \\ \hline
+                    Relevamiento en planta & 32 & \$20.000 \\ \hline
+                    Desarrollo de la instalación eléctrica & 160 & \$160.000 \\ \hline
+                    Desarrollo de la electrónica & 240 & \$240.000 \\ \hline
+                    Desarrollo de software & 860 & \$1.000.000 \\ \hline
+                    Pruebas y ensayos & 160 & \$320.000 \\ \hline
+                    Instalación y configuración & 80 & \$360.000 \\ \hline
+                    && \\ \hline
+                    \textbf{Total} & \textbf{1.532} & \textbf{\$2.100.000} \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \multicolumn{3}{|c|}{\textbf{Total de la inversión}} \\ \hline
+                    \multirow{3}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca \\
+                    & Fecha: & 21/04/2022 \\
+                    & Revision: & 1 \\ \hline
+                    \multicolumn{3}{|c|}{Costos totales} \\ \hline
+                    Descripción & Subtotal & Subtotal (USD) \\ \hline
+                    Materiales & \$2.674.399,22 & \$23.768,21 \\ \hline
+                    Costos de desarrollo & \$2.100.000,00 & \$18.663,35 \\ \hline
+                    && \\ \hline
+                    \textbf{Total} & \textbf{\$4.774.399,22} & \textbf{\$42.431,56} \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
     \end{landscape}
 
     \newpage
