@@ -378,7 +378,7 @@ El esquema completo queda de la siguiente manera:
                     Termomagnetica Bipolar 16A SIEMENS & 1 & \$1.487,83 & \$1.487,83 & \$13,22 & \href{https://www.pelba.com.ar/productos/productos-para-instalaciones/termicas-disyuntores-y-contactores/termicas/termomagnetica-bipolar-16a-5sl3216-6mb/?removed_item=1}{Link} \\ \hline
                     Cable para variador Marlew BX 3x50 & 10 & \$6.817,93 & \$68.179,30 & \$605,93 & \href{https://cablesonline.com.ar/producto/cable-vdf-para-variador-de-frecuencia-marlew-bx-3x50-mm2-11-kv-xlpe-pvc-blindaje-doble-de-cobre-norma-iram-2178/}{Link} \\ \hline
                     &&&&& \\ \hline
-                    \textbf{Total} &&&& \textbf{\$2.612.088,98} & \textbf{\$23.214,44} \\ \hline
+                    \textbf{Total} &&& \textbf{\$2.612.088,98} & \textbf{\$23.214,44} & \\ \hline
                 \end{tabular}
             \end{center}
         \end{table}
@@ -413,7 +413,7 @@ El esquema completo queda de la siguiente manera:
                     Conector Tipo Wago 3 Pines Entradas & 4 & \$304,26 & \$1.217,04 & \$10,82 & \href{https://articulo.mercadolibre.com.ar/MLA-1104134332-bornera-terminal-conector-tipo-wago-3-pines-entradas-ptec-_JM?quantity=4}{Link} \\ \hline
                     Costo de fabricación de PCB & 5 &&  \$7.148,40 & \$63.53 & \href{https://jlcpcb.com/}{Link} \\ \hline
                     &&&&& \\ \hline
-                    \textbf{Total} &&&& \textbf{\$62.310,24} & \textbf{\$553,77} \\ \hline
+                    \textbf{Total} &&& \textbf{\$62.310,24} & \textbf{\$553,77} & \\ \hline
                 \end{tabular}
             \end{center}
         \end{table}
@@ -505,62 +505,66 @@ El prototipo se construyó en la Planta Piloto de la Facultad de Ciencias de Ali
     \item{Una computadora de escritorio con mouse y teclado corriendo Debian 11.}
 \end{itemize}
 
+\subsubsection{Variador de frecuencia}
+
+Los planos eléctricos del prototipo se encuentran en el anexo \ref{anexo:planosElectricosPrototipo}.
+
+El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frecuencia calculados de $4 Hz$. Para poder realizar esta configuración se realizó el siguiente procedimiento con los parámetros del Micromaster 440.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/variador.jpg}
+    \includegraphics[angle=-90,scale=.08]{src/imagenes/prototipo/variador.jpg}
     \caption{Variador de velocidad.}
 \end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[angle=-180,scale=.06]{src/imagenes/prototipo/motor.jpg}
-    \caption{Motor trifásico.}
-\end{figure}
-
-\pendiente{Fotos de los módulos rele}
-
-\pendiente{Fotos de la Raspberry Pi}
-
-\pendiente{Fotos de la PC}
-
-El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frecuencia calculados de $4 Hz$. Para poder realizar esta configuración se realizó el siguiente procedimiento con los parámetros del Micromaster 440:
 
 {
     \newpage
 
-    \vspace*{\fill}
+    \thispagestyle{empty}
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=.45]{src/imagenes/prototipo/variadorConfiguracion.png}
+        \includegraphics[scale=.46]{src/imagenes/prototipo/variadorConfiguracion.png}
     \end{figure}
-
-    \vspace*{\fill}
 
     \newpage
 }
 
-Ya construido, el prototipo quedo de la siguiente manera:
-
-\pendiente{Fotos del SCPA}
-
-\pendiente{Fotos del SCADA}
-
-\pendiente{Fotos del SIMOD}
-
-\pendiente{Fotos de Grafana}
+\subsubsection{Motor trifásico}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/hmi.jpg}
-    \caption{Interfaz de operación.}
+    \includegraphics[scale=.06]{src/imagenes/prototipo/motor1.jpg}
+    \includegraphics[angle=-180,scale=.06]{src/imagenes/prototipo/motor2.jpg}
+    \caption{Motor trifásico.}
 \end{figure}
 
+\subsubsection{Sistema de control}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/controlDePotencia.jpg}
-    \includegraphics[angle=-90,scale=.06]{src/imagenes/prototipo/sistemaCompleto.jpg}
-    \caption{Sistema completo.}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl1.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl2.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl3.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl4.jpg}
+    \includegraphics[scale=.06]{src/imagenes/prototipo/sistemaDeControl5.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl6.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl7.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl8.jpg}
+    \caption{Sistema de control.}
+\end{figure}
+
+\subsubsection{Software}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software1.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software2.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software3.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software4.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software5.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software6.jpg}
+    \caption{SIMOD, SCPA y GUI SCPA.}
 \end{figure}
 
 \subsection{Ensayos y conclusiones}
