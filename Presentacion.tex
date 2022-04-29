@@ -8,7 +8,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, es-tabla]{babel}
 \usepackage{amsmath}
-\usepackage{amssymb, amsfonts, latexsym, cancel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{cancel}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{float}
@@ -31,9 +34,10 @@
 \usepackage{appendix}
 \usepackage{tablefootnote}
 \usepackage{xargs}
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \usepackage{parskip}
 \usepackage{pdflscape}
+\usepackage{enumitem}
+\usepackage{pifont}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,8 +59,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% Configuracion de links %%%%%%%%%%%%%%%%%%%
-\hypersetup
-{
+\hypersetup{%
     colorlinks=true,
     linkcolor=blue,
     filecolor=blue,      
@@ -69,16 +72,20 @@
 %%%%%%%%%%%%%%%%%%%% Configuracion de cajas %%%%%%%%%%%%%%%%%%%
 \tcbuselibrary{listings,theorems,most}
 
-\newtcolorbox{bash}[1]{%
+\newtcolorbox{info}[1]{%
     title=#1
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%% Pendientes %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommandx{\quitar}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
-\newcommandx{\agregar}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
-\newcommandx{\informacion}[2][1=]{\todo[linecolor=lime,backgroundcolor=lime!25,bordercolor=lime,#1]{#2}}
-\newcommandx{\pendiente}[2][1=]{\todo[linecolor=orange,backgroundcolor=orange!25,bordercolor=orange,#1]{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Tareas %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\edit}{\ding{46}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%% Configuracion de paginas %%%%%%%%%%%%%%%%%%%
@@ -135,9 +142,9 @@
 \end{titlepage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Pendientes
+% Tareas
 \blankpage
-\listoftodos[Pendientes]
+\input{src/latex/Tareas.tex}
 
 % Aviso
 \blankpage

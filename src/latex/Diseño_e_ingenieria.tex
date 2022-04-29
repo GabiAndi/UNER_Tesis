@@ -10,85 +10,97 @@
 
 Para poder llevar a cabo el desarrollo del proyecto debemos plantearnos una serie de objetivos en un tiempo determinado. Todo esto ayudará a definir las distintas etapas de investigación y desarrollo para lograr un orden y cumplir con los plazos de entrega.
 
-\subsection{Metodologías de trabajo}
+\subsection{Metodología de trabajo (Design Thinkings)}
 
-\subsubsection{Kanban}
+Para el desarrollo de este trabajo final se opto por llevar adelante el \textit{Design Thinkings}.
 
-Kanban es una forma de ayudar a los equipos a encontrar un equilibrio entre el trabajo que necesitan hacer y la disponibilidad de cada miembro del equipo. La metodología Kanban se basa en una filosofía centrada en la mejora continua, donde las tareas se representan en una lista de acciones pendientes en un flujo de trabajo constante.
-
-La metodología Kanban se implementa por medio de tableros organizados por columnas. Se trata de un método visual de gestión de proyectos que permite a los equipos visualizar sus flujos de trabajo y la carga de trabajo.
-
-Para esto se utilizó el panel de Project Management de GitHub, que es gratis y muy completo, además de integrarse con el desarrollo de software.
+Design Thinkings es un método para generar ideas innovadoras que centra su eficacia en entender y dar solución a las necesidades reales de los usuarios. Proviene de la forma en la que trabajan los diseñadores de producto. De ahí su nombre, que en español se traduce de forma literal como \textit{Pensamiento de Diseño}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.28]{src/imagenes/metodologias/kanban.png}
-    \caption{Panel de gestión de proyecto en GitHub.}
+    \includegraphics[scale=.7]{src/imagenes/metodologias/designThinkings.png}
 \end{figure}
 
-\subsubsection{Waterfall}
-
-Esta metodología es una aproximación lineal al desarrollo y ha sido la más utilizada durante los últimos 30 años. La secuencia que sigue este método está compuesta de las siguientes fases:
+El Design Thinking se desarrolla siguiendo un proceso en el que se ponen en valor 5 características diferenciales:
 
 \begin{itemize}
-    \item{Captura y documentación de requisitos.}
-    \item{Diseño.}
-    \item{Desarrollo.}
-    \item{Test.}
-    \item{Corrección de errores y ajustes finales.}
-    \item{Puesta en producción.}
+    \item{\textbf{La generación de empatía:} se debe entender los problemas, necesidades y deseos de los usuarios implicados en la solución que estamos buscando. Independientemente de lo qué se este desarrollando, siempre esta etapa conllevará la interacción con personas. Satisfacerlas es la clave de un resultado exitoso.}
+    \item{\textbf{Los materiales:} serán las herramientas para promover la comunicación visual, que es fundamental en el método. Una imagen vale más que mil palabras, y puede evocar un sinfín de ideas, ya que da pie a la interpretación.}
+    \item{\textbf{El equipo:} en el Design Thinking es imprescindible trabajar en equipo. Cuanto más diverso sea, mejor. Que haya al menos una persona con conocimientos sobre la metodología que sepa guiar el proceso. Y aunque debe tener un núcleo estable de personas que participen hasta el final, se podrán sumar otras dependiendo de la fase en la que se encuentre. Por ejemplo, en la generación de ideas o en la prueba de prototipos.}
+    \item{\textbf{El espacio:} un espacio de trabajo apto para el proceso de desarrollo es fundamental.}
+    \item{\textbf{La actitud:} es imprescindible la actitud. Se debe adoptar lo que se denomina \textit{Actitud del Diseñador}:}
+        \begin{itemize}
+            \item{Se debe ser empáticos, tanto con las personas como con sus circunstancias.}
+            \item{Ser optimistas y positivos.}
+            \item{Perder el miedo a equivocarse y ver los errores como oportunidades.}
+        \end{itemize}
 \end{itemize}
-
-En un desarrollo waterfall puro, cada una de estas fases representan una etapa diferenciada en el desarrollo del producto final. Cada una de estas etapas deben darse por concluidas antes de comenzar con la siguiente. Además, entre cada una de ellas, generalmente tenemos un hilo bloqueante que nos impide avanzar a la siguiente si este no se libera adecuadamente.
 
 \subsection{Tareas a realizar}
 
-El desarrollo de este proyecto se divide en 4 grandes etapas:
+El desarrollo de este proyecto se divide en 3 grandes etapas, en donde dos de ellas ocurren en paralelo: Diseño del sistema y Prototipado del sistema. A estas dos etapas combinadas se la denomina Desarrollo y validación del sistema, ya que es indispensable la elaboración de un prototipo para validar las ideas de diseño.
+
+Por último tenemos la etapa de test y pruebas, que terminan de comprobar el buen funcionamiento de la estaba de diseño y desarrollo:
 
 \begin{enumerate}
-    \item{Desarrollo del modelo del sistema.}
-    \item{Diseño del hardware de control.}
+    \item{Desarrollo y validación del sistema:}
     \begin{enumerate}
-        \item{Actuadores de potencia.}
-        \item{Electrónica del controlador.}
-        \item{Electrónica transductora.}
-        \item{Conexiones cableadas.}
+        \item{Desarrollo del modelo del sistema.}
+        \item{Diseño del hardware de control:}
+        \begin{enumerate}
+            \item{Actuadores de potencia.}
+            \item{Electrónica del controlador.}
+            \item{Electrónica transductora.}
+            \item{Conexiones cableadas.}
+        \end{enumerate}
+        \item{Diseño del software de control:}
+        \begin{enumerate}
+            \item{Controlador.}
+            \item{Pantallas de visualización y configuración.}
+            \item{Simulación de la pileta.}
+            \item{Infraestructura de red.}
+            \item{Configuración del servidor de métricas.}
+        \end{enumerate}
     \end{enumerate}
-    \item{Diseño del software de control.}
+    \item{Pruebas y testeos:}
     \begin{enumerate}
-        \item{Controlador.}
-        \item{Pantallas de visualización y configuración.}
-        \item{Simulación de la pileta.}
-        \item{Infraestructura de red.}
-        \item{Configuración del servidor de métricas.}
-    \end{enumerate}
-    \item{Elaboración del prototipo.}
-    \begin{enumerate}
-        \item{Limitaciones.}
-        \item{Construcción.}
+        \item{Pruebas de conexionado.}
+        \item{Pruebas de funcionamiento.}
+        \item{Pruebas de gestión.}
+        \item{Pruebas de software.}
     \end{enumerate}
 \end{enumerate}
 
-Todas las actividades son desarrolladas secuencialmente utilizando la metodología de waterfall. Únicamente en la etapa de diseño de software se empleará un enfoque paralelo tipo scrum.
+Todas las actividades son desarrolladas utilizando la metodología de Design Thinkings. Lo que implica que constantemente se estén realizando cambios en los diseños del sistema de control.
 
 \subsection{Tiempos de desarrollo}
 
-Llevar adelante el diseño completo de un proyecto de esta magnitud, demanda meses de desarrollo, más si tenemos en cuenta que lo realizan dos Ingenieros Junior cuyo objetivo es mas académico que lucrativo. Se busca aplicar e integrar los conocimientos adquiridos, para generar una propuesta innovadora. Es por esto que consideramos los siguientes plazos:
+Llevar adelante el diseño completo de un proyecto de esta magnitud, demanda meses de desarrollo, más si tenemos en cuenta que lo realizan dos \textit{Ingenieros Junior} cuyo objetivo es mas académico que lucrativo. Se busca aplicar e integrar los conocimientos adquiridos, para generar una propuesta innovadora. Es por esto que consideramos los siguientes plazos:
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.35]{src/imagenes/ingenieria/lineaDeTiempo.png}
-\end{figure}
+{
+    \newpage
 
-Resumiendo el esquema, se estipula un tiempo de desarrollo de 10 meses aproximadamente.
+    \thispagestyle{empty}
 
-\section{Diseño y desarrollo}
+    \begin{landscape}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=.45]{src/imagenes/ingenieria/lineaDeTiempo.png}
+        \end{figure}
+    \end{landscape}
+
+    \newpage
+}
+
+Resumiendo el esquema, se estipula un tiempo de desarrollo de 10 meses aproximadamente, comenzando el 3 de mayo del 2021 y culminando el 25 de febrero del 2022.
+
+\section{Diseño y validación del sistema}
 
 De manera muy simplificada, se puede ver el sistema de control como la siguiente figura:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.45]{src/imagenes/ingenieria/controlador.png}
+    \includegraphics[scale=.55]{src/imagenes/ingenieria/controlador.png}
 \end{figure}
 
 \subsection{Modelado del sistema}
@@ -195,14 +207,14 @@ El proceso para el cálculo de la ecuación que modela el controlador se encuent
 
 \subsection{Diseño eléctrico}
 
-\subsubsection{Diseño de la instalación}
-
-En el diseño del circuito eléctrico, se considera una disposición para la conexión de los motores, en la cual tenemos un circuito de distribución principal al que se conecta el circuito terminal del motor.
+En el diseño del circuito eléctrico, se considera una disposición para la conexión de los motores, en la cual tenemos un circuito de distribución principal al que se conecta el circuito terminal del motor:
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=.6]{src/imagenes/ingenieria/layout.png}
 \end{figure}
+
+\subsubsection{Diseño de la instalación}
 
 Para el diseño de la etapa de potencia del sistema de control, se tienen en cuenta los siguientes aspectos:
 
@@ -325,7 +337,164 @@ El esquema completo queda de la siguiente manera:
     \newpage
 }
 
+\subsection{Validación del sistema}
+
+\subsubsection{Limitaciones}
+
+Ya que realizar pruebas directamente en un sistema en funcionamiento es complicado, y construir una pileta de aireación no es una opción, el prototipo fue creado para mostrar las generalidades de funcionamiento de la planta y enfocarse más en el trabajo del sistema de control, la captura de métricas y la gestión del software.
+
+Con esto se pretende proporcionar la infraestructura para realizar las pruebas necesarias que permitan validar las ideas de diseño.
+
+\subsubsection{Componentes}
+
+El prototipo se construyó en la Planta Piloto de la Facultad de Ciencias de Alimentación, utilizando los siguientes componentes:
+
+\begin{itemize}
+    \item{Un variador de velocidad de 2 kW Micromaster 440 de la marca SIEMENS.}
+    \item{Un motor de 1.1 kW.}
+    \item{Una Raspberry Pi 3B+.}
+    \item{Un módulo de 4 relés.}
+    \item{Un módulo de 1 relé.}
+    \item{Cables DuPont para las conexiones.}
+    \item{Una pantalla táctil de 4 pulgadas con resolución 800x600.}
+    \item{Una computadora de escritorio con mouse y teclado corriendo Debian 11.}
+\end{itemize}
+
+\subsubsection{Diseño eléctrico}
+
+Los planos eléctricos del prototipo se encuentran en el anexo \ref{anexo:planosElectricosPrototipo}.
+
+El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frecuencia calculados de $4 Hz$. Para poder realizar esta configuración se realizó el siguiente procedimiento con los parámetros del Micromaster 440.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[angle=-90,scale=.08]{src/imagenes/prototipo/variador.jpg}
+    \caption{Variador de velocidad.}
+\end{figure}
+
+{
+    \newpage
+
+    \thispagestyle{empty}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=.44]{src/imagenes/prototipo/variadorConfiguracion.png}
+        \caption{Configuración del variador.}
+    \end{figure}
+
+    \newpage
+}
+
+El motor trifásico se encuentra conectado en estrella y es alimentado directamente por el variador de frecuencia:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.06]{src/imagenes/prototipo/motor1.jpg}
+    \includegraphics[angle=-180,scale=.06]{src/imagenes/prototipo/motor2.jpg}
+    \caption{Motor trifásico.}
+\end{figure}
+
+\subsubsection{Sistema de control}
+
+El sistema de control que incorpora el prototipo es el mismo que el desarrollo para el sistema a gran escala. La única diferencia es que no se ensamblaron los componentes en una PCB:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl1.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl2.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl3.jpg}
+    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl4.jpg}
+    \includegraphics[scale=.06]{src/imagenes/prototipo/sistemaDeControl5.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl6.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl7.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl8.jpg}
+    \caption{Sistema de control.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software1.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software2.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software3.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software4.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software5.jpg}
+    \includegraphics[scale=.04]{src/imagenes/prototipo/software6.jpg}
+    \caption{Software de gestión, simulación y visualización de métricas.}
+\end{figure}
+
 \subsection{Presupuestos}
+
+\subsubsection{Prototipo}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|c|c|}
+                    \hline
+                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de potencia}} \\ \hline
+                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
+                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
+                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
+                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
+                    Variador de velocidad ATV630D75N4 & 1 & \$1355096,4 & \$1.355.096,40 & \$12.043,16 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/ATV630D75N4?qs=VTAFTc7iVisoUqGEvY%2F1IQ%3D%3D}{Link} \\ \hline
+                    &&&&& \\ \hline
+                    \textbf{Total} &&& \textbf{\$62.310,24} & \textbf{\$553,77} & \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+{
+    \newpage
+
+    \begin{landscape}
+        \thispagestyle{empty}
+
+        \def\arraystretch{1.9}
+
+        \begin{table}[H]
+            \footnotesize
+            \begin{center}
+                \begin{tabular}{|c|c|c|c|c|c|}
+                    \hline
+                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de electrónica}} \\ \hline
+                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
+                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
+                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
+                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
+                    Lcd Touch 7in & 1 & \$9.809 & \$9.809 & \$473,14 & \href{https://articulo.mercadolibre.com.ar/MLA-818232434-lcd-touch-7-hdmi-raspberry-pi-pantalla-tactil-beaglebone-_JM
+                    }{Link} \\ \hline
+                    Kit Raspberry Pi 3 B+ & 1 & \$9.000 & \$9.000 & \$79,99 & \href{https://articulo.mercadolibre.com.ar/MLA-722769035-raspberry-pi-3-b-plus-kit-32gb-fuente-gab-dis-sandisk-98x-_JM
+                    }{Link} \\ \hline
+                    Modulo Relay Rele De 8 Canales 5v & 1 & \$907 & \$907 & \$8,06 & \href{https://compras.patagoniatec.com/productos/modulo-de-relee-relay-opto-8-canales-5v-10a-arduino-pic-ptec/
+                    }{Link} \\ \hline
+                    Kit 40 Cables Dupont 30cm Macho Macho & 1 & \$230 & \$230 & \$2,04 & \href{https://compras.patagoniatec.com/productos/kit-40-cables-dupont-30cm-macho-macho/
+                    }{Link} \\ \hline
+                    Kit 40 Cables Dupont 30cm Hembra Hembra & 1 & \$220 & \$220 & \$1,96 & \href{https://compras.patagoniatec.com/productos/kit-40-cables-dupont-30cm-hembra-hembra/
+                    }{Link} \\ \hline
+                    Kit Tubo Termocontraible 328 Unidades & 1 & \$1.200 & \$1.200 & \$10,66 & \href{https://compras.patagoniatec.com/productos/kit-tubo-termocontraible-heat-shrink-328-unidades/
+                    }{Link} \\ \hline
+                    Costos de envio & 2 & \$800 & \$1.600 & \$14,22 & \href{https://compras.patagoniatec.com/productos/kit-tubo-termocontraible-heat-shrink-328-unidades/
+                    }{Link} \\ \hline
+                    &&&&& \\ \hline
+                    \textbf{Total} &&& \textbf{\$22.966} & \textbf{\$204,11} & \\ \hline
+                \end{tabular}
+            \end{center}
+        \end{table}
+    \end{landscape}
+}
+
+\subsubsection{Sistema final}
 
 {
     \newpage
@@ -420,6 +589,8 @@ El esquema completo queda de la siguiente manera:
     \end{landscape}
 }
 
+\subsubsection{Costos totales}
+
 {
     \newpage
 
@@ -439,14 +610,11 @@ El esquema completo queda de la siguiente manera:
                     & Revision: & 1 \\ \hline
                     \multicolumn{3}{|c|}{Tareas de desarrollo} \\ \hline
                     Descripción & Horas & Subtotal \\ \hline
-                    Relevamiento en planta & 32 & \$20.000 \\ \hline
-                    Desarrollo de la instalación eléctrica & 160 & \$160.000 \\ \hline
-                    Desarrollo de la electrónica & 240 & \$240.000 \\ \hline
-                    Desarrollo de software & 860 & \$1.000.000 \\ \hline
+                    Costo de desarrollo por mes (8 total) & 120 & \$125.984 \\ \hline
                     Pruebas y ensayos & 160 & \$320.000 \\ \hline
-                    Instalación y configuración & 80 & \$360.000 \\ \hline
+                    Instalación y configuración & 80 & \$260.000 \\ \hline
                     && \\ \hline
-                    \textbf{Total} & \textbf{1.532} & \textbf{\$2.100.000} \\ \hline
+                    \textbf{Total} & \textbf{1.200} & \textbf{\$2.595.744} \\ \hline
                 \end{tabular}
             \end{center}
         \end{table}
@@ -472,8 +640,9 @@ El esquema completo queda de la siguiente manera:
                     & Revision: & 1 \\ \hline
                     \multicolumn{3}{|c|}{Costos totales} \\ \hline
                     Descripción & Subtotal & Subtotal (USD) \\ \hline
-                    Materiales & \$2.674.399,22 & \$23.768,21 \\ \hline
-                    Costos de desarrollo & \$2.100.000,00 & \$18.663,35 \\ \hline
+                    Materiales del sistema & \$2.674.399,22 & \$23.768,21 \\ \hline
+                    Materiales del prototipo & \$2.674.399,22 & \$23.768,21 \\ \hline
+                    Costos de desarrollo & \$2.595.744,00 & \$23.069,18 \\ \hline
                     && \\ \hline
                     \textbf{Total} & \textbf{\$4.774.399,22} & \textbf{\$42.431,56} \\ \hline
                 \end{tabular}
@@ -484,90 +653,9 @@ El esquema completo queda de la siguiente manera:
     \newpage
 }
 
-\section{Prototipado}
+Los costos de desarrollo se tomaron con el criterio de un sueldo promedio de un Ingeniero Junior por mes. Los valores utilizados son referencia del siguiente \href{https://www.glassdoor.com.ar/Sueldos/ingeniero-junior-sueldo-SRCH_KO0,16.htm}{Link.}
 
-\subsection{Limitaciones}
-
-Ya que realizar pruebas directamente en un sistema en funcionamiento es complicado, y construir una pileta de aireación no es una opción, el prototipo fue creado para mostrar las generalidades de funcionamiento de la planta y enfocarse más en el trabajo del sistema de control, la captura de métricas y la gestión del software.
-
-\subsection{Diseño y desarrollo}
-
-El prototipo se construyó en la Planta Piloto de la Facultad de Ciencias de Alimentación, utilizando los siguientes componentes:
-
-\begin{itemize}
-    \item{Un variador de velocidad de 2 kW Micromaster 440 de la marca SIEMENS.}
-    \item{Un motor de 1.1 kW.}
-    \item{Una Raspberry Pi 3B+.}
-    \item{Un módulo de 4 relés.}
-    \item{Un módulo de 1 relé.}
-    \item{Cables DuPont para las conexiones.}
-    \item{Una pantalla táctil de 4 pulgadas con resolución 800x600.}
-    \item{Una computadora de escritorio con mouse y teclado corriendo Debian 11.}
-\end{itemize}
-
-\subsubsection{Variador de frecuencia}
-
-Los planos eléctricos del prototipo se encuentran en el anexo \ref{anexo:planosElectricosPrototipo}.
-
-El variador de velocidad requiere una configuración determinada para poder funcionar mediante entradas digitales. Además, estas entradas digitales deben tener los saltos de frecuencia calculados de $4 Hz$. Para poder realizar esta configuración se realizó el siguiente procedimiento con los parámetros del Micromaster 440.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[angle=-90,scale=.08]{src/imagenes/prototipo/variador.jpg}
-    \caption{Variador de velocidad.}
-\end{figure}
-
-{
-    \newpage
-
-    \thispagestyle{empty}
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=.46]{src/imagenes/prototipo/variadorConfiguracion.png}
-    \end{figure}
-
-    \newpage
-}
-
-\subsubsection{Motor trifásico}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.06]{src/imagenes/prototipo/motor1.jpg}
-    \includegraphics[angle=-180,scale=.06]{src/imagenes/prototipo/motor2.jpg}
-    \caption{Motor trifásico.}
-\end{figure}
-
-\subsubsection{Sistema de control}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl1.jpg}
-    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl2.jpg}
-    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl3.jpg}
-    \includegraphics[scale=.05]{src/imagenes/prototipo/sistemaDeControl4.jpg}
-    \includegraphics[scale=.06]{src/imagenes/prototipo/sistemaDeControl5.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl6.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl7.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/sistemaDeControl8.jpg}
-    \caption{Sistema de control.}
-\end{figure}
-
-\subsubsection{Software}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software1.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software2.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software3.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software4.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software5.jpg}
-    \includegraphics[scale=.04]{src/imagenes/prototipo/software6.jpg}
-    \caption{SIMOD, SCPA y GUI SCPA.}
-\end{figure}
-
-\subsection{Ensayos y conclusiones}
+\section{Ensayos y conclusiones}
 
 Para poder validar el prototipo realizamos las siguientes pruebas:
 
@@ -579,3 +667,5 @@ Para poder validar el prototipo realizamos las siguientes pruebas:
 \end{itemize}
 
 Todas las pruebas fueron pasadas con éxito, pero fue necesaria una simulación que si bien es bastante fiel, la misma presenta diferencias de comportamiento respecto al sistema real.
+
+El video del protipo se encuentra en el siguiente \href{https://drive.google.com/file/d/1-0-tkOWRzmBlvVKaE4glTuZy0YFnLR4_/view?usp=sharing}{Link.}
