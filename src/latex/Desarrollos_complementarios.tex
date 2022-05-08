@@ -207,12 +207,9 @@ El flujo de agua es descendente. Durante el funcionamiento, el lecho de carbón 
 	
 Gracias al control a demanda de los sopladores, los motores encargados de la aireación no funcionarían al $100\%$ siempre, esto provocará el desbloqueo de un potencial ahorro energético.
 
-\begin{figure}[H]
-    \centering
+\begin{center}
     \includegraphics[scale=.45]{src/imagenes/economia/sopladores.png}
-\end{figure}
-
-En ventiladores y bombas centrífugas se cumple que el caudal es proporcional a la velocidad, la presión o altura es proporcional al cuadrado de la relación de velocidad y, por consiguiente, la potencia (caudal x altura) es proporcional al cubo de la relación de velocidades.
+\end{center}
 
 \begin{table}[H]
     \begin{center}
@@ -229,12 +226,6 @@ En ventiladores y bombas centrífugas se cumple que el caudal es proporcional a 
 
     \caption{Características de los Sopladores Repicky R3.0 encargados del proceso de aireación.}
 \end{table}
-
-Esto significa que si a $1500rpm$ se consumen $75HP$ de potencia, a $750rpm$ consumirá:
-
-$$P_{out} = \left( \frac{750rpm}{1500rpm} \right)^{3} \cdot 75HP = 9.375HP$$
-
-En otras palabras, al disminuir la velocidad a la mitad (o caudal a la mitad), se consumen solo $9.375HP$, es decir, se ahorra un $87.5\%$.
 
 Tomando como fuente el proyecto de grado \cite{ATEVF} en donde se detalla y se cita un estudio de ahorro energético en diversas aplicaciones de motores de inducción utilizando variadores de frecuencia, podemos ver la siguiente tabla:
 
@@ -610,7 +601,7 @@ $$v_{1} A_{1} = v_{2} A_{2} + v_{3} A_{3}$$
 
 $$v_{2} = v_{3} = \frac{v_{1}}{2}$$
 
-Suponiendo que el aire se distribuye de manera uniforme en las 12 ramificaciones en T de los difusores, realizamos un plateo análogo al anterior que nos da como resultado:
+Suponiendo que el aire se distribuye de manera uniforme en las 12 ramificaciones en T de los difusores, realizamos un planteo análogo al anterior que nos da como resultado:
 
 $$\int_{A_{1}}{\rho \cdot \overrightarrow{v}_{1} \cdot \overrightarrow{n}_{1} \cdot dA_{1}} + \int_{A_{2}}{\rho \cdot \overrightarrow{v}_{2} \cdot \overrightarrow{n}_{2} \cdot dA_{2}} + \int_{A_{3}}{\rho \cdot \overrightarrow{v}_{3} \cdot \overrightarrow{n}_{3} \cdot dA_{3}} = 0$$
 
@@ -1029,15 +1020,21 @@ Por último, lo más importante, se define el comportamiento del modelo matemát
 
 En relación con lo expuesto en el apartado anterior, el modelo matemático con valores característicos, tomados de la información suministrada y de la investigación, no arroja los resultados esperados que se describen en las diferentes bibliografías. Esto dificulta la implementación y ajuste del controlador. Con el fin de solucionar esta problemática, se desarrolla un programa en Python donde se simula el comportamiento del sistema, a partir de la implementación de un modelo matemático variable que recibe como dato de entrada las RPM y genera una salida de concentración de OD. Este se comunica con el programa del controlador principal, quien recibe los valores de la concentración de OD y genera una salida de control en RPM. Es decir, se cuenta con un programa que simula ser el sistema real, donde podemos ajustar su comportamiento y ensayar las pruebas necesarias del controlador. En el siguiente esquema se detalla la solución abordada:
 
-\newpage
+{
+    \newpage
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[angle=90,scale=.40]{src/imagenes/sistema/esquemaSistemaLA.png}
-    \caption{Esquema del Sistema de control y simulación}
-\end{figure}
+    \thispagestyle{empty}
 
-\newpage
+    \begin{landscape}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=.40]{src/imagenes/sistema/esquemaSistemaLA.png}
+            \caption{Esquema del Sistema de control y simulación}
+        \end{figure}
+    \end{landscape}
+
+    \newpage
+}
 
 Al abordar esta solución, se abre la posibilidad de ajustar la respuesta de la simulación al sistema real. Si se dispone de la gráfica de concentración de OD en función al tiempo, solo se requiere modificar los parámetros $k$, $T$ y $a$. 
 
@@ -1214,10 +1211,9 @@ Esta Tabla está referida a una temperatura ambiente de 40 °C, 70 °C en el con
 
 Si se colocan de 4 a 6 conductores activos en un mismo caño, los valores indicados en la Tabla 5.1. deberán multiplicarse por 0,8 y si se colocan de 7 a 9 conductores activos deberá multiplicarse por 0,7.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.58]{src/imagenes/sistema/tablaSeccionMotor.png}
-\end{figure}
+\begin{center}
+    \includegraphics[scale=.48]{src/imagenes/sistema/tablaSeccionMotor.png}
+\end{center}
 
 Como no se tiene datos sobre las instalaciones físicas de la industria, se supone una temperatura de 40 °C y 3 conductores activos. Por lo tanto, tenemos un factor de corrección de 1 y una corriente nominal que debe soportar el cable de 131.25 A.
 

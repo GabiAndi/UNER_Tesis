@@ -10,17 +10,16 @@
 
 \href{https://www.egger.com/shop/es\_AR}{EGGER} es una industria que se dedica a la elaboración de productos a base de madera. Fundada en 1961, se pone en marcha la primera fábrica de tableros de partículas en St. Johann in Tirol (Austria).
 
-\begin{figure}[H]
-    \centering
+\begin{center}
     \includegraphics[scale=.2]{src/imagenes/logo/eggerLogo.png}
-\end{figure}
+\end{center}
 
-La planta de EGGER en Concordia, está ubicada en el Parque Industrial, es un complejo productivo de 360.000 $m^2$ y más de 50.000 $m^2$ cubiertos, donde se fabrican y distribuyen más de 500.000 $m^3$ anuales de tableros de MDF, PB, Melamina, Molduras y Revestimientos, abasteciendo a Argentina, el Mercosur, EE.UU. y Canadá. 
+La planta de EGGER en Concordia, está ubicada en el Parque Industrial, es un complejo productivo de 360.000 $m^2$ y más de 50.000 $m^2$ cubiertos, donde se fabrican y distribuyen más de 500.000 $m^3$ anuales de tableros de fibra de madera (MDF), tableros de aglomerado (PB), Melamina, Molduras y Revestimientos, abasteciendo a Argentina, el Mercosur, EE.UU. y Canadá. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=.7]{src/imagenes/industria/eggerConcordia.jpg}
-    \caption{Planta de EGGER en Concordia.}
+    \caption{Planta industrial en Concordia.}
 \end{figure}
 
 La planta de tratamiento de efluentes consiste en un conjunto de instalaciones y equipos destinados a tratar los efluentes líquidos industriales generados en las dos líneas de producción de tableros de fibra de madera (MDF). La materia prima en forma de chips húmedos, antes de ser desfibrada, sufre un proceso de vaporización a baja presión. Luego es comprimida por un tornillo cónico donde se produce una corriente líquida con alta carga de materia orgánica en suspensión. La misma se compone de los extractos típicos de la madera, su propia humedad y el vapor de agua condensado que fuera utilizado para el calentamiento.
@@ -30,8 +29,8 @@ Por lo tanto, el objetivo del tratamiento de las aguas residuales, es producir u
 \begin{figure}[H]
     \centering
     \includegraphics[scale=.5]{src/imagenes/tratamiento/diagramaDePlantaDeEfluentes.png}
-    \label{fgr:digramaDeTratamientoDeEfluentes}
     \caption{Diagrama de flujo del proceso de tratamiento}
+    \label{fig:digramaDeTratamientoDeEfluentes}
 \end{figure}
 
 El proceso de tratamiento posee cuatro etapas:
@@ -43,7 +42,7 @@ El proceso de tratamiento posee cuatro etapas:
     \item{\textbf{Terciario:} tratamiento final. Desinfección y filtrado ultrafino.}
 \end{enumerate}
 
-En la figura \ref{fgr:digramaDeTratamientoDeEfluentes} se ve de manera simplicada cada etapa individual del proceso (para más información ver anexo \ref{anexo:tratamientoDeEfluentes}). Sin embargo, es necesario conocer un poco más sobre el tratamiento secundario de tipo biológico. Es por esto que recomendamos leer la sección \ref{anexo:tratamientoSecundario} del anexo.
+En la figura \ref{fig:digramaDeTratamientoDeEfluentes} se ve de manera simplicada cada etapa individual del proceso (para más información ver anexo \ref{anexo:tratamientoDeEfluentes}). Sin embargo, es necesario conocer un poco más sobre el tratamiento secundario de tipo biológico. Es por esto que recomendamos leer la sección \ref{anexo:tratamientoSecundario} del anexo.
 
 \section{Planteo de la problemática}
 
@@ -52,6 +51,19 @@ El proceso de tratamiento de efluentes opera de manera ininterrumpida las 24 hs 
 Es lógico asumir que un proceso que opera de manera ininterrumpida, posea grandes requerimientos energéticos. De hecho, la etapa secundaria de una planta de tratamiento de efluentes es responsable de más 90\% del consumo total de la misma.
 
 El tratamiento secundario de tipo biológico de EGGER, posee dos sopladores de \href{https://es.wikipedia.org/wiki/Compresor_volum%C3%A9trico_tipo_Roots}{lóbulos rotativos}, impulsados cada uno de ellos por un motor trifásico de 75 HP (55 kW).
+
+\begin{center}
+    \includegraphics[scale=.5]{src/imagenes/sistema/blowerRoots.png}
+\end{center}
+
+\begin{enumerate}
+    \item[1.]{Rotor 1.}
+    \item[2.]{Cuerpo de la bomba.} 
+    \item[3.]{Rotor 2.}
+    \item[a.]{Admición.}
+    \item[b.]{Compresión.}
+    \item[c.]{Expulsión forzada.}
+\end{enumerate}
 
 Estos motores son los causantes del elevado consumo de electricidad de toda la planta, y no siempre es necesario que funcionen a potencia nominal \footnote{Actualmente los sopladores \textbf{no} poseen un control de velocidad a demanda, y el proceso de puesta en marcha de los motores se realiza mediante un arranque directo.}, ya que depende del estado actual del efluente cuanto aire requiere que estén soplando. Además, como ningún motor sería capaz de soportar tanto tiempo ininterrumpido de operación, ambos tienen una rotación de uso de 15 días aproximadamente, esta conmutación se efectúa de manera manual y es causante de fallas estructurales en la cañería de transporte de aire (ruptura por golpe de ariete, fatiga, etc.).
 
@@ -66,7 +78,7 @@ La intervención manual del operario para cada ajuste del sistema, y el poco con
 \begin{itemize}
     \item{Riesgos de daños mecánicos a las tuberías en la rotación de operación de sopladores.}
     \item{Consumo elevado del sistema.}
-    \item{Poco control en los requerimientos de OD.}
+    \item{Poco control en los requerimientos del oxígeno disuelto (OD).}
     \item{Falta de análisis de las métricas producidas.}
     \item{Muy bajo margen de mejora en la eficiencia total del proceso.}
 \end{itemize}

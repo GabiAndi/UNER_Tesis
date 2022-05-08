@@ -12,35 +12,32 @@ Para poder llevar a cabo el desarrollo del proyecto debemos plantearnos una seri
 
 \subsection{Metodología de trabajo (Design Thinkings)}
 
-Para el desarrollo de este trabajo final se opto por llevar adelante el \textit{Design Thinkings}.
+Para el desarrollo de este trabajo final se opto por llevar adelante el pensamiento de diseño o Design Thinking (DT). Esta metodología, de las consideradas ágiles, promueve un enfoque basado en el problema y en el usuario, y una forma de trabajo colaborativa y, de manera recomendada, multidisciplinar.
 
-Design Thinkings es un método para generar ideas innovadoras que centra su eficacia en entender y dar solución a las necesidades reales de los usuarios. Proviene de la forma en la que trabajan los diseñadores de producto. De ahí su nombre, que en español se traduce de forma literal como \textit{Pensamiento de Diseño}.
+\begin{center}
+    \includegraphics[scale=1.3]{src/imagenes/metodologias/designThinkings.jpg}
+\end{center}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.7]{src/imagenes/metodologias/designThinkings.png}
-\end{figure}
+Aplicado al ámbito académico, DT se encuadra dentro del constructivismo, puesto que parte de que el aprendizaje se construye socialmente (Tschimmel, 2012). Se fundamenta en el aprendizaje basado en retos, que es una evolución del aprendizaje basado en problemas con una perspectiva más dinámica y abierta de las soluciones (Malmqvist, Rådberg \& Lundqvist, 2015). El proceso DT obliga al alumnado a tomar conciencia de la complejidad social y a tener apertura a soluciones creativas que respondan a las necesidades reales de personas o colectivos concretos (Charosky et al., 2018; Leinonen \& Durall, 2014; Munyai, 2016; Renard, 2014; Valentine, Kroll, Bruce, Lim \& Mountain, 2017). Este proceso facilita el desarrollo de competencias de las personas implicadas (Deaner \& McCreery-Kellert, 2018).
 
-El Design Thinking se desarrolla siguiendo un proceso en el que se ponen en valor 5 características diferenciales:
+\begin{center}
+    \includegraphics[scale=.5]{src/imagenes/metodologias/designThinkings2.png}
+\end{center}
+
+Por último, la aplicación de esta metodología favorece distintas formas de evaluación formativa:
 
 \begin{itemize}
-    \item{\textbf{La generación de empatía:} se debe entender los problemas, necesidades y deseos de los usuarios implicados en la solución que estamos buscando. Independientemente de lo qué se este desarrollando, siempre esta etapa conllevará la interacción con personas. Satisfacerlas es la clave de un resultado exitoso.}
-    \item{\textbf{Los materiales:} serán las herramientas para promover la comunicación visual, que es fundamental en el método. Una imagen vale más que mil palabras, y puede evocar un sinfín de ideas, ya que da pie a la interpretación.}
-    \item{\textbf{El equipo:} en el Design Thinking es imprescindible trabajar en equipo. Cuanto más diverso sea, mejor. Que haya al menos una persona con conocimientos sobre la metodología que sepa guiar el proceso. Y aunque debe tener un núcleo estable de personas que participen hasta el final, se podrán sumar otras dependiendo de la fase en la que se encuentre. Por ejemplo, en la generación de ideas o en la prueba de prototipos.}
-    \item{\textbf{El espacio:} un espacio de trabajo apto para el proceso de desarrollo es fundamental.}
-    \item{\textbf{La actitud:} es imprescindible la actitud. Se debe adoptar lo que se denomina \textit{Actitud del Diseñador}:}
-        \begin{itemize}
-            \item{Se debe ser empáticos, tanto con las personas como con sus circunstancias.}
-            \item{Ser optimistas y positivos.}
-            \item{Perder el miedo a equivocarse y ver los errores como oportunidades.}
-        \end{itemize}
+    \item{Autoevaluación constante de los líderes del proyecto en función del desempeño del
+    prototipo.}
+    \item{Covaluación por parte de los asesores pares.}
+    \item{Heteroevaluación multidisciplinar por parte de los docentes de las diferentes cátedras.}
 \end{itemize}
 
 \subsection{Tareas a realizar}
 
-El desarrollo de este proyecto se divide en 3 grandes etapas, en donde dos de ellas ocurren en paralelo: Diseño del sistema y Prototipado del sistema. A estas dos etapas combinadas se la denomina Desarrollo y validación del sistema, ya que es indispensable la elaboración de un prototipo para validar las ideas de diseño.
+El desarrollo de este proyecto se divide en 2 grandes etapas: \textit{Desarrollo y validación del sistema} que consta dos etapas combinadas: desarrollo del sistema y validación del sistema (prototipado). Ya que es indispensable la elaboración de un prototipo para validar las ideas de diseño.
 
-Por último tenemos la etapa de test y pruebas, que terminan de comprobar el buen funcionamiento de la estaba de diseño y desarrollo:
+Por último tenemos la etapa de \textit{Pruebas y testeos}, que terminan de comprobar el buen funcionamiento del sistema desarrollado:
 
 \begin{enumerate}
     \item{Desarrollo y validación del sistema:}
@@ -75,7 +72,7 @@ Todas las actividades son desarrolladas utilizando la metodología de Design Thi
 
 \subsection{Tiempos de desarrollo}
 
-Llevar adelante el diseño completo de un proyecto de esta magnitud, demanda meses de desarrollo, más si tenemos en cuenta que lo realizan dos \textit{Ingenieros Junior} cuyo objetivo es mas académico que lucrativo. Se busca aplicar e integrar los conocimientos adquiridos, para generar una propuesta innovadora. Es por esto que consideramos los siguientes plazos:
+Se estipula un tiempo de desarrollo de 10 meses aproximadamente, comenzando el 3 de mayo del 2021 y culminando el 25 de febrero del 2022.
 
 {
     \newpage
@@ -91,8 +88,6 @@ Llevar adelante el diseño completo de un proyecto de esta magnitud, demanda mes
 
     \newpage
 }
-
-Resumiendo el esquema, se estipula un tiempo de desarrollo de 10 meses aproximadamente, comenzando el 3 de mayo del 2021 y culminando el 25 de febrero del 2022.
 
 \section{Diseño y validación del sistema}
 
@@ -156,7 +151,7 @@ Para más información acerca del OD y el sensor de OD, puede ver el anexo \ref{
 
 El controlador de la pileta de aireación, es quien captura las variables críticas del sistema y provoca una variación de frecuencia en los motores de los sopladores, produciendo así, un cambio en cantidad de oxígeno insuflado al agua.
 
-Una consideración importante tiene que ver con la forma de conocer el valor de la DBO, que se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de oxígeno disuelto (OD) constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida.
+Una consideración importante tiene que ver con la forma de conocer el valor de la demanda biológica de oxígeno (DBO), que se realiza mediante ensayos de laboratorio. Sin embargo, aún se puede establecer manualmente una serie de parámetros en el proceso que estén controlados por el sistema, pero que se determinen de forma manual. Es decir, se genera un setpoint de concentración de oxígeno disuelto en función a los valores de DBO obtenidos en el análisis. Esto provoca que el sistema de control, consista en mantener una concentración de OD constante igual al setpoint en función a los valores de OD arrojados por el sensor, independientemente de la temperatura y el flujo de entrada y salida.
 
 Por otro lado, el tiempo de respuesta entre un cambio de caudal de aire estrangulado y el nivel de OD, es muy lento. Aproximadamente toma una hora o más para que haya una variación en el nivel del sensor. Esto plantea un sistema de control con un tiempo de respuesta muy lento.
 
@@ -298,7 +293,7 @@ Debido a que estamos en presencia de un proceso cuyas variables reaccionan de ma
 \begin{enumerate}
     \item{Se leen los sensores cada 60 segundos.}
     \item{El controlador realiza el cálculo de la acción correctiva cada 2 horas, ya que para poder detectar un cambio en la pileta de aireación debe pasar como mínimo una hora y media.}
-    \item{La rampa de aceleración y desaceleración de los sopladores es bastante lenta. Transcurren 20 min entre el valor mínimo (detenido) y el máximo. Esto es necesario para evitar golpes de ariete y cambios bruscos en la presión a la que se someten las tuberías de distribución.}
+    \item{La rampa de aceleración y desaceleración de los sopladores es bastante lenta. Transcurre un tiempo considerable entre el valor mínimo (detenido) y el máximo. Esto es necesario para evitar golpes de ariete y cambios bruscos en la presión a la que se someten las tuberías de distribución.}
     \item{Las métricas del controlador se envían con cada lectura de los sensores. Condición necesaria para tener disponibilidad inmediata de los datos.}
 \end{enumerate}
 
@@ -312,7 +307,7 @@ La comunicación se efectúa mediante el protocolo TCP/IP por puerto 33600 y se 
 
 \subsubsection{Simulación del modelo matemático}
 
-Para poder realizar pruebas del sistema de control, es necesario simular la planta de tratamiento de efluentes. Es por ello que todo el modelo matemático y los datos de velocidad de respuesta del sensor OD son cargador en un script de Python.
+Para poder realizar pruebas del sistema de control, es necesario simular la planta de tratamiento de efluentes. Es por ello que todo el modelo matemático y los datos de velocidad de respuesta del sensor OD son cargados en un script de Python.
 
 El script está encargado de obtener en tiempo real la ecuación del sistema. Dicho script genera una salida de OD en función a una entrada rampa, que es la aceleración de rpm producida por el variador de velocidad. Puede consultar el anexo \ref{anexo:solucionDeAdaptabilidad}.
 
@@ -336,6 +331,10 @@ El esquema completo queda de la siguiente manera:
 
     \newpage
 }
+
+\subsubsection{Criterio de selección de componentes}
+
+\includepdf[pages=-,landscape=true]{src/pdf/seleccionComponenetes.pdf}
 
 \subsection{Validación del sistema}
 
@@ -425,237 +424,48 @@ El sistema de control que incorpora el prototipo es el mismo que el desarrollo p
 
 \subsection{Presupuestos}
 
-\subsubsection{Prototipo}
+\includepdf[pages=-,landscape=true]{src/pdf/presupuestoPrototipo.pdf}
 
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de potencia}} \\ \hline
-                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
-                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
-                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
-                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
-                    Variador de velocidad ATV630D75N4 & 1 & \$1355096,4 & \$1.355.096,40 & \$12.043,16 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/ATV630D75N4?qs=VTAFTc7iVisoUqGEvY%2F1IQ%3D%3D}{Link} \\ \hline
-                    &&&&& \\ \hline
-                    \textbf{Total} &&& \textbf{\$62.310,24} & \textbf{\$553,77} & \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de electrónica}} \\ \hline
-                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
-                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
-                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
-                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
-                    Lcd Touch 7in & 1 & \$9.809 & \$9.809 & \$473,14 & \href{https://articulo.mercadolibre.com.ar/MLA-818232434-lcd-touch-7-hdmi-raspberry-pi-pantalla-tactil-beaglebone-_JM
-                    }{Link} \\ \hline
-                    Kit Raspberry Pi 3 B+ & 1 & \$9.000 & \$9.000 & \$79,99 & \href{https://articulo.mercadolibre.com.ar/MLA-722769035-raspberry-pi-3-b-plus-kit-32gb-fuente-gab-dis-sandisk-98x-_JM
-                    }{Link} \\ \hline
-                    Modulo Relay Rele De 8 Canales 5v & 1 & \$907 & \$907 & \$8,06 & \href{https://compras.patagoniatec.com/productos/modulo-de-relee-relay-opto-8-canales-5v-10a-arduino-pic-ptec/
-                    }{Link} \\ \hline
-                    Kit 40 Cables Dupont 30cm Macho Macho & 1 & \$230 & \$230 & \$2,04 & \href{https://compras.patagoniatec.com/productos/kit-40-cables-dupont-30cm-macho-macho/
-                    }{Link} \\ \hline
-                    Kit 40 Cables Dupont 30cm Hembra Hembra & 1 & \$220 & \$220 & \$1,96 & \href{https://compras.patagoniatec.com/productos/kit-40-cables-dupont-30cm-hembra-hembra/
-                    }{Link} \\ \hline
-                    Kit Tubo Termocontraible 328 Unidades & 1 & \$1.200 & \$1.200 & \$10,66 & \href{https://compras.patagoniatec.com/productos/kit-tubo-termocontraible-heat-shrink-328-unidades/
-                    }{Link} \\ \hline
-                    Costos de envio & 2 & \$800 & \$1.600 & \$14,22 & \href{https://compras.patagoniatec.com/productos/kit-tubo-termocontraible-heat-shrink-328-unidades/
-                    }{Link} \\ \hline
-                    &&&&& \\ \hline
-                    \textbf{Total} &&& \textbf{\$22.966} & \textbf{\$204,11} & \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-\subsubsection{Sistema final}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de potencia}} \\ \hline
-                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
-                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
-                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
-                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
-                    Variador de velocidad ATV630D75N4 & 1 & \$1355096,4 & \$1.355.096,40 & \$12.043,16 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/ATV630D75N4?qs=VTAFTc7iVisoUqGEvY%2F1IQ%3D%3D}{Link} \\ \hline
-                    Cables CU/PVC FLEX 1X 70MM2 x 30m & 4 & \$61.452,00 & \$245.808,00 & \$2.184,57 & \href{https://www.ingenieriaboggio.com.ar/shop/product/125260-cable-cu-pvc-flex-1x-70mm2-negro-185223#attr=23969,23970,23971,23972,23973,23974}{Link} \\ \hline
-                    Filtro EMC Input Filter 200A & 1 & \$54.800,40 & \$54.800,40 & \$487,03 & \href{https://ar.mouser.com/ProductDetail/Schneider-Electric/VW3A4708?qs=YCa%2FAAYMW03NmkBp%252BajfqQ%3D%3D}{Link} \\ \hline
-                    Cables unipolar 6 Colores x 10m & 1 & \$1.639,00 & \$1.639,00 & \$14,57 & \href{https://articulo.mercadolibre.com.ar/MLA-856009578-cable-unipolar-025mm-6-colores-10-metros-de-cada-uno-_JM?matt_tool=14065579&matt_word=&matt_source=google&matt_campaign_id=14508409190&matt_ad_group_id=124055975182&matt_match_type=&matt_network=g&matt_device=c&matt_creative=543394189895&matt_keyword=&matt_ad_position=&matt_ad_type=pla&matt_merchant_id=131288106&matt_product_id=MLA856009578&matt_product_partition_id=1427499882874&matt_target_id=aud-1250848972453:pla-1427499882874&gclid=Cj0KCQjwgYSTBhDKARIsAB8KukuPr_vO5Ffd5m6K2IcNYiUWn40U5lN2HejytowyrWt9C9rDyTmVOKoaAkGsEALw_wcB}{Link} \\ \hline
-                    Relé de sobrecarga electrónico & 1 & \$49.098,22 & \$49.098,22 & \$436,35 & \href{https://www.pelba.com.ar/productos/industria/reles-industriales/rele-de-sobrecarga-electronicos-3rb2056-1fw2/}{Link} \\ \hline
-                    Interruptor de protección electrónico 250A & 1 & \$168.594,04 & \$168.594,04 & \$1.498,35 & \href{https://www.pelba.com.ar/productos/industria/aparatos-de-maniobra/interruptor-de-proteccion-electronico-250-a-3va2225-5hl42-0aa0/?removed_item=1}{Link} \\ \hline
-                    Contactor 146A 75KW BOB 24VCC 1NA+1NC & 6 & \$106.360,42 & \$638.162,52 & \$5.671,55 & \href{https://www.ingenieriaboggio.com.ar/shop/product/94778-contactor-146a-75kw-ac3-bob-24vca-24vcc-48vca-48vcc-1na-1nc-af146-30-11-11-256034?search=Contactor+75kw+BOB+24VCC+#attr=}{Link} \\ \hline
-                    Selector 3 POS fijas 45° 2NA & 2 & \$1.423,90 & \$2.847,80 & \$25,31 & \href{https://www.ingenieriaboggio.com.ar/shop/product/csw-ck3f45-20-3vf-selector-negro-3-pos-fijas-45o-2na-corta-ip66-completo-csw-ck3f45-20-3vf-245906?search=Selector+3+POS+#attr=}{Link} \\ \hline
-                    Led ojo de buey 24VCC & 3 & \$382,90 & \$1.148,70 & \$10,21 & \href{https://www.ingenieriaboggio.com.ar/shop/product/4050114-ojo-de-buey-c-led-24vca-24vcc-verde-kpl-v-238483#attr=}{Link} \\ \hline
-                    Parada Emergencia 1NC-1NA & 1 & \$4.610,40 & \$4.610,40 & \$40,97 & \href{https://ar.mouser.com/ProductDetail/TE-Connectivity-Alcoswitch/2381881-2?qs=sGAEpiMZZMsqIr59i2oRck%2FaWMJWh8brOjMy1vkp1eg%3D}{Link} \\ \hline
-                    FUENTE 120/230VCA/24VCC 2.5A & 1 & \$20.616,37 & \$20.616,37 & \$183,22 & \href{https://www.ingenieriaboggio.com.ar/shop/product/100199786-fuente-de-alim-sitop-psu100c-120-230vca-24vcc-2-5a-234646#attr=}{Link} \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    Termomagnetica Bipolar 16A SIEMENS & 1 & \$1.487,83 & \$1.487,83 & \$13,22 & \href{https://www.pelba.com.ar/productos/productos-para-instalaciones/termicas-disyuntores-y-contactores/termicas/termomagnetica-bipolar-16a-5sl3216-6mb/?removed_item=1}{Link} \\ \hline
-                    Cable para variador Marlew BX 3x50 & 10 & \$6.817,93 & \$68.179,30 & \$605,93 & \href{https://cablesonline.com.ar/producto/cable-vdf-para-variador-de-frecuencia-marlew-bx-3x50-mm2-11-kv-xlpe-pvc-blindaje-doble-de-cobre-norma-iram-2178/}{Link} \\ \hline
-                    &&&&& \\ \hline
-                    \textbf{Total} &&& \textbf{\$2.612.088,98} & \textbf{\$23.214,44} & \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|c|c|c|}
-                    \hline
-                    \multicolumn{6}{|c|}{\textbf{Listado de componentes de electrónica}} \\ \hline
-                    \multicolumn{2}{|c|}{\multirow{2}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca & Fecha: & 21/04/2022 \\
-                    \multicolumn{2}{|c|}{} & Revision: & 1 & & \\ \hline
-                    \multicolumn{6}{|c|}{Materiales e insumos} \\ \hline
-                    Descripción & Cantidad & Precio unitario & Subtotal & Subtotal USD & Enlace \\ \hline
-                    Kit Raspberry Pi4 B & 1 & \$53.238 & \$53.238 & \$473,14 & \href{https://articulo.mercadolibre.com.ar/MLA-1100165149-kit-raspberry-pi4-b-4gb-fuente-disipador-gab-mem-16gb-_JM#position=6&search_layout=grid&type=item&tracking_id=1b627038-9d18-4958-ad73-9ff93ce6402f}{Link} \\ \hline
-                    M20-9762042 & 1 & \$181,20 & \$181,20 & \$1,61 & \href{https://ar.mouser.com/ProductDetail/Harwin/M20-9762042?qs=sGAEpiMZZMvlX3nhDDO4AEmvugvXZ4tuK8%2FbdDZ4i9Y%3D}{Link} \\ \hline
-                    895-1C-C-24VDC & 1 & \$216,00 & \$216,00 & \$1,92 & \href{https://ar.mouser.com/ProductDetail/Song-Chuan/895-1C-C-24VDC?qs=XIHh3mCH3ZkfX5Ha9s5H0A%3D%3D}{Link} \\ \hline
-                    PC817X3NSZ9F & 10 & \$29,76 & \$29,76 & \$2,64 & \href{https://ar.mouser.com/ProductDetail/Sharp-Microelectronics/PC817X3NSZ9F?qs=rrS6PyfT74dWYZr%252B0rlaOw%3D%3D}{Link} \\ \hline
-                    RESISTENCIA 1K OHMS 1/4W & 10 & \$0,2 & \$2,00 & \$0,02 & \href{https://tostatronic.com/store/componentes-pasivos/887-resistencia-1k-ohms-14w.html}{Link} \\ \hline
-                    RESISTENCIA 20K OHMS 1/4W & 10 & \$0,5 & \$5,00 & \$0,04 & \href{https://tostatronic.com/store/electronica/1440-resistencia-20k-ohms-14w.html}{Link} \\ \hline
-                    Resistencia 220 1/4w & 10 & \$0,5 & \$5,00 & \$0,04 & \href{https://tostatronic.com/store/componentes-pasivos/889-resistencia-220-14w.html}{Link} \\ \hline
-                    Conector Tipo Wago 3 Pines Entradas & 4 & \$304,26 & \$1.217,04 & \$10,82 & \href{https://articulo.mercadolibre.com.ar/MLA-1104134332-bornera-terminal-conector-tipo-wago-3-pines-entradas-ptec-_JM?quantity=4}{Link} \\ \hline
-                    Costo de fabricación de PCB & 5 &&  \$7.148,40 & \$63.53 & \href{https://jlcpcb.com/}{Link} \\ \hline
-                    &&&&& \\ \hline
-                    \textbf{Total} &&& \textbf{\$62.310,24} & \textbf{\$553,77} & \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-\subsubsection{Costos totales}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|}
-                    \hline
-                    \multicolumn{3}{|c|}{\textbf{Costos de desarrollo}} \\ \hline
-                    \multirow{3}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca \\
-                    & Fecha: & 21/04/2022 \\
-                    & Revision: & 1 \\ \hline
-                    \multicolumn{3}{|c|}{Tareas de desarrollo} \\ \hline
-                    Descripción & Horas & Subtotal \\ \hline
-                    Costo de desarrollo por mes (8 total) & 120 & \$125.984 \\ \hline
-                    Pruebas y ensayos & 160 & \$320.000 \\ \hline
-                    Instalación y configuración & 80 & \$260.000 \\ \hline
-                    && \\ \hline
-                    \textbf{Total} & \textbf{1.200} & \textbf{\$2.595.744} \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-}
-
-{
-    \newpage
-
-    \begin{landscape}
-        \thispagestyle{empty}
-
-        \def\arraystretch{1.9}
-
-        \begin{table}[H]
-            \footnotesize
-            \begin{center}
-                \begin{tabular}{|c|c|c|}
-                    \hline
-                    \multicolumn{3}{|c|}{\textbf{Total de la inversión}} \\ \hline
-                    \multirow{3}{*}{\includegraphics[scale=0.16]{src/imagenes/doc/Logo.png}} & Responsables del proyecto: & Gabriel Aguirre - Lovatto Gianluca \\
-                    & Fecha: & 21/04/2022 \\
-                    & Revision: & 1 \\ \hline
-                    \multicolumn{3}{|c|}{Costos totales} \\ \hline
-                    Descripción & Subtotal & Subtotal (USD) \\ \hline
-                    Materiales del sistema & \$2.674.399,22 & \$23.768,21 \\ \hline
-                    Materiales del prototipo & \$2.674.399,22 & \$23.768,21 \\ \hline
-                    Costos de desarrollo & \$2.595.744,00 & \$23.069,18 \\ \hline
-                    && \\ \hline
-                    \textbf{Total} & \textbf{\$4.774.399,22} & \textbf{\$42.431,56} \\ \hline
-                \end{tabular}
-            \end{center}
-        \end{table}
-    \end{landscape}
-
-    \newpage
-}
+\includepdf[pages=-,landscape=true]{src/pdf/presupuestoSistema.pdf}
 
 Los costos de desarrollo se tomaron con el criterio de un sueldo promedio de un Ingeniero Junior por mes. Los valores utilizados son referencia del siguiente \href{https://www.glassdoor.com.ar/Sueldos/ingeniero-junior-sueldo-SRCH_KO0,16.htm}{Link.}
 
-\section{Ensayos y conclusiones}
+\begin{center}
+    \includegraphics[scale=.5]{src/imagenes/ingenieria/costoDesarrollo.png}
+\end{center}
+
+Este será el sueldo en mano por mes deseado, al cual se tiene que añadir el costo del monotributo y la matrícula del colegio de Ingenieros.
+
+\subsubsection{Categoría de monotributo y aporte}
+
+La categoría se asigna en base al detalle de las actividades:
+
+\begin{itemize}
+    \item{El tipo de actividad desarrollada: prestación de servicios.}
+    \item{El ingreso bruto anual: es un cálculo anual estimativo de los ingresos que se obtienen por el desarrollo de la actividad, es decir la facturación anual teniendo en cuenta los gastos e inversiones.}
+\end{itemize}
+
+El ingreso bruto anual: Sueldo por mes * 12 meses
+
+Sueldo de un ingeniero Junior: \$125000
+
+El ingreso bruto anual: \$125000 * 12 = \$1500000
+
+Según las categorías del \href{https://www.afip.gob.ar/monotributo/categorias.asp}{Monotributo} a la fecha 01/01/2022. Un Ingreso Bruto de \$1500000 se encuadra en la categoría E.
+
+Aporte de Monotributo: Categoría “E”; Impuesto integrado: \$2.965,66 + Aportes al SIPA: \$1.860,87 + Aportes Obra Social: \$1.775,18 = \$6601.71
+
+\includepdf[pages=-,landscape=true]{src/pdf/presupuestoDesarrolloTotal.pdf}
+
+\subsubsection{Monto matricula Colegio de Ingenieros Especialistas de Entre Ríos}
+
+\href{https://www.cieer.org.ar/release/images/documentos/Matriculacion/CIEER%20REQUISITOS%20MATRICULA%20ING%202022%20sitio%201.pdf}{Página de aranceles del CIEER.}
+
+Sueldo Total por mes: Sueldo de un ingeniero Junior + Aporte de Monotributo + Colegio de Ingenieros. 
+
+Sueldo Total por mes: \$125000 + \$6601,71 + \$1300 = \textbf{\$132901,71}
+
+\section{Pruebas y testeos}
 
 Para poder validar el prototipo realizamos las siguientes pruebas:
 
@@ -663,9 +473,21 @@ Para poder validar el prototipo realizamos las siguientes pruebas:
     \item{\textbf{Pruebas de Software:} en donde se comprobó el funcionamiento de cada componente de los distintos programas.}
     \item{\textbf{Pruebas de conexionado:} medición de tensiones, continuidad, etc.}
     \item{\textbf{Pruebas de gestión:} se comprobó la seguridad de acceso, la monitorización de los distintos paneles de control, etc.}
-    \item{\textbf{Pruebas de funcionamiento:} aplicando una serie de configuraciones por defecto, se testeó el PID y las acciones correctivas del controlador, asegurándose de que el sistema no sea inestable y corrija con precisión los desbalances producidos por cambios en el ofset o setpoint.}
+    \item{\textbf{Pruebas de funcionamiento:} aplicando una serie de configuraciones por defecto, se testeó el PID y las acciones correctivas del controlador, asegurándose de que el sistema no sea inestable y corrija con precisión los desbalances producidos por cambios en el offset o setpoint.}
 \end{itemize}
 
 Todas las pruebas fueron pasadas con éxito, pero fue necesaria una simulación que si bien es bastante fiel, la misma presenta diferencias de comportamiento respecto al sistema real.
 
-El video del protipo se encuentra en el siguiente \href{https://drive.google.com/file/d/1-0-tkOWRzmBlvVKaE4glTuZy0YFnLR4_/view?usp=sharing}{Link.}
+El video del prototipo se encuentra en el siguiente \href{https://drive.google.com/file/d/1-0-tkOWRzmBlvVKaE4glTuZy0YFnLR4_/view?usp=sharing}{Link.}
+
+\section{Tiempo de retorno de la inversión}
+
+Para la realización de este análisis, se consideraron 3 escenarios posibles que podrían darse luego de la instalación del sistema de control.
+
+\begin{itemize}
+    \item{\textbf{Escenario optimista:} en este escenario, se considera que el ahorro promedio introducido por el sistema es del 40\%. Esto es un porcentaje un poco mayor al arrojado por el estudio \cite{ATEVF}, es por esto que lo tomamos como el mas optimista posible.}
+    \item{\textbf{Escenario esperado:} en este escenario, se considera que el ahorro promedio introducido por el sistema es del 30\%. Esto es un porcentaje un poco menor al arrojado por el estudio \cite{ATEVF}.}
+    \item{\textbf{Escenario pesimista:} en este escenario, se considera que el ahorro promedio introducido por el sistema es del 20\%. Esto es un porcentaje bastante menor al arrojado por el estudio \cite{ATEVF}, es por esto que lo tomamos como el pesimista. Este nivel de ahorro, si bien es mínimo, acumulado es un número significativo.}
+\end{itemize}
+
+\includepdf[pages=-,landscape=true]{src/pdf/retornoInversion.pdf}
