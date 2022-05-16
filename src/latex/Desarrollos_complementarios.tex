@@ -313,18 +313,6 @@ Tomando como referencia la información proporcionada por la industria, el siste
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=.325]{src/imagenes/sistema/diagramaRegillas1.png}
-    \caption{Diagrama de distribución de aire en la pileta.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.375]{src/imagenes/sistema/diagramaRegillas2.png}
-    \caption{Diagrama de las rejillas difusoras.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
     \includegraphics[scale=.4]{src/imagenes/sistema/diagramaRegillasInventor.png}
     \caption{Diagrama modelado en Inventor.}
 \end{figure}
@@ -1138,7 +1126,7 @@ Por lo tanto:
 
 $$\int e(t) \cdot dt = \sum_{i=1}^{n} e(t_{i})$$
 
-De igual manera, en la parte derivativa $\frac{de(t)}{dt}$ se tiene expresar de forma tal que sea codificable. Tomando como referencia lo expuesto en \cite{STW}, se puede definir la derivada, como la pendiente de la recta tangente: 
+De igual manera, en la parte derivativa $\frac{de(t)}{dt}$ se tiene que expresar de forma tal que sea codificable. Tomando como referencia lo expuesto en \cite{STW}, se puede definir la derivada, como la pendiente de la recta tangente: 
 
 \begin{figure}[H]
     \centering
@@ -1458,8 +1446,8 @@ Existen varios motivos por los cuales uno se encuentra con la necesidad de confi
 
 \begin{itemize}
     \item{La versión que se distribuye con el sistema operativo no está actualizada.}
-    \item{Es necesario un compilador cruzado para una arquitectura en específico.}
-    \item{Las versiones precompiladas no están configuradas como se necesita.}
+    \item{Es necesario un compilador cruzado para una arquitectura específica.}
+    \item{Las versiones precompiladas no están configuradas como se necesitan.}
 \end{itemize}
 
 Nosotros vamos a crear aplicaciones Qt para la Raspberry Pi 3B+, y como las versiones modernas de GCC y de Qt no vienen compiladas por defecto para la arquitectura, hay que configurar un entorno personalizado.
@@ -1476,13 +1464,13 @@ En resumen, lo que haremos es crear un compilador cruzado con las librerías de 
 
 Se puede realizar el desarrollo directamente en la Raspberry Pi, pero en nuestro caso no tiene sentido, puesto que es necesario que durante todo el proceso de programación y desarrollo la placa esté conectada y funcionando, viéndonos limitados por la potencia de cómputo al mover un entorno de escritorio completo.
 
-El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí; sin embargo, tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde puede ver el desarrollo completo.
+El proceso paso a paso de la configuración es demasiado largo como para incluirlo aquí; sin embargo, tenemos un \href{https://github.com/GabiAndi/Build_toolchains}{repositorio en GitHub} en donde se puede ver el desarrollo completo.
 
 \section{Protocolo de comunicación}
 
 \label{anexo:protocoloDeComunicacion}
 
-El protocolo seguido es el siguiente:
+Para que el controlador pueda realizar su trabajo y logre interactuar con los sistemas subyacentes, es necesario una convención en cuanto a la transmisión y recepción de datos. Con lo cual se debió optar por un protocolo de comunicación para comunicarse con el controlador del sistema, en donde se dispongan de distintos comandos, los cuales están en formato Little Endian y poseen la siguiente estructura:
 
 \begin{table}[H]
     \begin{center}

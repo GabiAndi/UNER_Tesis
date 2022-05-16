@@ -1,12 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%% Tipo de documento %%%%%%%%%%%%%%%%%%%%%%
-\documentclass[12pt]{report}
+\documentclass[11pt]{report}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%% Configuracion de paquetes %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Configuración de paquetes %%%%%%%%%%%%%%%%%%
 \usepackage[T1]{fontenc}
-\usepackage[a4paper, width=150mm, top=25mm, bottom=25mm, bindingoffset=6mm]{geometry}
-\usepackage[utf8]{inputenc}
-\usepackage[spanish, es-tabla]{babel}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage[spanish,es-tabla]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
@@ -26,22 +25,36 @@
 \usepackage{hyperref}
 \usepackage{titlesec}
 \usepackage{etoc}
-\usepackage[type={CC}, modifier={by-nc}, version={4.0}]{doclicense}
+\usepackage[type={CC},modifier={by-nc},version={4.0}]{doclicense}
 \usepackage{pdfpages}
 \usepackage{outlines}
 \usepackage{etoolbox}
 \usepackage{tcolorbox}
 \usepackage{appendix}
-\usepackage{tablefootnote}
 \usepackage{xargs}
 \usepackage{parskip}
 \usepackage{pdflscape}
 \usepackage{enumitem}
 \usepackage{pifont}
 \usepackage[hypcap=true]{caption}
+\usepackage{charter}
+\usepackage{svg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% Comandos %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Selección de fuente %%%%%%%%%%%%%%%%%%%%
+\renewcommand*\familydefault{bch}
+\fontfamily{\familydefault}\selectfont
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% Variables del documento %%%%%%%%%%%%%%%%%%
+\newcommand{\titulodocumento}{Proyecto final de Ingeniería Mecatrónica}
+\newcommand{\subtitulodocumento}{Sistema de control para planta de tratamiento de efluentes}
+\newcommand{\logodocumento}{\includesvg[inkscapelatex=false,scale=0.3]{src/imagenes/doc/logo}}
+\newcommand{\autordocumento}{Gianluca Lovatto y Gabriel Aguirre}
+\newcommand{\fechadocumento}{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%% Pagina en blanco %%%%%%%%%%%%%%%%%%%%%
 \def\blankpage{%
     \clearpage%
     \thispagestyle{empty}%
@@ -51,26 +64,17 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%% Variables del documento %%%%%%%%%%%%%%%%%%
-\newcommand{\titulodocumento}{Proyecto final de Ingeniería Mecatrónica}
-\newcommand{\subtitulodocumento}{Sistema de control para planta de tratamiento de efluentes}
-\newcommand{\logodocumento}{src/imagenes/doc/Logo.png}
-\newcommand{\autordocumento}{Gianluca Lovatto y Gabriel Aguirre}
-\newcommand{\fechadocumento}{\today}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%% Configuracion de links %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Configuración de links %%%%%%%%%%%%%%%%%%%
 \hypersetup{%
     colorlinks=true,
     linkcolor=blue,
     filecolor=blue,      
     urlcolor=blue,
-    citecolor=blue,
-    pdftitle={\titulodocumento}
+    citecolor=blue
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%% Configuracion de cajas %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% Configuración de cajas %%%%%%%%%%%%%%%%%%%
 \tcbuselibrary{listings,theorems,most}
 
 \newtcolorbox{info}[1]{%
@@ -89,7 +93,7 @@
 \newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%% Configuracion de paginas %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Configuración de paginas %%%%%%%%%%%%%%%%%%%
 \etocsettocstyle{}{}
 
 \pagestyle{empty}
@@ -134,7 +138,7 @@
         \vspace{0.25cm}
         {\large{\subtitulodocumento \\}}
         \vspace{2cm}
-        {\includegraphics[scale=0.35]{\logodocumento} \\}
+        {\logodocumento \\}
         \vspace{2cm}
         {\large{Autores: \autordocumento \\}}
         {\large{Última modificación: \fechadocumento}}
@@ -157,7 +161,7 @@
 \tableofcontents
 \blankpage
 
-% Numero de pagina para primeros capitulos
+% Numero de pagina para primeros capítulos
 \pagenumbering{roman}
 \setcounter{page}{1}
 
@@ -167,11 +171,11 @@
 \input{src/latex/Abstract.tex}
 \blankpage
 
-% Numero de pagina para posteriores capitulos
+% Numero de pagina para posteriores capítulos
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-% Capitulos
+% Capítulos
 \input{src/latex/Introduccion.tex}
 \blankpage
 \input{src/latex/Identificacion_del_problema.tex}

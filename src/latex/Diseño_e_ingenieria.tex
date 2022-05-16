@@ -227,7 +227,7 @@ Los planos y los esquemas finales se encuentran en el anexo \ref{anexo:planosEle
 
 Esta etapa es la más importante. En ella se encuentra el hardware de control conformado por una Raspberry Pi 3 B+ y electrónica transductora que se encarga de convertir los tipos de señales. Dado que los sistemas de potencia industriales operan de manera estandarizada, nuestro controlador debe ajustarse para respetar dichos estándares.
 
-La microcomputadora que opera en el sistema es la \href{https://www.raspberrypi.org/}{Raspberry Pi 3B+}. Esta microcomputadora de bajo consumo, posee pines de entrada y salida que operan con una lógica de 3.3 V. Por lo que es necesario realizar una separación de entre el voltaje de operación estándar (24 V) y el voltaje de la electrónica de la placa, además de estar aislados galvánicamente.
+La microcomputadora que opera en el sistema es la \href{https://www.raspberrypi.org/}{Raspberry Pi 3B+}. Esta microcomputadora de bajo consumo, posee pines de entrada y salida que operan con una lógica de 3.3 V. Por lo que es necesario realizar una separación entre el voltaje de operación estándar (24 V) y el voltaje de la electrónica de la placa, lo que se puede lograr utilizando optoacopladores. Los mismos proporcionan un aislamiento óptico\footnote{El aislamiento óptico se basa en la separación entre un LED transmisor y un fotodetector receptor. Para el aislamiento galvánico, el LED se dirige al fotodiodo a través de un material de aislamiento, como una poliimida transparente.} entre los circuitos de control y la microcomputadora, lo que evita que ante una eventual sobrecarga en la alimentación de 24V, se vea afectado el controlador.
 
 La microcomputadora es la encargada de procesar los datos de los sensores y enviar una respuesta al variador de frecuencia, para así poder controlar la velocidad de los sopladores. Además, se encarga de almacenar y enviar los datos de telemetría de todo el proceso al servidor de métricas, para así poder visualizar la información en tiempo real o en un futuro efectuar un análisis detallado.
 
@@ -264,9 +264,9 @@ En donde:
 
 \begin{itemize}
     \item{\textbf{SCPAManager:} es la clase principal del programa, en donde se crean todos los hilos de ejecución para las tareas correspondientes y se administran los recursos de memoria.}
-    \item{\textbf{TUIManager:} viene de Text User Interface, y como su nombre lo indica, proporciona una interfaz de control de consola que es solamente accesible por el S.O. de la microcomputadora. Permite la configuración con privilegios administrativos de todo el sistema.}
+    \item{\textbf{TUIManager:} clase que proporciona una interfaz de control de consola que es solamente accesible por el S.O. de la microcomputadora. Permite la configuración con privilegios administrativos de todo el sistema.}
     \item{\textbf{ControlManager:} es la clase encargada de realizar el control PID y de enviar la salida del mismo al variador de frecuencia.}
-    \item{\textbf{HMIServerManager:} proporciona un servicio de panel administrativo vía TCP/IP por el puerto 33600.}
+    \item{\textbf{HMIServerManager:} proporciona un servicio de panel administrativo vía TCP/IP por el puerto 33600\footnote{Según el \href{https://www.iana.org/}{IANA}, este puerto no se encuentra en uso por un servicio conocido.}, aunque el mismo es totalmente configurable.}
     \item{\textbf{MetricsManager:} clase que administra todas las métricas del sistema y las envía a las distintas bases de datos que corre el servidor de métricas.}
 \end{itemize}
 
